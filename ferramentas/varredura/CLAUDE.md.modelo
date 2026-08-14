@@ -1,0 +1,173 @@
+# Contexto operacional — máquina do Amós
+
+> **Instalação:** copiar este arquivo para `~/.claude/CLAUDE.md`.
+> O Claude Code lê esse caminho em **toda** sessão da máquina, em qualquer pasta.
+> É o que impede cada sessão nova de começar do zero.
+>
+> Manter curto. Um contexto longo demais é ignorado na prática. Quando um fato
+> aqui virar obsoleto, **corrigir**, não acumular.
+
+---
+
+## Quem e o quê
+
+Amós André Sales Boliveira. Direção: Maple. Três frentes de trabalho que **não
+se misturam** (regra do briefing §10 — ver §5 aqui).
+
+Marcas: **Climbex** · **AB Motion** · **Puressencia** (veículo do projeto com a Pop).
+
+---
+
+## Volumes desta máquina
+
+| Volume | O que é | Observação |
+|---|---|---|
+| disco interno | trabalho corrente | — |
+| `/Volumes/MAC Amos` | legado | guarda DNA AMOZZ e pipeline De-AI |
+| `/Volumes/Seagate` | legado / backup | — |
+| iCloud | acervo MART Decoração | pode não estar baixado localmente |
+
+**Antes de qualquer varredura ou busca por arquivo:** confirmar quais volumes
+estão montados. Concluir "não existe" sem o disco montado é erro — já aconteceu.
+
+---
+
+## As três frentes
+
+| Frente | O que é | Domínio | Estado |
+|---|---|---|---|
+| **Pop** | relação comercial: Tina (operação), Fernando Bento (decisão). Entrega prioritária: Cérebro de Campanhas e Conversão | — | spec escrita, protótipo não iniciado |
+| **Ali Love** | site de **cliente**: EPK, Cosmic Rave, seção I ♥ Records | `www.alilove.world` | pronto para revisão · **sem deploy de produção** |
+| **Prince Andre** | campanha artística e EPK | ⚠️ **indefinido** | esqueleto existe, não publicado |
+
+Nomenclatura: usar só **"Pop"**. `Pop Com` e `PopEduc` aparecem em conversa mas
+**não** está confirmado que são a mesma empresa. Não registrar razão social.
+
+---
+
+## Correções conhecidas — o que NÃO acreditar
+
+Isto existe porque cada item já causou um erro real.
+
+1. **Domínio do Ali Love é `www.alilove.world`.**
+   O `CENTRAL_DE_CONTROLE.md` ainda lista `alilove.vercel.app` **e declara de si
+   mesmo que "se divergirem, vale a CENTRAL"**. Está errado nesse ponto.
+   A verdade está em `Projects/alilove/src/content/site.ts` (campo `domain`).
+   **Conferir o código, não a CENTRAL.**
+
+2. **Existem DOIS projetos Vercel para o Ali Love:**
+   `alilove` (o site oficial) e `alilove-vinyl` (peça separada, guarda a página
+   de entrega). Confirmar em qual se está mexendo **antes** de qualquer entrega.
+
+3. **`alilove.world` nunca é desligado.** Se migrar, redirecionamento **301**.
+
+4. ⚠️ **Os projetos Vercel `alilove` e `andre-corporate` estão ligados ao
+   repositório `princeandreofc/obsidian-importer`** — um fork de plugin do
+   Obsidian, que não é o repositório de nenhum dos dois sites. Todo push lá
+   dispara build nos dois, e falha. **Pendente de decisão do Amós.** Não
+   resolver mexendo em domínio, variáveis de ambiente ou apagando projeto.
+
+5. **Três tabelas de preço vivas ao mesmo tempo:**
+   `790 / 1.690 / 2.900` (canônica, 08/ago) ·
+   `1.500 / 2.800 / 4.500` (**morta**, ainda circulando no disco) ·
+   `14.900 / 19.900` (acervo/checkout, ausentes da canônica).
+   **Nenhum número vai para cliente enquanto isso não for decidido.**
+
+---
+
+## Fato vs. hipótese
+
+Disciplina do projeto: **relato não vira fato.**
+
+- **Fato** = tem arquivo provando. Citar o caminho.
+- **Hipótese** = veio de conversa. Marcar como tal.
+
+Hipóteses correntes, que **não** podem ir para material público sem documento:
+relevância da Pop em moda/publicidade e aparições na Forbes · Tina como
+autoridade operacional e Fernando como decisor financeiro · Mercos como CRM da
+Pop · o caso da loja de móveis ser o problema real e não só ilustração.
+
+---
+
+## Bloqueios abertos
+
+Nenhum é técnico. Todos dependem de decisão humana.
+
+| # | Bloqueio | Dono |
+|---|---|---|
+| B1 | domínio canônico do Prince Andre; acesso ao GoDaddy de `princeandre.com` perdido | Amós |
+| B2 | nenhum caso real da Pop autorizado | Amós · Tina |
+| B3 | `MIX_MASTER_ORIGINALS.md` não localizado — acredita-se estar em `MAC Amos` | Amós |
+| B4 | clipes de Fernando Bento sem seleção nem autorização | Amós · Fernando |
+| B5 | qual tabela de preço vale | Amós |
+| B6 | planos da OpenAI não verificados no painel oficial | Amós |
+| B7 | nenhum registro do que houve na reunião de 06/08 | Amós |
+| B8 | acervo MART está no iCloud, fora de alcance | Amós |
+
+**B3 e B8 caem** quando a varredura rodar sobre `MAC Amos` e Seagate e o garimpo
+encontrar os ativos. É o motivo de a ferramenta existir.
+
+---
+
+## Regras invioláveis
+
+1. **Não apagar nada automaticamente.** Nem lixo. Listar, e o humano aprova.
+2. **Não editar `CENTRAL_DE_CONTROLE.md`.** É documento canônico do Amós.
+   Divergência se registra como pendência.
+3. **Não publicar, deployar nem enviar.** Nenhum deploy, e-mail ou alteração
+   financeira sem autorização explícita.
+4. **Não misturar as marcas.** Nada de campanha do Prince Andre, widget Climbex,
+   CTA de outra marca ou peça institucional dentro do site do Ali Love.
+5. **Não levar preço à mesa** enquanto B5 estiver aberto.
+6. **Não inventar processo para ativo ausente.** Se `MIX_MASTER_ORIGINALS.md`
+   não aparecer, registrar o bloqueio — não deduzir o pipeline de áudio.
+7. **Confirmar antes de concluir "não existe".** Disco desmontado, arquivo em
+   volume externo e busca em pasta errada já produziram falso negativo.
+
+---
+
+## Ferramentas próprias
+
+**Varredura multivolume** — `ferramentas/varredura/varredura.py` no repositório
+`princeandreofc/obsidian-importer`, branch `claude/organizar-computador-26sev2`.
+Python 3, biblioteca padrão, zero dependências.
+
+```bash
+python3 varredura.py ~ --incluir-volumes --precos
+```
+
+Inventaria, cruza volumes, acha duplicados por conteúdo, marca arquivos de cópia
+única, garimpa os ativos perdidos por nome e procura a tabela de preço morta.
+**Nunca apaga** — os candidatos saem num `revisar.sh` todo comentado.
+
+Ler `PACOTE_VARREDURA.md` na mesma pasta antes de rodar.
+
+---
+
+## Onde este agente é insubstituível
+
+Sessões do Claude Code **na web** rodam em container isolado na nuvem: não
+alcançam o disco, nem `MAC Amos`, nem Seagate, nem iCloud. Isso **não é questão
+de permissão** — é arquitetura.
+
+Esta máquina é o único lugar onde o material real existe. Tarefas que só daqui
+saem: varredura dos volumes, garimpo dos ativos de B3 e B8, verificação do que
+está de fato em `Projects/`, e qualquer coisa que dependa de arquivo local.
+
+Para trabalhar junto com uma sessão na nuvem, publicar esta com
+`claude --remote-control` a partir de uma pasta de projeto.
+
+---
+
+## Ao começar uma tarefa aqui
+
+1. Conferir quais volumes estão montados.
+2. Conferir o código, não a CENTRAL, quando os dois divergirem.
+3. Separar o que é fato do que é relato — e dizer qual é qual.
+4. Se a tarefa esbarrar num bloqueio da lista, dizer isso em vez de contornar.
+5. Terminar dizendo o que ficou de fora e por quê.
+
+---
+
+*Ao alterar este arquivo: corrigir o que ficou obsoleto em vez de acrescentar.
+Contexto que cresce sem parar deixa de ser lido.*
