@@ -249,6 +249,14 @@ def achar_duplicados(arquivos, max_hash_bytes, rapido):
 	"""
 	Três passadas, da mais barata para a mais cara:
 	tamanho -> hash das pontas -> sha256 completo.
+
+	Cada passada só pode DIVIDIR os grupos da anterior, nunca fundi-los —
+	senão arquivos já provados diferentes voltariam a cair juntos. Por isso a
+	passada 3 refina cada grupo isoladamente, em vez de rechavear tudo num
+	dicionário só.
+
+	Devolve [{'itens': [...], 'exato': bool}]. 'exato' é False quando o grupo
+	foi fechado pelo hash das pontas, sem sha256 completo — provável, não provado.
 	"""
 	por_tamanho = defaultdict(list)
 	for a in arquivos:
@@ -263,22 +271,26 @@ def achar_duplicados(arquivos, max_hash_bytes, rapido):
 			hp = hash_rapido(a['caminho'], a['tamanho'])
 			if hp:
 				por_pontas[(a['tamanho'], hp)].append(a)
+	# Cada grupo aqui tem o MESMO tamanho e o MESMO hash das pontas.
 	candidatos = [g for g in por_pontas.values() if len(g) > 1]
 
 	if rapido:
-		return candidatos
+		return [{'itens': g, 'exato': False} for g in candidatos]
 
-	por_hash = defaultdict(list)
+	resultado = []
 	for grupo in candidatos:
+		if grupo[0]['tamanho'] > max_hash_bytes:
+			# Grande demais para sha256: mantém o grupo como está, marcado
+			# como provável. Não se mistura com nenhum outro grupo.
+			resultado.append({'itens': grupo, 'exato': False})
+			continue
+		por_hash = defaultdict(list)
 		for a in grupo:
-			if a['tamanho'] > max_hash_bytes:
-				# Grande demais: confia nas pontas e marca como provável.
-				por_hash[('pontas', a['tamanho'])].append(a)
-				continue
 			hc = hash_completo(a['caminho'])
 			if hc:
 				por_hash[hc].append(a)
-	return [g for g in por_hash.values() if len(g) > 1]
+		resultado += [{'itens': g, 'exato': True} for g in por_hash.values() if len(g) > 1]
+	return resultado
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -321,7 +333,7 @@ def classificar(arquivos, grupos_dup, dias_frio):
 
 	em_grupo = set()
 	for g in grupos_dup:
-		for a in g:
+		for a in g['itens']:
 			em_grupo.add(a['caminho'])
 
 	lixo, frios, so_um_lugar = [], [], []
@@ -343,8 +355,9 @@ def cruzar_volumes(grupos_dup):
 	"""Para cada grupo duplicado, em quais volumes ele aparece."""
 	espalhados, internos = [], []
 	for g in grupos_dup:
-		vols = sorted({a['vol'] for a in g})
-		(espalhados if len(vols) > 1 else internos).append({'vols': vols, 'itens': g})
+		vols = sorted({a['vol'] for a in g['itens']})
+		destino = espalhados if len(vols) > 1 else internos
+		destino.append({'vols': vols, 'itens': g['itens'], 'exato': g['exato']})
 	return espalhados, internos
 
 
@@ -424,8 +437,9 @@ def escrever_relatorio(destino, ctx):
 		             key=lambda g: -sum(i['tamanho'] for i in g['itens'][1:]))[:60]
 		for g in top:
 			it = g['itens']
+			selo = '' if g['exato'] else '  ⚠️ **provável** — fechado pelo hash das pontas, sem sha256 completo'
 			L.append(f'**{it[0]["nome"]}** — {humano(it[0]["tamanho"])} × {len(it)} '
-			         f'· volumes: {", ".join(g["vols"])}')
+			         f'· volumes: {", ".join(g["vols"])}{selo}')
 			for x in it:
 				L.append(f'  - `[{x["vol"]}]` {x["caminho"]}')
 			L.append('')
@@ -510,14 +524,36 @@ def escrever_script_revisao(destino, ctx):
 	for x in ctx['lixo']:
 		L.append(f'# rm -- {sh(x["caminho"])}')
 
+	por_peso = sorted(ctx['espalhados'], key=lambda g: -sum(i['tamanho'] for i in g['itens'][1:]))
+	exatos = [g for g in por_peso if g['exato']]
+	provaveis = [g for g in por_peso if not g['exato']]
+
 	L.append('')
-	L.append('# ─── Duplicados entre volumes: mantém a 1ª, lista as outras ───')
-	for g in sorted(ctx['espalhados'], key=lambda g: -sum(i['tamanho'] for i in g['itens'][1:])):
+	L.append('# ─── Duplicados CONFIRMADOS byte a byte (sha256) ───')
+	L.append('# Mantém a 1ª cópia, lista as demais.')
+	for g in exatos:
 		it = g['itens']
 		L.append(f'#  MANTER: {it[0]["caminho"]}  ({humano(it[0]["tamanho"])})')
 		for x in it[1:]:
 			L.append(f'# rm -- {sh(x["caminho"])}')
 		L.append('#')
+
+	if provaveis:
+		L.append('')
+		L.append('# ═══════════════════════════════════════════════════════════')
+		L.append('# ATENÇÃO — os grupos abaixo NÃO foram confirmados byte a byte.')
+		L.append('# São arquivos grandes, fechados só pelo tamanho e pelo hash do')
+		L.append('# começo e do fim. É provável que sejam iguais, mas não está provado.')
+		L.append('#')
+		L.append('# Antes de descomentar qualquer linha daqui, confirme o par:')
+		L.append('#     shasum -a 256 ARQUIVO_A ARQUIVO_B')
+		L.append('# ═══════════════════════════════════════════════════════════')
+		for g in provaveis:
+			it = g['itens']
+			L.append(f'#  MANTER: {it[0]["caminho"]}  ({humano(it[0]["tamanho"])})')
+			for x in it[1:]:
+				L.append(f'# rm -- {sh(x["caminho"])}   # NÃO CONFIRMADO')
+			L.append('#')
 
 	L.append('')
 	L.append(f'# ─── Downloads sem uso há {ctx["dias_frio"]}+ dias ───')
@@ -553,7 +589,8 @@ def escrever_json(destino, ctx):
 		},
 		'garimpo': {p: [enxuto(x) for x in itens] for p, itens in ctx['garimpo'].items()},
 		'duplicados_entre_volumes': [
-			{'vols': g['vols'], 'itens': [enxuto(x) for x in g['itens']]}
+			{'vols': g['vols'], 'exato': g['exato'],
+			 'itens': [enxuto(x) for x in g['itens']]}
 			for g in ctx['espalhados']
 		],
 		'copia_unica': [enxuto(x) for x in sorted(ctx['so_um'], key=lambda i: -i['tamanho'])[:2000]],
