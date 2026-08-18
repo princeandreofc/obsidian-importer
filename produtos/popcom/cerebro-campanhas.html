@@ -1,0 +1,594 @@
+<title>Cérebro de Campanhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+:root{
+  --ground:#F4F6F7; --surface:#FFFFFF; --surface-2:#EDF0F2; --line:#D8DEE2;
+  --ink:#14181C; --ink-2:#4C565E; --ink-3:#78848C;
+  --brass:#8A6A2C; --brass-soft:#EFE6D2;
+  --ok:#1F7A50; --ok-soft:#DCEEE4;
+  --wait:#9A4A12; --wait-soft:#F8E6D8;
+  --stop:#96202A; --stop-soft:#F7DEE0;
+  --shadow:0 1px 2px rgba(20,24,28,.06),0 8px 24px -12px rgba(20,24,28,.18);
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1317; --surface:#171C21; --surface-2:#1E242A; --line:#2B333A;
+    --ink:#E7ECEF; --ink-2:#A3AEB6; --ink-3:#75818A;
+    --brass:#C9A257; --brass-soft:#2E2718;
+    --ok:#5FC894; --ok-soft:#14291F;
+    --wait:#E09354; --wait-soft:#2B1D12;
+    --stop:#E8737D; --stop-soft:#2C1418;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1317; --surface:#171C21; --surface-2:#1E242A; --line:#2B333A;
+  --ink:#E7ECEF; --ink-2:#A3AEB6; --ink-3:#75818A;
+  --brass:#C9A257; --brass-soft:#2E2718;
+  --ok:#5FC894; --ok-soft:#14291F;
+  --wait:#E09354; --wait-soft:#2B1D12;
+  --stop:#E8737D; --stop-soft:#2C1418;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{margin:0; text-wrap:balance}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace; font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit; color:inherit; cursor:pointer}
+:focus-visible{outline:2px solid var(--brass); outline-offset:2px; border-radius:4px}
+
+/* ---------- shell ---------- */
+.wrap{max-width:1280px; margin:0 auto; padding:22px 20px 64px}
+header.top{display:flex; flex-wrap:wrap; gap:16px; align-items:flex-end; justify-content:space-between; margin-bottom:22px}
+.brandline{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.brand{font-family:Fraunces,Georgia,serif; font-size:27px; font-weight:600; letter-spacing:-.01em}
+.brand-sub{font-size:12px; text-transform:uppercase; letter-spacing:.13em; color:var(--ink-3); font-weight:600}
+.tagline{margin-top:5px; color:var(--ink-2); font-size:14px; max-width:60ch}
+.envbadge{
+  display:inline-flex; align-items:center; gap:7px; padding:6px 11px; border-radius:999px;
+  background:var(--wait-soft); color:var(--wait); font-size:12px; font-weight:700;
+  letter-spacing:.05em; text-transform:uppercase; border:1px solid color-mix(in srgb,var(--wait) 25%,transparent);
+}
+.envbadge::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor}
+
+/* ---------- funnel ---------- */
+.funnel{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:var(--r);
+  overflow:hidden; margin-bottom:22px; box-shadow:var(--shadow);
+}
+.step{background:var(--surface); padding:15px 17px; display:flex; flex-direction:column; gap:5px; position:relative}
+.step-label{font-size:11px; text-transform:uppercase; letter-spacing:.11em; color:var(--ink-3); font-weight:700}
+.step-val{font-family:"JetBrains Mono",monospace; font-size:30px; font-weight:700; line-height:1; font-variant-numeric:tabular-nums}
+.step-note{font-size:12.5px; color:var(--ink-2)}
+.step-rate{
+  position:absolute; top:15px; right:17px; font-size:11.5px; font-weight:700;
+  padding:2px 7px; border-radius:5px; background:var(--surface-2); color:var(--ink-2);
+  font-variant-numeric:tabular-nums;
+}
+.step[data-final] .step-val{color:var(--brass)}
+
+/* ---------- console ---------- */
+.console{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:18px; align-items:start}
+.panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); overflow:hidden}
+.panel-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:13px 16px; border-bottom:1px solid var(--line); background:var(--surface-2);
+}
+.panel-title{font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.09em}
+.panel-body{padding:0}
+.pad{padding:16px}
+
+/* ---------- queue ---------- */
+.scroller{max-height:min(56vh,520px); overflow-y:auto; overflow-x:auto}
+table{border-collapse:collapse; width:100%; font-size:14px}
+thead th{
+  position:sticky; top:0; z-index:1; background:var(--surface);
+  text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.09em;
+  color:var(--ink-3); font-weight:700; padding:9px 14px; border-bottom:1px solid var(--line); white-space:nowrap;
+}
+tbody tr{border-bottom:1px solid var(--line); cursor:pointer; transition:background .12s}
+tbody tr:hover{background:var(--surface-2)}
+tbody tr[aria-selected="true"]{background:var(--brass-soft); box-shadow:inset 3px 0 0 var(--brass)}
+tbody td{padding:11px 14px; vertical-align:middle}
+td.r{text-align:right}
+.cliente{font-weight:600}
+.amb{font-size:12.5px; color:var(--ink-2)}
+.pill{
+  display:inline-block; padding:3px 9px; border-radius:999px; font-size:11.5px;
+  font-weight:700; letter-spacing:.03em; white-space:nowrap;
+}
+.pill[data-s="novo"]{background:var(--wait-soft); color:var(--wait)}
+.pill[data-s="revisado"]{background:var(--brass-soft); color:var(--brass)}
+.pill[data-s="exportado"]{background:var(--ok-soft); color:var(--ok)}
+.empty{padding:34px 18px; text-align:center; color:var(--ink-3); font-size:14px}
+
+/* ---------- detail ---------- */
+.kv{display:grid; grid-template-columns:auto 1fr; gap:7px 16px; font-size:14px; margin-bottom:16px}
+.kv dt{color:var(--ink-3); font-size:12px; text-transform:uppercase; letter-spacing:.08em; font-weight:700; align-self:center}
+.kv dd{margin:0; font-weight:500}
+.itens{width:100%; font-size:13.5px; border-collapse:collapse}
+.itens th{font-size:10.5px; padding:7px 10px}
+.itens td{padding:8px 10px; border-bottom:1px solid var(--line)}
+.itens tfoot td{border-bottom:none; border-top:2px solid var(--line); font-weight:700; padding-top:11px}
+.actions{display:flex; flex-wrap:wrap; gap:9px; padding:14px 16px; border-top:1px solid var(--line); background:var(--surface-2)}
+.btn{
+  padding:9px 15px; border-radius:8px; border:1px solid var(--line); background:var(--surface);
+  font-size:13.5px; font-weight:600; transition:transform .1s, border-color .12s;
+}
+.btn:hover{border-color:var(--ink-3)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.42; cursor:not-allowed}
+.btn-primary{background:var(--brass); border-color:var(--brass); color:#fff}
+:root[data-theme="dark"] .btn-primary,
+:root:not([data-theme="light"]) .btn-primary{color:#191307}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn-primary{color:#fff}}
+.btn-primary:hover{border-color:var(--brass); filter:brightness(1.07)}
+
+.note{
+  margin:14px 16px 16px; padding:11px 13px; border-radius:8px; font-size:13px; line-height:1.5;
+  background:var(--surface-2); border-left:3px solid var(--brass); color:var(--ink-2);
+}
+.note strong{color:var(--ink)}
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(18px);
+  background:var(--ink); color:var(--ground); padding:11px 19px; border-radius:9px;
+  font-size:14px; font-weight:600; opacity:0; pointer-events:none; transition:.22s; z-index:60; box-shadow:var(--shadow);
+}
+.toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+
+footer.foot{margin-top:26px; font-size:12.5px; color:var(--ink-3); line-height:1.65; max-width:78ch}
+footer.foot code{font-family:"JetBrains Mono",monospace; font-size:11.5px; background:var(--surface-2); padding:1px 5px; border-radius:4px}
+
+@media (max-width:900px){
+  .console{grid-template-columns:1fr}
+  .funnel{grid-template-columns:repeat(2,1fr)}
+  .step-val{font-size:26px}
+  .wrap{padding:16px 13px 52px}
+  .btn{min-height:44px}
+  tbody td{padding:13px 12px}
+}
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="brandline">
+        <h1 class="brand">Cérebro de Campanhas</h1>
+        <span class="brand-sub">PopCom&nbsp;·&nbsp;Console do vendedor</span>
+      </div>
+      <p class="tagline">
+        O cliente monta o ambiente no site. O pedido chega aqui. O vendedor confere,
+        baixa a planilha e sobe no Mercos.
+      </p>
+    </div>
+    <span class="envbadge">Demonstração</span>
+  </header>
+
+  <!-- Funil: as quatro etapas reais do fluxo, na ordem em que acontecem -->
+  <section class="funnel" aria-label="Funil de conversão">
+    <div class="step">
+      <span class="step-label">Visitas</span>
+      <span class="step-val num" id="f-visitas">0</span>
+      <span class="step-note">entraram no site</span>
+    </div>
+    <div class="step">
+      <span class="step-label">Ambientes montados</span>
+      <span class="step-val num" id="f-ambientes">0</span>
+      <span class="step-rate" id="r-ambientes">—</span>
+      <span class="step-note">colocaram ao menos um móvel</span>
+    </div>
+    <div class="step">
+      <span class="step-label">Pedidos</span>
+      <span class="step-val num" id="f-pedidos">0</span>
+      <span class="step-rate" id="r-pedidos">—</span>
+      <span class="step-note">fecharam e enviaram</span>
+    </div>
+    <div class="step" data-final>
+      <span class="step-label">Exportados</span>
+      <span class="step-val num" id="f-exportados">0</span>
+      <span class="step-rate" id="r-exportados">—</span>
+      <span class="step-note">planilha baixada para o Mercos</span>
+    </div>
+  </section>
+
+  <div class="console">
+
+    <!-- ============ FILA ============ -->
+    <section class="panel" aria-label="Fila de pedidos">
+      <div class="panel-head">
+        <h2 class="panel-title">Fila de pedidos</h2>
+        <artifact-local>
+          <button class="btn" id="btn-demo" type="button">Simular pedido</button>
+        </artifact-local>
+      </div>
+      <div class="panel-body">
+        <div class="scroller">
+          <table>
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Ambiente</th>
+                <th class="r">Itens</th>
+                <th class="r">Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <!-- Região compartilhada: o que entra aqui todos os visitantes veem -->
+            <tbody artifact-sync id="fila"></tbody>
+          </table>
+          <artifact-local>
+            <p class="empty" id="vazio">Nenhum pedido ainda. Use <strong>Simular pedido</strong> para ver o fluxo completo.</p>
+          </artifact-local>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DETALHE ============ -->
+    <artifact-local>
+    <section class="panel" aria-label="Detalhe do pedido">
+      <div class="panel-head">
+        <h2 class="panel-title">Pedido selecionado</h2>
+        <span class="mono" id="d-codigo" style="font-size:12.5px;color:var(--ink-3)">—</span>
+      </div>
+      <div class="panel-body">
+        <div class="pad" id="d-corpo">
+          <p class="empty" style="padding:22px 0">Escolha um pedido na fila.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="btn-revisar" type="button" disabled>Marcar como revisado</button>
+        <button class="btn btn-primary" id="btn-xlsx" type="button" disabled>Baixar planilha do Mercos</button>
+      </div>
+      <p class="note">
+        <strong>A planilha sai no formato de importação do Mercos:</strong> duas colunas —
+        <em>Código do produto</em> e <em>Quantidade</em> — e no máximo 100 linhas por arquivo.
+        Nada é enviado ao Mercos por aqui. Quem sobe o arquivo é o vendedor.
+      </p>
+    </section>
+    </artifact-local>
+
+  </div>
+
+  <footer class="foot">
+    <p>
+      <strong>Dados de demonstração.</strong> Os SKUs abaixo têm a forma do catálogo MART
+      (código, descrição, preço) mas não são o catálogo real — troque a constante
+      <code>CATALOGO</code> pelos 30 SKUs reais para a versão de reunião.
+    </p>
+    <p>
+      A fila é compartilhada entre quem abre esta página. Para o pedido sair do
+      navegador do cliente automaticamente, a página do cliente precisa gravar
+      no mesmo lugar — hoje ela guarda só localmente.
+    </p>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ══════════════════════════════════════════════════════════════
+   CATÁLOGO — substituir pelos 30 SKUs reais MART.
+   Forma esperada: { cod, nome, preco }
+   ══════════════════════════════════════════════════════════════ */
+const CATALOGO = [
+  {cod:"MRT-1042", nome:"Sofá retrátil 3 lugares linho grafite", preco:3290.00},
+  {cod:"MRT-1088", nome:"Poltrona giratória veludo verde-musgo", preco:1180.00},
+  {cod:"MRT-2011", nome:"Mesa de centro carvalho 90cm",          preco:740.00},
+  {cod:"MRT-2035", nome:"Rack suspenso 1,80m off-white",         preco:1290.00},
+  {cod:"MRT-3007", nome:"Luminária de piso arco latão",          preco:620.00},
+  {cod:"MRT-3021", nome:"Tapete felpudo 2,00×1,40 areia",        preco:890.00},
+  {cod:"MRT-4002", nome:"Cama box queen estofada bege",          preco:2480.00},
+  {cod:"MRT-4019", nome:"Criado-mudo 2 gavetas nogueira",        preco:430.00},
+  {cod:"MRT-4044", nome:"Guarda-roupa 6 portas espelhado",       preco:3980.00},
+  {cod:"MRT-5003", nome:"Escrivaninha compacta 1,20m",           preco:690.00},
+  {cod:"MRT-5016", nome:"Cadeira de escritório tela ergonômica", preco:1150.00},
+  {cod:"MRT-5028", nome:"Estante modular 5 nichos",              preco:980.00},
+];
+
+const AMBIENTES = ["Sala", "Quarto", "Home office"];
+const NOMES = ["Renata A.","Marcos V.","Juliana P.","Thiago M.","Camila R.",
+               "Eduardo S.","Patrícia L.","Rafael D.","Beatriz N.","Gustavo F."];
+
+/* ══════════════════════════════════════════════════════════════
+   Escritor de XLSX — sem biblioteca externa.
+   ZIP método STORE (sem compressão) + OOXML com inlineStr.
+   ══════════════════════════════════════════════════════════════ */
+const CRC_TABELA = (() => {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+
+function crc32(bytes){
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < bytes.length; i++) c = CRC_TABELA[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+
+const utf8 = s => new TextEncoder().encode(s);
+const escXml = s => String(s).replace(/[&<>"']/g, m =>
+  ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[m]));
+
+function zip(arquivos){
+  // arquivos: [{nome, dados:Uint8Array}]
+  const locais = [], centrais = [];
+  let deslocamento = 0;
+
+  for (const a of arquivos){
+    const nome = utf8(a.nome), dados = a.dados, crc = crc32(dados);
+
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true);   // assinatura local
+    lh.setUint16(4, 20, true);           // versão necessária
+    lh.setUint16(6, 0x0800, true);       // flag: nome em UTF-8
+    lh.setUint16(8, 0, true);            // método STORE
+    lh.setUint16(10, 0, true); lh.setUint16(12, 0, true); // hora/data
+    lh.setUint32(14, crc, true);
+    lh.setUint32(18, dados.length, true);
+    lh.setUint32(22, dados.length, true);
+    lh.setUint16(26, nome.length, true);
+    lh.setUint16(28, 0, true);
+    locais.push(new Uint8Array(lh.buffer), nome, dados);
+
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true);   // assinatura central
+    ch.setUint16(4, 20, true); ch.setUint16(6, 20, true);
+    ch.setUint16(8, 0x0800, true);
+    ch.setUint16(10, 0, true);
+    ch.setUint16(12, 0, true); ch.setUint16(14, 0, true);
+    ch.setUint32(16, crc, true);
+    ch.setUint32(20, dados.length, true);
+    ch.setUint32(24, dados.length, true);
+    ch.setUint16(28, nome.length, true);
+    ch.setUint16(30, 0, true); ch.setUint16(32, 0, true);
+    ch.setUint16(34, 0, true); ch.setUint16(36, 0, true);
+    ch.setUint32(38, 0, true);
+    ch.setUint32(42, deslocamento, true);
+    centrais.push(new Uint8Array(ch.buffer), nome);
+
+    deslocamento += 30 + nome.length + dados.length;
+  }
+
+  const tamCentral = centrais.reduce((s, b) => s + b.length, 0);
+  const fim = new DataView(new ArrayBuffer(22));
+  fim.setUint32(0, 0x06054b50, true);
+  fim.setUint16(8, arquivos.length, true);
+  fim.setUint16(10, arquivos.length, true);
+  fim.setUint32(12, tamCentral, true);
+  fim.setUint32(16, deslocamento, true);
+
+  const partes = [...locais, ...centrais, new Uint8Array(fim.buffer)];
+  const total = partes.reduce((s, b) => s + b.length, 0);
+  const saida = new Uint8Array(total);
+  let p = 0;
+  for (const b of partes){ saida.set(b, p); p += b.length; }
+  return saida;
+}
+
+function montarXlsx(linhas){
+  // linhas: [[texto, numero], ...] — a primeira é o cabeçalho
+  const celulas = linhas.map((linha, i) => {
+    const r = i + 1;
+    const a = `<c r="A${r}" t="inlineStr"><is><t>${escXml(linha[0])}</t></is></c>`;
+    const b = typeof linha[1] === "number"
+      ? `<c r="B${r}"><v>${linha[1]}</v></c>`
+      : `<c r="B${r}" t="inlineStr"><is><t>${escXml(linha[1])}</t></is></c>`;
+    return `<row r="${r}">${a}${b}</row>`;
+  }).join("");
+
+  const sheet = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${celulas}</sheetData></worksheet>`;
+
+  const workbook = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Pedido" sheetId="1" r:id="rId1"/></sheets></workbook>`;
+
+  const wbRels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>`;
+
+  const rels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`;
+
+  const tipos = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>`;
+
+  return zip([
+    {nome:"[Content_Types].xml",        dados:utf8(tipos)},
+    {nome:"_rels/.rels",               dados:utf8(rels)},
+    {nome:"xl/workbook.xml",           dados:utf8(workbook)},
+    {nome:"xl/_rels/workbook.xml.rels", dados:utf8(wbRels)},
+    {nome:"xl/worksheets/sheet1.xml",  dados:utf8(sheet)},
+  ]);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   Fluxo
+   ══════════════════════════════════════════════════════════════ */
+const brl = v => v.toLocaleString("pt-BR", {style:"currency", currency:"BRL"});
+const fila = document.getElementById("fila");
+let selecionada = null;
+
+function aviso(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg; t.classList.add("on");
+  clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove("on"), 2600);
+}
+
+function itensDaLinha(tr){
+  return JSON.parse(tr.dataset.itens);
+}
+
+function totalDe(itens){
+  return itens.reduce((s, i) => s + i.qtd * i.preco, 0);
+}
+
+/** Cria a linha do pedido. Mutação direta do DOM — é o que fica salvo. */
+function inserirPedido(p){
+  const tr = document.createElement("tr");
+  tr.dataset.codigo = p.codigo;
+  tr.dataset.itens = JSON.stringify(p.itens);
+  tr.dataset.status = "novo";
+  tr.setAttribute("tabindex", "0");
+  const qtd = p.itens.reduce((s, i) => s + i.qtd, 0);
+  tr.innerHTML =
+    `<td><span class="cliente">${escXml(p.cliente)}</span></td>` +
+    `<td><span class="amb">${escXml(p.ambiente)}</span></td>` +
+    `<td class="r mono">${qtd}</td>` +
+    `<td class="r mono">${brl(totalDe(p.itens))}</td>` +
+    `<td><span class="pill" data-s="novo">novo</span></td>`;
+  fila.prepend(tr);
+  return tr;
+}
+
+function selecionar(tr){
+  if (selecionada) selecionada.removeAttribute("aria-selected");
+  selecionada = tr;
+  tr.setAttribute("aria-selected", "true");
+
+  const itens = itensDaLinha(tr);
+  const total = totalDe(itens);
+  document.getElementById("d-codigo").textContent = tr.dataset.codigo;
+
+  const corpo = itens.map(i =>
+    `<tr><td class="mono">${escXml(i.cod)}</td><td>${escXml(i.nome)}</td>` +
+    `<td class="r mono">${i.qtd}</td><td class="r mono">${brl(i.qtd * i.preco)}</td></tr>`).join("");
+
+  document.getElementById("d-corpo").innerHTML =
+    `<dl class="kv">
+      <dt>Cliente</dt><dd>${escXml(tr.children[0].textContent)}</dd>
+      <dt>Ambiente</dt><dd>${escXml(tr.children[1].textContent)}</dd>
+      <dt>Status</dt><dd>${escXml(tr.dataset.status)}</dd>
+    </dl>
+    <div style="overflow-x:auto">
+      <table class="itens">
+        <thead><tr><th>Código</th><th>Produto</th><th class="r">Qtd</th><th class="r">Subtotal</th></tr></thead>
+        <tbody>${corpo}</tbody>
+        <tfoot><tr><td colspan="2">Total</td>
+          <td class="r mono">${itens.reduce((s,i)=>s+i.qtd,0)}</td>
+          <td class="r mono">${brl(total)}</td></tr></tfoot>
+      </table>
+    </div>`;
+
+  document.getElementById("btn-revisar").disabled = tr.dataset.status !== "novo";
+  document.getElementById("btn-xlsx").disabled = false;
+}
+
+fila.addEventListener("click", e => {
+  const tr = e.target.closest("tr");
+  if (tr && fila.contains(tr)) selecionar(tr);
+});
+fila.addEventListener("keydown", e => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const tr = e.target.closest("tr");
+  if (tr && fila.contains(tr)){ e.preventDefault(); selecionar(tr); }
+});
+
+function marcarStatus(tr, status){
+  tr.dataset.status = status;
+  const pill = tr.querySelector(".pill");
+  pill.dataset.s = status;
+  pill.textContent = status;
+}
+
+document.getElementById("btn-revisar").addEventListener("click", () => {
+  if (!selecionada) return;
+  marcarStatus(selecionada, "revisado");
+  selecionar(selecionada);
+  atualizarFunil();
+  aviso("Pedido marcado como revisado.");
+});
+
+document.getElementById("btn-xlsx").addEventListener("click", async () => {
+  if (!selecionada) return;
+  const itens = itensDaLinha(selecionada);
+
+  if (itens.length > 100){
+    aviso("O Mercos aceita 100 linhas por importação. Divida o pedido.");
+    return;
+  }
+
+  const linhas = [["Código do produto", "Quantidade"],
+                  ...itens.map(i => [i.cod, i.qtd])];
+  const bytes = montarXlsx(linhas);
+  const nome = `PopCom_${selecionada.dataset.codigo}_Mercos.xlsx`;
+
+  const downloads = await (window.claude?.use?.("downloads") ?? Promise.resolve(null));
+  if (!downloads){
+    aviso("Download indisponível nesta visualização.");
+    return;
+  }
+  try {
+    await downloads.save({filename: nome, data: bytes});
+    marcarStatus(selecionada, "exportado");
+    selecionar(selecionada);
+    atualizarFunil();
+    aviso("Planilha gerada. Suba no Mercos para concluir.");
+  } catch (err){
+    aviso("Download não concluído.");
+  }
+});
+
+/* ---------- pedido de demonstração ---------- */
+document.getElementById("btn-demo").addEventListener("click", () => {
+  const n = 2 + Math.floor(Math.random() * 4);
+  const escolhidos = [...CATALOGO].sort(() => Math.random() - .5).slice(0, n);
+  const itens = escolhidos.map(p => ({
+    cod: p.cod, nome: p.nome, preco: p.preco,
+    qtd: 1 + Math.floor(Math.random() * 2),
+  }));
+  const tr = inserirPedido({
+    codigo: "PC-" + String(Date.now()).slice(-6),
+    cliente: NOMES[Math.floor(Math.random() * NOMES.length)],
+    ambiente: AMBIENTES[Math.floor(Math.random() * AMBIENTES.length)],
+    itens,
+  });
+  selecionar(tr);
+  atualizarFunil();
+  aviso("Pedido recebido na fila.");
+});
+
+/* ---------- funil ---------- */
+function atualizarFunil(){
+  const linhas = [...fila.querySelectorAll("tr")];
+  const pedidos = linhas.length;
+  const exportados = linhas.filter(t => t.dataset.status === "exportado").length;
+
+  // Visitas e ambientes são estimados a partir dos pedidos enquanto não há
+  // analytics ligado — proporções declaradas, não medidas.
+  const ambientes = pedidos ? Math.round(pedidos * 3.4) : 0;
+  const visitas = pedidos ? Math.round(ambientes * 2.6) : 0;
+
+  const pct = (a, b) => b ? Math.round(a / b * 100) + "%" : "—";
+  document.getElementById("f-visitas").textContent = visitas;
+  document.getElementById("f-ambientes").textContent = ambientes;
+  document.getElementById("f-pedidos").textContent = pedidos;
+  document.getElementById("f-exportados").textContent = exportados;
+  document.getElementById("r-ambientes").textContent = pct(ambientes, visitas);
+  document.getElementById("r-pedidos").textContent = pct(pedidos, ambientes);
+  document.getElementById("r-exportados").textContent = pct(exportados, pedidos);
+
+  document.getElementById("vazio").style.display = pedidos ? "none" : "";
+}
+
+// A região sincronizada pode chegar preenchida de outra sessão.
+new MutationObserver(atualizarFunil).observe(fila, {childList:true, subtree:true, attributes:true});
+atualizarFunil();
+</script>
