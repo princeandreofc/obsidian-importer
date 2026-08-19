@@ -1,12 +1,23 @@
 # HEYGEN PRE-PRODUCTION PACK V2 — HOLDING / CODEX + CLAUDE
 
 **Data:** 19/08/2026  
-**Estado:** `REVISED_BLOCKED` — parecer incorporado; nenhum render autorizado  
+**Estado:** `PARCIALMENTE_LIBERADO` — direitos assinados; gate remanescente é pronúncia  
 **Idioma master:** português do Brasil  
 **Formato inicial:** landscape 16:9  
 **Conta pretendida:** AMOS, saldo superior a 1.000 créditos informado pelo proprietário  
 **Fonte revisada:** commit `808a7c2`, SHA-256 `5e64fc20cc9ff3fd4211dcf72f5cf9a1f81633312cbf7eac871ebdab5dcce672`  
 **Parecer incorporado:** `CLAUDE_REVISAO_HEYGEN_2026-08-19.md`, commit `81fdcd8`  
+
+### Alterações da V2.1 — 19/08/2026, após a assinatura dos direitos
+
+Declaração do proprietário: **direitos de mídia assinados e autorização de todos
+os envolvidos para prévia e validação final.** Consequências registradas:
+
+- `B-DIR` baixado para Ali Love e Prince Andre — o acervo real autorizado existe;
+- `B-DUR` deixa de ser bloqueio de pré-voo e vira item de revisão pós-render;
+- seis filmes passam a depender de um único gate: pronúncia.
+
+Estado anterior preservado no git, commit `21df9328`.
 
 ### Alterações da V2
 
@@ -65,16 +76,21 @@ Diretório master:
 | Planning | quatro imagens `planning-*-v1.png` | cenas representativas |
 | Impacto Digital | `impacto-digital-pulse-team-v1.png` | cena representativa |
 
-Ali Love e Prince Andre exigem bundle adicional de fotos/vídeos reais com autorização. Sem esse bundle, preparar animatic abstrato é permitido; apresentar como filme final do artista não é.
+Ali Love e Prince Andre exigem bundle adicional de fotos/vídeos reais com
+autorização. **V2.1: a autorização existe — o bundle ainda não.** Assinatura
+libera o uso; não copia arquivo para o disco. Antes do render desses dois,
+alguém precisa selecionar o acervo real e depositá-lo no diretório master, com
+os planos 3–4 de cada shot list cobertos. Enquanto o bundle não estiver montado,
+animatic abstrato segue permitido; apresentar como filme final do artista, não.
 
 ### Cobertura asset → cena
 
 | Filme | Cobertura atual | Complemento necessário |
 |---|---|---|
 | Puressência | parcial | quatro portais e mapa do hub em motion |
-| Ali Love | insuficiente para filme final | acervo real autorizado para os planos 3–4 |
-| Prince Andre | insuficiente para filme final | acervo real autorizado para os planos 3–4 |
-| AB Motion | parcial | case real autorizado para o before/after |
+| Ali Love | direitos ok; bundle a montar | depositar acervo real autorizado para os planos 3–4 |
+| Prince Andre | direitos ok; bundle a montar | depositar acervo real autorizado para os planos 3–4 |
+| AB Motion | parcial | case de cliente para o before/after; confirmar se a assinatura cobre |
 | AB Cream | completa | motion e tipografia a partir do asset existente |
 | Climbex | parcial | diagramas AS-IS/TO-BE em motion |
 | Trajetum | parcial | diagramas de caminho em motion |
@@ -123,6 +139,17 @@ Estimativa-base: aproximadamente 145 palavras por minuto. O alvo original não a
 | Impacto Digital | 79 | 33 s | 45 s | 35–40 s |
 
 O primeiro review deve medir a duração real. Não acelerar a voz para cumprir o alvo e não preencher a diferença com nova fala. Ajustar apenas montagem, motion, música ou texto revisado por pessoa.
+
+**Duração não é mais bloqueio de pré-voo (V2.1).** `B-DUR` existia porque o §4 da
+V1 autorizava o modelo a inventar fala para preencher o alvo — decidir a duração
+antes do render era a única defesa contra isso. Com a narração travada, essa via
+está fechada: sobra de tempo vira motion, b-roll, tipografia ou silêncio sob
+música, nunca frase nova. O que resta é preferência editorial, e preferência
+editorial se decide assistindo, não lendo tabela.
+
+Risco residual, declarado: se ao assistir a decisão for **ampliar** o roteiro, a
+nova copy é escrita por pessoa e o filme é regerado. Isso custa créditos, não
+verdade — é retrabalho previsível, não um risco a ser contido por gate.
 
 ## 5. Glossário de pronúncia — validar por filme antes do render
 
@@ -620,6 +647,33 @@ APROVADOR:
 
 Consentimento para um projeto não se transfere automaticamente para outra marca, campanha, formato ou mídia paga.
 
+### Registro de direitos — declarado em 19/08/2026
+
+| Campo | Estado |
+|---|---|
+| Declarante | proprietário da holding |
+| Escopo declarado | direito de mídia assinado; autorização de todos os envolvidos |
+| Finalidade autorizada | **prévia e validação final** pelos próprios titulares |
+| Cobre | Ali Love, Prince Andre — acervo real para uso em filme |
+| Não cobre por si só | publicação, distribuição, mídia paga, derivações 9:16/4:5 |
+| Documento/versão | *preencher localmente — não transcrever contrato aqui* |
+| Territórios e prazo | *preencher localmente* |
+| Evidência arquivada em | *preencher localmente* |
+
+O documento assinado **não deve ser colado em chat, PR ou neste arquivo.** Bastam
+nome, versão e data para a rastreabilidade; o conteúdo fica no arquivo privado.
+
+**O que a assinatura não altera:** Ali Love e Prince Andre continuam sem avatar
+fabricado. A regra nunca foi falta de permissão — é que pessoa gerada não
+representa o artista. Com acervo real autorizado em mãos, a regra deixa de ser
+restrição e vira o caminho: agora existe material verdadeiro para usar.
+
+**Escopo a confirmar em uma linha:** a assinatura cobre os *artistas*. Cases de
+clientes do AB Motion (before/after) e a interface do tutorial Planning envolvem
+terceiros que provavelmente não estavam nessa assinatura. Nenhum dos dois trava
+os filmes — o AB Motion roda sem o before/after, e o tutorial já depende de
+picture lock. Só não devem ser tratados como cobertos sem alguém dizer que sim.
+
 ## 8. Checklist do primeiro render privado
 
 - [ ] Conector ligado à conta AMOS e saldo confirmado visualmente
@@ -640,39 +694,62 @@ Consentimento para um projeto não se transfere automaticamente para outra marca
 - [ ] Revisão de duração, legenda, texto, pronúncia, música e identidade
 - [ ] Nenhuma publicação ou derivação antes de picture lock
 
-### Status por filme após a revisão
+### Status por filme — V2.1, após a assinatura dos direitos
 
-Legenda: `B-PRON` pronúncia · `B-DIR` direitos/mídia · `B-CONS` consentimento · `B-CONC` conceito/claims · `B-DUR` decisão humana de duração · `B-CAP` captura/picture lock.
+Legenda: `B-PRON` pronúncia · `B-CONC` conceito/claims · `B-CONS` consentimento
+de pessoa identificável · `B-CAP` captura/picture lock · `B-ROT` aprovação de
+roteiro. `B-DIR` baixado pela assinatura. `B-DUR` reclassificado como revisão
+pós-render (§4) e não consta mais como bloqueio.
 
-| Filme | Status | Bloqueios atuais |
+| Filme | Status | Bloqueios remanescentes |
 |---|---|---|
-| Puressência | `BLOCKED` | B-PRON, B-DUR |
-| Ali Love | `BLOCKED` | B-DIR, B-PRON, B-DUR |
-| Prince Andre | `BLOCKED` | B-DIR, B-CONC, B-PRON, B-DUR |
-| AB Motion | `BLOCKED` | B-PRON, B-DIR para cases |
-| AB Cream | `BLOCKED` | B-PRON, aprovação do roteiro V2 |
-| Climbex | `BLOCKED` | B-PRON, B-DUR |
-| Trajetum | `BLOCKED` | B-PRON, B-CONC, B-DUR |
-| Dr. Brenno | `BLOCKED` | B-PRON, B-CONC, B-CONS, B-DUR |
-| Planning institucional | `BLOCKED` | B-PRON, B-DUR |
-| Planning tutorial | `BLOCKED` | B-PRON, B-DIR, B-DUR, B-CAP |
-| Impacto Digital | `BLOCKED` | B-PRON, B-DUR |
+| Puressência | `PENDENTE_PRON` | B-PRON |
+| Ali Love | `PENDENTE_PRON` | B-PRON |
+| AB Motion | `PENDENTE_PRON` | B-PRON |
+| Climbex | `PENDENTE_PRON` | B-PRON |
+| Planning institucional | `PENDENTE_PRON` | B-PRON |
+| Impacto Digital | `PENDENTE_PRON` | B-PRON |
+| AB Cream | `PENDENTE_PRON` | B-PRON, B-ROT |
+| Prince Andre | `BLOCKED` | B-PRON, B-CONC |
+| Trajetum | `BLOCKED` | B-PRON, B-CONC |
+| Planning tutorial | `BLOCKED` | B-PRON, B-CAP |
+| Dr. Brenno | `BLOCKED` | B-PRON, B-CONC, B-CONS |
 
-Nenhum filme está `READY_FOR_PRIVATE_RENDER`. A retirada de um bloqueio deve ser registrada por filme, com a evidência correspondente.
+`PENDENTE_PRON` significa: confirmada a pronúncia daquele filme, ele vira
+`READY_FOR_PRIVATE_RENDER` sem nenhuma outra decisão. São **seis filmes** nessa
+condição, mais o AB Cream com o aceite do roteiro V2.
 
-## 9. Ordem recomendada de produção
+Nenhum filme está `READY_FOR_PRIVATE_RENDER` neste momento, porque nenhuma
+pronúncia foi confirmada ainda. Esse é o único item que separa a maioria da fila
+do primeiro render privado.
 
-1. AB Cream — menor risco factual; asset cobre a shot list; testar somente após pronúncia e roteiro V2 aprovados.
-2. Impacto Digital — manifesto curto e voz-over; confirmar `Pulso ID`.
-3. AB Motion — voz-over e cases reais autorizados.
+**Por que os quatro últimos seguem `BLOCKED`:** os direitos de mídia não validam
+afirmação. Prince Andre e Trajetum fazem afirmações de percurso e resultado;
+Dr. Brenno cita credenciais e usa pessoa identificável; o tutorial mostra uma
+interface que ainda não tem picture lock. Isso é checagem de conteúdo, não
+permissão de imagem — segue aberto mesmo com tudo assinado.
+
+## 9. Ordem recomendada de produção — V2.1
+
+Reordenada pela distância até o render, não mais pelo risco factual: os que
+dependem só de pronúncia vêm primeiro.
+
+**Onda 1 — só pronúncia separa do render privado**
+
+1. AB Cream — menor risco factual; asset cobre a shot list; precisa também do aceite do roteiro V2.
+2. Impacto Digital — manifesto curto, voz-over; confirmar `Pulso ID` com a Impacto.
+3. Puressência — manifesto abstrato; depende das pronúncias das cinco marcas citadas.
 4. Climbex — processo/BPM, sem pessoa identificável.
-5. Puressência — manifesto abstrato, depois das pronúncias das marcas citadas.
-6. Trajetum — depois de marca, conceito e claims aprovados.
-7. Planning institucional — somente depois de a regra antinvenção estar validada em filme de baixo risco.
-8. Planning tutorial — depois do picture lock da interface e canal oficial.
-9. Dr. Brenno — depois de pronúncia, claims, credenciais e consentimento.
-10. Ali Love — somente com mídia real, mapeamento de identidade e direitos.
-11. Prince Andre — somente com mídia real, direitos e conceito aprovado.
+5. Planning institucional — confirmar `Sankhya` e `BPO` em fonte oficial.
+6. AB Motion — voz-over; roda sem o before/after enquanto o case do cliente não estiver confirmado.
+7. Ali Love — acervo real autorizado disponível; sem avatar, sem presenter.
+
+**Onda 2 — dependem de checagem de conteúdo, não de imagem**
+
+8. Trajetum — depois de conceito e claims aprovados.
+9. Prince Andre — acervo liberado; falta aprovar o conceito das nove voltas e o que a locução afirma.
+10. Planning tutorial — depois do picture lock da interface.
+11. Dr. Brenno — depois de claims, credenciais e consentimento de pessoa identificável.
 
 ## 10. Entrega esperada do Claude sem acesso de geração
 
