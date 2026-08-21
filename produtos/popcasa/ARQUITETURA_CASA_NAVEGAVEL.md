@@ -81,6 +81,28 @@ A Camargo atende RJ e SC com telefone 48 — opera à distância e viaja para
 mostrar portfólio. **A ferramenta é a visita, sem o deslocamento** — e roda
 para todas as lojas ao mesmo tempo.
 
+### PRIMEIRO CATÁLOGO REAL LIDO — Studio L 2026
+
+Extração completa em **`CATALOGO_STUDIO_L_2026.md`**, lida direto do Drive da
+Camargo (pasta "SEM PREÇO", 18,9 MB) — mais de 70 peças com material, dimensão
+e cores verbatim.
+
+**E ela inverte o argumento do 3D deste documento.** O §2 registrava fotografia
+como caminho principal; para a Studio L é o contrário:
+
+1. **O catálogo não mostra o que vende** — Faces tem 7 cores, Segmentos 6,
+   Mavericks 6; o PDF mostra uma e lista o resto como texto. O lojista compra
+   cor que nunca viu. Em 3D é um modelo e troca de material
+2. **As peças são feitas de luz** — policarbonato e acrílico translúcidos,
+   descritos pela marca como *"transparências, brilhos e camadas"*. Isso é
+   `transmission` em `MeshPhysicalMaterial`; foto chapa
+3. **A escala só existe no espaço** — Segmentos 2,1 m, Nordis 2 m, Alegórica
+   4 m, Abre Alas 3,8 m. Nenhuma foto transmite; estar ao lado transmite. **É a
+   justificativa mais forte para primeira pessoa, e vem do produto**
+4. **A geometria é modelável a partir da ficha** — folha curva, disco, anel,
+   fita, dobra, com dimensão exata. Reconstrução a partir de especificação, não
+   invenção
+
 ### O que não deu para ler
 
 `martcollection.com.br` devolve **503 em toda tentativa automática**, inclusive
