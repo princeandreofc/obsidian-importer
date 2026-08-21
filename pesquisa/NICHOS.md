@@ -41,3 +41,29 @@ entra como sinal do que está circulando, não como fonte técnica.
 - Mecânica de alcance em Instagram e TikTok — o que muda no algoritmo
 - Estrutura de gancho e retenção
 - O que está sendo usado para crescer, e se transfere para marca de luxo
+
+## Concorrentes diretos — acompanhar com lente de concorrência
+
+Contas que vendem aproximadamente o que a holding vende. Não são referência
+neutra: são quem disputa o mesmo cliente.
+
+- `textura.eu` — sistema de site 3D imersivo, vende prompts e serviço.
+  Posiciona melhor que nós. Marca `#claudecode`, mesmo público.
+- `polanaeem.tech` — peça interativa impressionante + DM como funil.
+  É o modelo de funil que falta à holding.
+- `gowtham_techie` — referência técnica de motion na web, não concorrente
+
+O que observar nelas: como descrevem o que entregam, que peça usam de isca,
+qual o CTA, e se o engajamento é reação real ou pedágio.
+
+## Radar técnico ativo — verificar movimento
+
+Itens levantados pela pesquisa e já em implementação. Vale acompanhar mudanças:
+
+- **Lenis** — smooth scroll; releases e casos de uso
+- **Scroll-linked animation** — `ScrollTrigger`, pin, parallax, progresso
+- **Iluminação por ambiente** — HDRI, `PMREMGenerator`, `RoomEnvironment`
+- **Pós-processamento** — bloom, vinheta, grão, profundidade de campo
+- **`MeshPhysicalMaterial`** — clearcoat, transmissão, mapas
+- **`fffuel.co`, `webgradients.com`, `iconbuddy.com`** — geradores de matéria
+  abstrata e utilitários; conferir se surgem equivalentes melhores
