@@ -1,0 +1,336 @@
+<title>Pop Campanhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+:root{
+  --ground:#F4F6F7; --surface:#FFFFFF; --surface-2:#EDF0F2; --line:#D8DEE2;
+  --ink:#14181C; --ink-2:#4C565E; --ink-3:#78848C;
+  --brass:#8A6A2C; --brass-soft:#EFE6D2;
+  --ok:#1F7A50; --ok-soft:#DCEEE4;
+  --wait:#9A4A12; --wait-soft:#F8E6D8;
+  --stop:#96202A; --stop-soft:#F7DEE0;
+  --shadow:0 1px 2px rgba(20,24,28,.06),0 8px 24px -12px rgba(20,24,28,.18);
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1317; --surface:#171C21; --surface-2:#1E242A; --line:#2B333A;
+    --ink:#E7ECEF; --ink-2:#A3AEB6; --ink-3:#75818A;
+    --brass:#C9A257; --brass-soft:#2E2718;
+    --ok:#5FC894; --ok-soft:#14291F;
+    --wait:#E09354; --wait-soft:#2B1D12;
+    --stop:#E8737D; --stop-soft:#2C1418;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1317; --surface:#171C21; --surface-2:#1E242A; --line:#2B333A;
+  --ink:#E7ECEF; --ink-2:#A3AEB6; --ink-3:#75818A;
+  --brass:#C9A257; --brass-soft:#2E2718;
+  --ok:#5FC894; --ok-soft:#14291F;
+  --wait:#E09354; --wait-soft:#2B1D12;
+  --stop:#E8737D; --stop-soft:#2C1418;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;text-wrap:balance}
+.mono{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.num{font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:4px}
+
+.wrap{max-width:1280px;margin:0 auto;padding:22px 20px 64px}
+header.top{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+.brandline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand{font-family:Fraunces,Georgia,serif;font-size:27px;font-weight:600;letter-spacing:-.01em}
+.brand-sub{font-size:12px;text-transform:uppercase;letter-spacing:.13em;color:var(--ink-3);font-weight:600}
+.tagline{margin-top:5px;color:var(--ink-2);font-size:14px;max-width:62ch}
+.envbadge{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;
+  background:var(--wait-soft);color:var(--wait);font-size:12px;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;border:1px solid color-mix(in srgb,var(--wait) 25%,transparent)}
+.envbadge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+
+.tabs{display:flex;gap:3px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+.tab{padding:10px 17px;border:none;background:none;font-size:14px;font-weight:600;color:var(--ink-3);
+  border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--brass)}
+.tab:hover{color:var(--ink)}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;
+  border-bottom:1px solid var(--line);background:var(--surface-2)}
+.panel-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.09em}
+.pad{padding:16px}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+
+label.f{display:block;margin-bottom:12px}
+label.f span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--ink-3);font-weight:700;margin-bottom:5px}
+input[type="text"],input[type="search"],select{width:100%;padding:9px 11px;border-radius:8px;
+  border:1px solid var(--line);background:var(--ground)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.scroller{max-height:min(48vh,430px);overflow-y:auto;overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+thead th{position:sticky;top:0;z-index:1;background:var(--surface);text-align:left;font-size:11px;
+  text-transform:uppercase;letter-spacing:.09em;color:var(--ink-3);font-weight:700;padding:9px 14px;
+  border-bottom:1px solid var(--line);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--line)}
+tbody td{padding:10px 14px;vertical-align:middle}
+td.r,th.r{text-align:right}
+tbody tr.sel{background:var(--brass-soft)}
+tbody tr.click{cursor:pointer}
+tbody tr.click:hover{background:var(--surface-2)}
+.pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.pill[data-s="novo"]{background:var(--wait-soft);color:var(--wait)}
+.pill[data-s="revisado"]{background:var(--brass-soft);color:var(--brass)}
+.pill[data-s="exportado"]{background:var(--ok-soft);color:var(--ok)}
+.empty{padding:30px 18px;text-align:center;color:var(--ink-3);font-size:14px}
+
+.actions{display:flex;flex-wrap:wrap;gap:9px;padding:14px 16px;border-top:1px solid var(--line);background:var(--surface-2)}
+.btn{padding:9px 15px;border-radius:8px;border:1px solid var(--line);background:var(--surface);
+  font-size:13.5px;font-weight:600;transition:transform .1s,border-color .12s}
+.btn:hover{border-color:var(--ink-3)}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.42;cursor:not-allowed}
+.btn-primary{background:var(--brass);border-color:var(--brass);color:#fff}
+:root[data-theme="dark"] .btn-primary,:root:not([data-theme="light"]) .btn-primary{color:#191307}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]) .btn-primary{color:#fff}}
+.btn-primary:hover{filter:brightness(1.07);border-color:var(--brass)}
+
+.alerta{margin:0 16px 16px;padding:13px 15px;border-radius:9px;font-size:13.5px;line-height:1.55;
+  background:var(--stop-soft);border-left:4px solid var(--stop);color:var(--ink)}
+.alerta strong{color:var(--stop)}
+.note{margin:0 16px 16px;padding:11px 13px;border-radius:8px;font-size:13px;line-height:1.5;
+  background:var(--surface-2);border-left:3px solid var(--brass);color:var(--ink-2)}
+.note strong{color:var(--ink)}
+
+/* ---------- lâmina ---------- */
+.lamina{background:#fff;color:#14181C;border-radius:var(--r);border:1px solid var(--line);
+  padding:26px;box-shadow:var(--shadow)}
+.lamina-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+  border-bottom:2px solid #14181C;padding-bottom:13px;margin-bottom:18px}
+.lamina-marca{font-family:Fraunces,Georgia,serif;font-size:23px;font-weight:600}
+.lamina-meta{font-size:11.5px;color:#4C565E;text-align:right;line-height:1.5}
+.lamina-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+.lam-item{border:1px solid #D8DEE2;border-radius:8px;padding:11px 12px}
+.lam-cod{font-family:"JetBrains Mono",monospace;font-size:11px;color:#78848C;font-weight:700}
+.lam-nome{font-size:13px;font-weight:600;margin:4px 0 7px;line-height:1.35}
+.lam-preco{font-family:"JetBrains Mono",monospace;font-size:15px;font-weight:700;color:#8A6A2C}
+.lamina-rod{margin-top:18px;padding-top:12px;border-top:1px solid #D8DEE2;
+  font-size:11px;color:#78848C;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(18px);
+  background:var(--ink);color:var(--ground);padding:11px 19px;border-radius:9px;font-size:14px;
+  font-weight:600;opacity:0;pointer-events:none;transition:.22s;z-index:60;box-shadow:var(--shadow)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+footer.foot{margin-top:26px;font-size:12.5px;color:var(--ink-3);line-height:1.65;max-width:80ch}
+footer.foot code{font-family:"JetBrains Mono",monospace;font-size:11.5px;background:var(--surface-2);
+  padding:1px 5px;border-radius:4px}
+
+@media (max-width:900px){
+  .grid2{grid-template-columns:1fr}
+  .wrap{padding:16px 13px 52px}
+  .btn{min-height:44px}
+  tbody td{padding:13px 12px}
+}
+@media print{
+  body{background:#fff}
+  .wrap>header,.tabs,.panel:not(.print-me),.actions,footer,.toast,.no-print{display:none!important}
+  .lamina{border:none;box-shadow:none;padding:0}
+}
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="brandline">
+        <h1 class="brand">Pop Campanhas</h1>
+        <span class="brand-sub">Ferramenta interna&nbsp;·&nbsp;Climbex</span>
+      </div>
+      <p class="tagline">
+        Monta a campanha a partir do catálogo, gera a lâmina para o cliente e as
+        planilhas que o vendedor sobe no Mercos. Nada é enviado ao Mercos por aqui.
+      </p>
+    </div>
+    <span class="envbadge">Demonstração</span>
+  </header>
+
+  <artifact-local>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="camp">Campanhas</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="ped">Pedidos recebidos</button>
+  </div>
+  </artifact-local>
+
+  <!-- ══════════════ CAMPANHAS ══════════════ -->
+  <artifact-local>
+  <div id="pane-camp">
+    <div class="grid2">
+
+      <section class="panel">
+        <div class="panel-head"><h2 class="panel-title">Montar campanha</h2></div>
+        <div class="pad">
+          <label class="f"><span>Marca</span>
+            <select id="c-marca">
+              <option>MART</option>
+              <option>Marca parceira</option>
+            </select>
+          </label>
+          <label class="f"><span>Nome da campanha</span>
+            <input type="text" id="c-nome" value="Coleção Verão — Sala e Quarto">
+          </label>
+          <div class="row2">
+            <label class="f"><span>Início</span><input type="text" id="c-ini" value="01/09/2026"></label>
+            <label class="f"><span>Fim</span><input type="text" id="c-fim" value="31/10/2026"></label>
+          </div>
+          <label class="f"><span>Buscar produto</span>
+            <input type="search" id="c-busca" placeholder="código ou nome">
+          </label>
+        </div>
+        <div class="scroller">
+          <table>
+            <thead><tr>
+              <th style="width:34px"></th><th>Código</th><th>Produto</th><th class="r">Preço</th>
+            </tr></thead>
+            <tbody id="c-catalogo"></tbody>
+          </table>
+        </div>
+        <div class="actions">
+          <button class="btn" id="c-todos" type="button">Selecionar todos</button>
+          <button class="btn" id="c-limpar" type="button">Limpar seleção</button>
+          <span style="margin-left:auto;align-self:center;font-size:13px;color:var(--ink-2)">
+            <strong id="c-conta" class="mono">0</strong> selecionados
+          </span>
+        </div>
+      </section>
+
+      <div style="display:flex;flex-direction:column;gap:18px">
+
+        <section class="panel print-me">
+          <div class="panel-head">
+            <h2 class="panel-title">Lâmina do cliente</h2>
+            <button class="btn no-print" id="c-imprimir" type="button">Imprimir / PDF</button>
+          </div>
+          <div class="pad">
+            <div class="lamina" id="lamina">
+              <div class="lamina-top">
+                <div>
+                  <div class="lamina-marca" id="l-marca">MART</div>
+                  <div style="font-size:13px;color:#4C565E" id="l-nome">—</div>
+                </div>
+                <div class="lamina-meta">
+                  <div id="l-periodo">—</div>
+                  <div>PopCom · Climbex</div>
+                </div>
+              </div>
+              <div class="lamina-grid" id="l-grid"></div>
+              <div class="lamina-rod">
+                <span id="l-conta">0 itens</span>
+                <span>Preços sujeitos a confirmação no pedido.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-head"><h2 class="panel-title">Planilha de produtos para o Mercos</h2></div>
+          <div class="pad">
+            <p style="margin:0 0 13px;font-size:13.5px;color:var(--ink-2);line-height:1.55">
+              O Mercos exige o cabeçalho <strong>exato</strong> da planilha modelo dele, sem colunas
+              acrescentadas nem removidas. Por isso a ferramenta não inventa o cabeçalho:
+              carregue o modelo baixado do Mercos e as linhas são preenchidas dentro dele.
+            </p>
+            <label class="f"><span>Planilha modelo baixada do Mercos (.xlsx)</span>
+              <input type="file" id="c-modelo" accept=".xlsx">
+            </label>
+            <div id="c-modelo-info" style="font-size:13px;color:var(--ink-2)"></div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" id="c-xlsx-prod" type="button" disabled>
+              Gerar planilha de produtos
+            </button>
+          </div>
+          <div class="alerta">
+            <strong>Atenção ao subir no Mercos.</strong> Na etapa de importação, escolher
+            <em>“Substituir produtos”</em> apaga todos os produtos já cadastrados e as fotos deles,
+            sem recuperação. Para uma campanha, a opção correta é <em>“Atualizar produtos”</em>,
+            que compara pelo código e só altera o que divergir.
+          </div>
+          <div class="note">
+            Só a primeira aba do arquivo é validada na importação. Códigos precisam ser únicos —
+            código repetido gera substituição indevida.
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+  </artifact-local>
+
+  <!-- ══════════════ PEDIDOS ══════════════ -->
+  <div id="pane-ped" hidden>
+    <div class="grid2">
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">Fila de pedidos</h2>
+          <artifact-local><button class="btn" id="p-demo" type="button">Simular pedido</button></artifact-local>
+        </div>
+        <div class="scroller">
+          <table>
+            <thead><tr>
+              <th>Cliente</th><th>Ambiente</th><th class="r">Itens</th><th class="r">Total</th><th>Status</th>
+            </tr></thead>
+            <tbody artifact-sync id="fila"></tbody>
+          </table>
+          <artifact-local>
+            <p class="empty" id="p-vazio">Nenhum pedido ainda. Use <strong>Simular pedido</strong>.</p>
+          </artifact-local>
+        </div>
+      </section>
+
+      <artifact-local>
+      <section class="panel">
+        <div class="panel-head">
+          <h2 class="panel-title">Pedido selecionado</h2>
+          <span class="mono" id="p-codigo" style="font-size:12.5px;color:var(--ink-3)">—</span>
+        </div>
+        <div class="pad" id="p-corpo">
+          <p class="empty" style="padding:22px 0">Escolha um pedido na fila.</p>
+        </div>
+        <div class="actions">
+          <button class="btn" id="p-revisar" type="button" disabled>Marcar como revisado</button>
+          <button class="btn btn-primary" id="p-xlsx" type="button" disabled>Baixar planilha do pedido</button>
+        </div>
+        <div class="note">
+          Planilha de <strong>itens de pedido</strong>: duas colunas — <em>Código do produto</em> e
+          <em>Quantidade</em> — no máximo 100 linhas. É diferente da planilha de produtos ao lado.
+        </div>
+      </section>
+      </artifact-local>
+
+    </div>
+  </div>
+
+  <footer class="foot">
+    <p><strong>Dados de demonstração.</strong> O catálogo abaixo tem a forma do MART real
+    (<code>cod</code>, <code>nome</code>, <code>preco</code>) mas não é o catálogo real —
+    troque a constante <code>CATALOGO</code> pelos 30 SKUs para a versão de reunião.</p>
+    <p>A fila de pedidos é compartilhada entre quem abre esta página. Para o pedido sair
+    do navegador do cliente automaticamente, a página Pop Casa precisa gravar no mesmo lugar.</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+

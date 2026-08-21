@@ -1,0 +1,385 @@
+
+"use strict";
+
+/* ═══ CATÁLOGO — substituir pelos 30 SKUs reais MART ═══ */
+const CATALOGO = [
+  {cod:"MRT-1042",nome:"Sofá retrátil 3 lugares linho grafite",preco:3290.00},
+  {cod:"MRT-1088",nome:"Poltrona giratória veludo verde-musgo",preco:1180.00},
+  {cod:"MRT-2011",nome:"Mesa de centro carvalho 90cm",preco:740.00},
+  {cod:"MRT-2035",nome:"Rack suspenso 1,80m off-white",preco:1290.00},
+  {cod:"MRT-3007",nome:"Luminária de piso arco latão",preco:620.00},
+  {cod:"MRT-3021",nome:"Tapete felpudo 2,00×1,40 areia",preco:890.00},
+  {cod:"MRT-3055",nome:"Quadro decorativo abstrato 70×100",preco:340.00},
+  {cod:"MRT-3062",nome:"Puff redondo bouclé cru",preco:410.00},
+  {cod:"MRT-4002",nome:"Cama box queen estofada bege",preco:2480.00},
+  {cod:"MRT-4019",nome:"Criado-mudo 2 gavetas nogueira",preco:430.00},
+  {cod:"MRT-4044",nome:"Guarda-roupa 6 portas espelhado",preco:3980.00},
+  {cod:"MRT-5003",nome:"Escrivaninha compacta 1,20m",preco:690.00},
+  {cod:"MRT-5016",nome:"Cadeira de escritório tela ergonômica",preco:1150.00},
+  {cod:"MRT-5028",nome:"Estante modular 5 nichos",preco:980.00},
+];
+const AMBIENTES=["Sala","Quarto","Home office","Varanda","Sala de jantar"];
+const NOMES=["Renata A.","Marcos V.","Juliana P.","Thiago M.","Camila R.","Eduardo S.","Patrícia L.","Rafael D."];
+
+const brl=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[m]));
+const utf8=s=>new TextEncoder().encode(s);
+function aviso(m){const t=document.getElementById("toast");t.textContent=m;t.classList.add("on");
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove("on"),2800);}
+
+/* ═══════════ ZIP: escrita (store) ═══════════ */
+const CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;
+  for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC_T[(c^b[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+
+function zipWrite(arqs){
+  const loc=[],cen=[];let off=0;
+  for(const a of arqs){
+    const nome=utf8(a.nome),d=a.dados,crc=crc32(d);
+    const lh=new DataView(new ArrayBuffer(30));
+    lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);
+    lh.setUint16(8,0,true);lh.setUint32(14,crc,true);
+    lh.setUint32(18,d.length,true);lh.setUint32(22,d.length,true);lh.setUint16(26,nome.length,true);
+    loc.push(new Uint8Array(lh.buffer),nome,d);
+    const ch=new DataView(new ArrayBuffer(46));
+    ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);
+    ch.setUint16(8,0x0800,true);ch.setUint16(10,0,true);ch.setUint32(16,crc,true);
+    ch.setUint32(20,d.length,true);ch.setUint32(24,d.length,true);ch.setUint16(28,nome.length,true);
+    ch.setUint32(42,off,true);
+    cen.push(new Uint8Array(ch.buffer),nome);
+    off+=30+nome.length+d.length;
+  }
+  const tc=cen.reduce((s,b)=>s+b.length,0);
+  const fim=new DataView(new ArrayBuffer(22));
+  fim.setUint32(0,0x06054b50,true);fim.setUint16(8,arqs.length,true);fim.setUint16(10,arqs.length,true);
+  fim.setUint32(12,tc,true);fim.setUint32(16,off,true);
+  const partes=[...loc,...cen,new Uint8Array(fim.buffer)];
+  const tot=partes.reduce((s,b)=>s+b.length,0),out=new Uint8Array(tot);
+  let p=0;for(const b of partes){out.set(b,p);p+=b.length;}
+  return out;
+}
+
+/* ═══════════ ZIP: leitura (store + deflate) ═══════════ */
+async function zipRead(buf){
+  const dv=new DataView(buf),u8=new Uint8Array(buf);
+  let eocd=-1;
+  for(let i=u8.length-22;i>=0;i--){ if(dv.getUint32(i,true)===0x06054b50){eocd=i;break;} }
+  if(eocd<0) throw new Error("Não parece um .xlsx válido.");
+  const n=dv.getUint16(eocd+10,true);
+  let p=dv.getUint32(eocd+16,true);
+  const saida=[];
+  for(let i=0;i<n;i++){
+    if(dv.getUint32(p,true)!==0x02014b50) throw new Error("Diretório do arquivo corrompido.");
+    const metodo=dv.getUint16(p+10,true);
+    const compSize=dv.getUint32(p+20,true);
+    const nomeLen=dv.getUint16(p+28,true);
+    const extraLen=dv.getUint16(p+30,true);
+    const cmtLen=dv.getUint16(p+32,true);
+    const localOff=dv.getUint32(p+42,true);
+    const nome=new TextDecoder().decode(u8.subarray(p+46,p+46+nomeLen));
+    // cabeçalho local tem tamanhos próprios de nome/extra
+    const lNomeLen=dv.getUint16(localOff+26,true);
+    const lExtraLen=dv.getUint16(localOff+28,true);
+    const ini=localOff+30+lNomeLen+lExtraLen;
+    let dados=u8.subarray(ini,ini+compSize);
+    if(metodo===8){
+      const ds=new DecompressionStream("deflate-raw");
+      const blob=new Blob([dados]).stream().pipeThrough(ds);
+      dados=new Uint8Array(await new Response(blob).arrayBuffer());
+    } else if(metodo!==0){
+      throw new Error("Compressão não suportada no arquivo modelo.");
+    }
+    saida.push({nome,dados});
+    p+=46+nomeLen+extraLen+cmtLen;
+  }
+  return saida;
+}
+
+/* ═══════════ XLSX ═══════════ */
+/** Letra da coluna a partir do índice 0. Passa de Z: 26 -> AA. */
+function colLetra(i){
+  let s="",n=i+1;
+  while(n>0){ const r=(n-1)%26; s=String.fromCharCode(65+r)+s; n=Math.floor((n-1)/26); }
+  return s;
+}
+
+function linhasXml(linhas,inicio){
+  return linhas.map((linha,idx)=>{
+    const r=inicio+idx;
+    const cel=linha.map((v,ci)=>{
+      const col=colLetra(ci);
+      if(v===null||v===undefined||v==="") return "";
+      return typeof v==="number"
+        ? `<c r="${col}${r}"><v>${v}</v></c>`
+        : `<c r="${col}${r}" t="inlineStr"><is><t xml:space="preserve">${esc(v)}</t></is></c>`;
+    }).join("");
+    return `<row r="${r}">${cel}</row>`;
+  }).join("");
+}
+
+/** Planilha nova, do zero — usada para os itens de pedido. */
+function xlsxNovo(linhas,aba){
+  const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>${linhasXml(linhas,1)}</sheetData></worksheet>`;
+  const wb=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="${esc(aba)}" sheetId="1" r:id="rId1"/></sheets></workbook>`;
+  const wbr=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>`;
+  const rels=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`;
+  const ct=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>`;
+  return zipWrite([
+    {nome:"[Content_Types].xml",dados:utf8(ct)},
+    {nome:"_rels/.rels",dados:utf8(rels)},
+    {nome:"xl/workbook.xml",dados:utf8(wb)},
+    {nome:"xl/_rels/workbook.xml.rels",dados:utf8(wbr)},
+    {nome:"xl/worksheets/sheet1.xml",dados:utf8(sheet)},
+  ]);
+}
+
+/* --- modelo do Mercos: preserva tudo, só acrescenta linhas na 1ª aba --- */
+let MODELO=null;   // {partes, alvo, cabecalho, primeiraLinhaVazia}
+
+function alvoDaPrimeiraAba(partes){
+  // a 1ª aba é a que o workbook lista primeiro; resolve pelo rels
+  const dec=new TextDecoder();
+  const wb=partes.find(p=>p.nome==="xl/workbook.xml");
+  const rel=partes.find(p=>p.nome==="xl/_rels/workbook.xml.rels");
+  if(!wb||!rel) return "xl/worksheets/sheet1.xml";
+  const rid=(dec.decode(wb.dados).match(/<sheet[^>]*r:id="([^"]+)"/)||[])[1];
+  if(!rid) return "xl/worksheets/sheet1.xml";
+  const alvo=(dec.decode(rel.dados)
+    .match(new RegExp(`Id="${rid}"[^>]*Target="([^"]+)"`))||[])[1];
+  if(!alvo) return "xl/worksheets/sheet1.xml";
+  return "xl/" + alvo.replace(/^\/?xl\//,"").replace(/^\//,"");
+}
+
+function lerCabecalho(sheetXml,partes){
+  const dec=new TextDecoder();
+  // strings compartilhadas, se houver
+  const ss=partes.find(p=>p.nome==="xl/sharedStrings.xml");
+  let tabela=[];
+  if(ss){
+    tabela=[...dec.decode(ss.dados).matchAll(/<si>([\s\S]*?)<\/si>/g)]
+      .map(m=>[...m[1].matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map(x=>x[1]).join(""));
+  }
+  const linha1=(sheetXml.match(/<row[^>]*\br="1"[^>]*>([\s\S]*?)<\/row>/)||[])[1]||"";
+  // O atributo t vem em qualquer posição do <c>, e a célula pode ser autofechada.
+  // Por isso os atributos são lidos separados do corpo.
+  const cols=[...linha1.matchAll(/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)].map(m=>{
+    const attrs=m[1]||"", corpo=m[2]||"";
+    const tipo=(attrs.match(/\bt="([^"]+)"/)||[])[1];
+    if(tipo==="s"){                                   // string compartilhada
+      const i=+((corpo.match(/<v>(\d+)<\/v>/)||[])[1]);
+      return tabela[i]??"";
+    }
+    const t=corpo.match(/<t[^>]*>([\s\S]*?)<\/t>/);   // inlineStr, e também str
+    if(t) return t[1];
+    const v=corpo.match(/<v>([\s\S]*?)<\/v>/);
+    return v?v[1]:"";
+  });
+  return cols.map(desescapar);
+}
+
+const desescapar=s=>String(s).replace(/&lt;/g,"<").replace(/&gt;/g,">")
+  .replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&amp;/g,"&");
+
+document.getElementById("c-modelo").addEventListener("change", async e=>{
+  const f=e.target.files[0];
+  const info=document.getElementById("c-modelo-info");
+  const btn=document.getElementById("c-xlsx-prod");
+  if(!f){MODELO=null;btn.disabled=true;info.textContent="";return;}
+  try{
+    const partes=await zipRead(await f.arrayBuffer());
+    const alvo=alvoDaPrimeiraAba(partes);
+    const parte=partes.find(p=>p.nome===alvo);
+    if(!parte) throw new Error("Não encontrei a primeira aba dentro do arquivo.");
+    const xml=new TextDecoder().decode(parte.dados);
+    const cab=lerCabecalho(xml,partes);
+    if(!cab.length) throw new Error("A primeira linha do modelo está vazia — não achei o cabeçalho.");
+    const rs=[...xml.matchAll(/<row[^>]*r="(\d+)"/g)].map(m=>+m[1]);
+    MODELO={partes,alvo,xml,cabecalho:cab,ultima:rs.length?Math.max(...rs):1};
+
+    // O Mercos rejeita célula vazia em coluna obrigatória. Avisa antes de gerar.
+    const semDado=cab.filter(c=>/obrigat/i.test(c) && mapearColuna(c)({cod:"x",nome:"x",preco:1})==="");
+    const alerta=semDado.length
+      ? `<br><span style="color:var(--stop);font-weight:600">Atenção:
+         ${semDado.length} coluna(s) obrigatória(s) sem correspondente no catálogo —
+         ${semDado.map(esc).join(", ")}. Preencha à mão antes de subir.</span>`
+      : `<br><span style="color:var(--ok);font-weight:600">Todas as colunas obrigatórias têm correspondente.</span>`;
+
+    info.innerHTML=`Modelo lido: <strong>${cab.length} colunas</strong>, primeira aba
+      <code>${esc(alvo.split("/").pop())}</code>. Cabeçalho preservado como está.
+      <br><span style="color:var(--ink-3)">${cab.slice(0,6).map(esc).join(" · ")}${cab.length>6?" …":""}</span>${alerta}`;
+    btn.disabled=false;
+  }catch(err){
+    MODELO=null;btn.disabled=true;
+    info.innerHTML=`<span style="color:var(--stop)">${esc(err.message)}</span>`;
+  }
+});
+
+/** Casa os campos do catálogo com as colunas do modelo, pelo nome do cabeçalho. */
+function mapearColuna(nomeColuna){
+  const n=nomeColuna.toLowerCase();
+  if(/c[óo]digo/.test(n)) return p=>p.cod;
+  if(/descri[çc][ãa]o|nome|produto/.test(n)) return p=>p.nome;
+  if(/pre[çc]o|valor/.test(n)) return p=>p.preco;
+  return ()=>"";                       // coluna não reconhecida fica vazia
+}
+
+document.getElementById("c-xlsx-prod").addEventListener("click", async ()=>{
+  if(!MODELO) return;
+  const sel=selecionados();
+  if(!sel.length){aviso("Selecione ao menos um produto.");return;}
+
+  const fns=MODELO.cabecalho.map(mapearColuna);
+  const novas=sel.map(p=>fns.map(f=>f(p)));
+  const inicio=MODELO.ultima+1;
+  const xmlNovo=MODELO.xml.replace(/<\/sheetData>/,linhasXml(novas,inicio)+"</sheetData>");
+
+  const partes=MODELO.partes.map(p=>
+    p.nome===MODELO.alvo ? {nome:p.nome,dados:utf8(xmlNovo)} : p);
+
+  const nome=`PopCom_Produtos_${document.getElementById("c-marca").value}_Mercos.xlsx`;
+  await baixar(nome, zipWrite(partes));
+});
+
+async function baixar(nome,bytes){
+  const d=await (window.claude?.use?.("downloads") ?? Promise.resolve(null));
+  if(!d){aviso("Download indisponível nesta visualização.");return false;}
+  try{ await d.save({filename:nome,data:bytes}); aviso("Planilha gerada."); return true; }
+  catch(e){ aviso("Download não concluído."); return false; }
+}
+
+/* ═══════════ Campanhas: catálogo e lâmina ═══════════ */
+const escolhidos=new Set();
+const selecionados=()=>CATALOGO.filter(p=>escolhidos.has(p.cod));
+
+function pintarCatalogo(){
+  const q=document.getElementById("c-busca").value.trim().toLowerCase();
+  const lista=CATALOGO.filter(p=>!q||p.cod.toLowerCase().includes(q)||p.nome.toLowerCase().includes(q));
+  document.getElementById("c-catalogo").innerHTML=lista.map(p=>`
+    <tr class="click ${escolhidos.has(p.cod)?"sel":""}" data-cod="${p.cod}">
+      <td><input type="checkbox" ${escolhidos.has(p.cod)?"checked":""} aria-label="${esc(p.nome)}"></td>
+      <td class="mono" style="font-size:12.5px">${p.cod}</td>
+      <td>${esc(p.nome)}</td>
+      <td class="r mono">${brl(p.preco)}</td>
+    </tr>`).join("");
+  document.getElementById("c-conta").textContent=escolhidos.size;
+  pintarLamina();
+}
+
+function pintarLamina(){
+  const sel=selecionados();
+  document.getElementById("l-marca").textContent=document.getElementById("c-marca").value;
+  document.getElementById("l-nome").textContent=document.getElementById("c-nome").value||"—";
+  document.getElementById("l-periodo").textContent=
+    `${document.getElementById("c-ini").value} — ${document.getElementById("c-fim").value}`;
+  document.getElementById("l-grid").innerHTML = sel.length ? sel.map(p=>`
+    <div class="lam-item">
+      <div class="lam-cod">${p.cod}</div>
+      <div class="lam-nome">${esc(p.nome)}</div>
+      <div class="lam-preco">${brl(p.preco)}</div>
+    </div>`).join("") :
+    `<p style="color:#78848C;font-size:13.5px;grid-column:1/-1;margin:0">Nenhum produto selecionado.</p>`;
+  document.getElementById("l-conta").textContent=`${sel.length} ${sel.length===1?"item":"itens"}`;
+}
+
+document.getElementById("c-catalogo").addEventListener("click",e=>{
+  const tr=e.target.closest("tr"); if(!tr) return;
+  const cod=tr.dataset.cod;
+  escolhidos.has(cod)?escolhidos.delete(cod):escolhidos.add(cod);
+  pintarCatalogo();
+});
+document.getElementById("c-busca").addEventListener("input",pintarCatalogo);
+["c-marca","c-nome","c-ini","c-fim"].forEach(id=>
+  document.getElementById(id).addEventListener("input",pintarLamina));
+document.getElementById("c-todos").addEventListener("click",()=>{
+  CATALOGO.forEach(p=>escolhidos.add(p.cod));pintarCatalogo();});
+document.getElementById("c-limpar").addEventListener("click",()=>{
+  escolhidos.clear();pintarCatalogo();});
+document.getElementById("c-imprimir").addEventListener("click",()=>window.print());
+
+/* ═══════════ Pedidos ═══════════ */
+const fila=document.getElementById("fila");
+let sel=null;
+const itensDe=tr=>JSON.parse(tr.dataset.itens);
+const totalDe=i=>i.reduce((s,x)=>s+x.qtd*x.preco,0);
+
+function inserirPedido(p){
+  const tr=document.createElement("tr");
+  tr.className="click";
+  tr.dataset.codigo=p.codigo;tr.dataset.itens=JSON.stringify(p.itens);tr.dataset.status="novo";
+  tr.tabIndex=0;
+  const q=p.itens.reduce((s,i)=>s+i.qtd,0);
+  tr.innerHTML=`<td style="font-weight:600">${esc(p.cliente)}</td>
+    <td style="font-size:12.5px;color:var(--ink-2)">${esc(p.ambiente)}</td>
+    <td class="r mono">${q}</td><td class="r mono">${brl(totalDe(p.itens))}</td>
+    <td><span class="pill" data-s="novo">novo</span></td>`;
+  fila.prepend(tr);return tr;
+}
+
+function abrir(tr){
+  if(sel)sel.classList.remove("sel");
+  sel=tr;tr.classList.add("sel");
+  const itens=itensDe(tr);
+  document.getElementById("p-codigo").textContent=tr.dataset.codigo;
+  document.getElementById("p-corpo").innerHTML=`
+    <div style="overflow-x:auto"><table style="font-size:13.5px">
+      <thead><tr><th>Código</th><th>Produto</th><th class="r">Qtd</th><th class="r">Subtotal</th></tr></thead>
+      <tbody>${itens.map(i=>`<tr><td class="mono">${i.cod}</td><td>${esc(i.nome)}</td>
+        <td class="r mono">${i.qtd}</td><td class="r mono">${brl(i.qtd*i.preco)}</td></tr>`).join("")}</tbody>
+      <tbody><tr><td colspan="2" style="font-weight:700;border-top:2px solid var(--line)">Total</td>
+        <td class="r mono" style="font-weight:700;border-top:2px solid var(--line)">${itens.reduce((s,i)=>s+i.qtd,0)}</td>
+        <td class="r mono" style="font-weight:700;border-top:2px solid var(--line)">${brl(totalDe(itens))}</td></tr></tbody>
+    </table></div>`;
+  document.getElementById("p-revisar").disabled=tr.dataset.status!=="novo";
+  document.getElementById("p-xlsx").disabled=false;
+}
+
+fila.addEventListener("click",e=>{const tr=e.target.closest("tr");if(tr&&fila.contains(tr))abrir(tr);});
+fila.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;
+  const tr=e.target.closest("tr");if(tr&&fila.contains(tr)){e.preventDefault();abrir(tr);}});
+
+function status(tr,s){tr.dataset.status=s;const p=tr.querySelector(".pill");p.dataset.s=s;p.textContent=s;}
+
+document.getElementById("p-revisar").addEventListener("click",()=>{
+  if(!sel)return;status(sel,"revisado");abrir(sel);aviso("Pedido marcado como revisado.");});
+
+document.getElementById("p-xlsx").addEventListener("click",async()=>{
+  if(!sel)return;
+  const itens=itensDe(sel);
+  if(itens.length>100){aviso("O Mercos aceita 100 linhas por importação. Divida o pedido.");return;}
+  const linhas=[["Código do produto","Quantidade"],...itens.map(i=>[i.cod,i.qtd])];
+  if(await baixar(`PopCom_${sel.dataset.codigo}_Mercos.xlsx`,xlsxNovo(linhas,"Pedido"))){
+    status(sel,"exportado");abrir(sel);
+  }
+});
+
+document.getElementById("p-demo").addEventListener("click",()=>{
+  const n=2+Math.floor(Math.random()*4);
+  const itens=[...CATALOGO].sort(()=>Math.random()-.5).slice(0,n)
+    .map(p=>({cod:p.cod,nome:p.nome,preco:p.preco,qtd:1+Math.floor(Math.random()*2)}));
+  abrir(inserirPedido({
+    codigo:"PC-"+String(Date.now()).slice(-6),
+    cliente:NOMES[Math.floor(Math.random()*NOMES.length)],
+    ambiente:AMBIENTES[Math.floor(Math.random()*AMBIENTES.length)],
+    itens}));
+  aviso("Pedido recebido na fila.");
+});
+
+function contarFila(){
+  document.getElementById("p-vazio").style.display=fila.querySelector("tr")?"none":"";
+}
+new MutationObserver(contarFila).observe(fila,{childList:true,subtree:true});
+
+/* ═══════════ Abas ═══════════ */
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",String(x===t)));
+  document.getElementById("pane-camp").hidden = t.dataset.tab!=="camp";
+  document.getElementById("pane-ped").hidden  = t.dataset.tab!=="ped";
+}));
+
+pintarCatalogo();
+contarFila();

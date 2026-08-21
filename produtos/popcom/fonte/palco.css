@@ -1,0 +1,45 @@
+/* ═══════════ Palco 3D ═══════════ */
+.palco-wrap{position:relative;border-radius:var(--r);overflow:hidden;background:#0B0D10;
+  border:1px solid var(--line);box-shadow:var(--shadow)}
+#palco{display:block;width:100%;height:min(62vh,560px);touch-action:none;cursor:grab}
+#palco:active{cursor:grabbing}
+.palco-vazio{position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  color:#9AA6AE;font-size:14px;padding:24px;pointer-events:none}
+.palco-sel{position:absolute;top:12px;left:14px;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;color:#C9A257;background:rgba(11,13,16,.72);
+  padding:5px 10px;border-radius:999px;backdrop-filter:blur(6px)}
+.rec-dot{position:absolute;top:12px;right:14px;display:none;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:700;color:#fff;background:rgba(150,32,42,.9);
+  padding:5px 11px;border-radius:999px}
+.rec-dot.on{display:flex}
+.rec-dot::before{content:"";width:8px;height:8px;border-radius:50%;background:#fff;
+  animation:pulsa 1s infinite}
+@keyframes pulsa{50%{opacity:.25}}
+
+/* ── dock (padrão 21st.dev) ── */
+.dock{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;
+  align-items:flex-end;gap:8px;padding:9px 13px;border-radius:16px;
+  background:rgba(18,22,27,.74);backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.09);box-shadow:0 10px 34px -10px rgba(0,0,0,.7);z-index:5}
+.dock-btn{width:42px;height:42px;border-radius:12px;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.06);color:#E7ECEF;display:grid;place-items:center;
+  transition:background .15s,border-color .15s;transform-origin:bottom center;position:relative}
+.dock-btn:hover{background:rgba(201,162,87,.2);border-color:rgba(201,162,87,.45)}
+.dock-btn[disabled]{opacity:.35;cursor:not-allowed}
+.dock-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round}
+.dock-btn::after{content:attr(data-rot);position:absolute;bottom:calc(100% + 9px);left:50%;
+  transform:translateX(-50%);background:#12161B;color:#E7ECEF;font-size:11.5px;font-weight:600;
+  padding:4px 9px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;
+  transition:opacity .14s;border:1px solid rgba(255,255,255,.1)}
+.dock-btn:hover::after{opacity:1}
+.dock-sep{width:1px;align-self:stretch;margin:4px 3px;background:rgba(255,255,255,.12)}
+
+@media (prefers-reduced-motion:reduce){
+  .rec-dot::before{animation:none}
+  .dock-btn{transition:none}
+}
+@media (max-width:900px){
+  #palco{height:min(52vh,430px)}
+  .dock-btn{width:44px;height:44px}
+}
