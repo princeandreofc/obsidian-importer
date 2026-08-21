@@ -16,3 +16,11 @@ contexto, escreva na mesma linha depois de ` — `.
 - 21/08 — https://www.instagram.com/p/DcOGDRgkhj6/ (gowtham_techie, 22%)
 - 21/08 — https://www.instagram.com/p/Dbvj6qejZq2/ (grafikcem, 1,7%)
 - 21/08 — https://www.instagram.com/reel/Db81wkIujaN/ — MURO DE LOGIN, não lido
+- 21/08 — textura.eu (legenda colada, sem link; perfil deu 429)
+- 21/08 — https://www.instagram.com/reel/Db8cNRlgMG3/ (insiderforce, 113%)
+- 21/08 — https://www.instagram.com/reel/DalFsLqiTRR/ (buildwithwilly, 72%)
+- 21/08 — https://www.instagram.com/reel/DbvxpivhCl2/ (polanaeem.tech, 26%)
+- 21/08 — https://www.instagram.com/reel/DbeYtWwDrHh/ — MURO DE LOGIN
+- 21/08 — https://www.instagram.com/reel/DYkGMNFx1HO/ — MURO DE LOGIN
+- 21/08 — https://www.instagram.com/reel/Db4Gpb2tpfA/ — MURO DE LOGIN
+- 21/08 — https://www.instagram.com/reel/DcOs3VwRK0B/ — MURO DE LOGIN
