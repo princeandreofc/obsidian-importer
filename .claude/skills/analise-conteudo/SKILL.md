@@ -58,15 +58,45 @@ NÃO VERIFICADO
 
 É o indicador mais revelador e quase ninguém olha.
 
-| Proporção | Leitura |
-|---|---|
-| 1–3% | orgânico normal |
-| 4–10% | conteúdo que gerou conversa real, ou tema polêmico |
-| acima de 20% | **mecânica de engajamento** — comentário exigido para liberar algo |
-| acima de 50% | o post existe para colher comentário; o conteúdo é o pedágio |
+**Leia sempre junto com o que a legenda pede.** O número sozinho classifica
+errado — isso foi verificado em caso real, não é hipótese.
 
-Proporção alta não significa conteúdo bom. Significa desenho eficiente. Diga
-qual dos dois é — o usuário decide se quer replicar.
+Primeiro identifique o pedido da legenda:
+
+| A legenda pede | Então proporção alta significa |
+|---|---|
+| **comentário** ("comente X e eu envio") | mecânica de engajamento — pedágio |
+| **save**, ou não pede nada | conversa real, marcação de colega, debate |
+
+Só então aplique a faixa:
+
+| Proporção | Com pedido de comentário | Com pedido de save, ou sem pedido |
+|---|---|---|
+| 1–3% | pedágio que não funcionou | orgânico normal |
+| 4–10% | pedágio fraco | boa conversa |
+| acima de 20% | pedágio funcionando | conteúdo altamente marcável ou polêmico |
+| acima de 50% | o conteúdo é só o pedágio | raríssimo; investigue antes de concluir |
+
+Caso que gerou esta regra: `gowtham_techie` teve 22% pedindo **save**, sem
+pedágio nenhum — carrossel de ferramentas de dev, altamente marcável. A tabela
+antiga o classificaria como mecânica de engajamento, e estaria errada.
+
+### A regra do que é retido
+
+Quando há pedágio, o resultado é proporcional ao que fica retido — não à
+existência do pedágio.
+
+| Reteve | Resultado observado |
+|---|---|
+| o método inteiro (kallawaymarketing) | 96% |
+| um item de cinco, com quatro já entregues (grafikcem) | 1,7% |
+
+Mesma técnica, 56× de diferença. Ao avaliar se vale replicar, pergunte **o que
+sobra sem o comentário** — se sobra quase tudo, o pedágio não vai funcionar.
+
+Proporção alta não significa conteúdo bom. Significa desenho eficiente, ou
+assunto que provoca conversa. Diga qual dos três é — o usuário decide se quer
+replicar.
 
 ## Saída do conjunto
 
