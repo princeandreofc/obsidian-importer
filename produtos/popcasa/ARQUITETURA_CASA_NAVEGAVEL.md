@@ -20,8 +20,76 @@ Pesquisa nas fontes públicas:
 **Nenhum dos dois vende móvel.** E o cliente da Camargo **é loja**, não
 consumidor final — eles são atacado atendendo varejo.
 
-*Confirmar se algum desses pontos estiver errado; o resto do documento depende
-deles.*
+### CONFIRMADO em 21/08 nas páginas oficiais
+
+Camargo & Pinheiro Prestação de Serviços Ltda · CNPJ 16.982.913/0001-90 ·
+desde 01/10/2012 · contato 48 99988-2213.
+
+O site declara as categorias: **artigos decorativos, plantas permanentes,
+presentes e utilidades domésticas**. E descreve o serviço em termos que
+importam para nós — *"suporte personalizado focado nas necessidades da loja"*,
+*"orientação prática sobre exposição e vendas"*, *"visitas presenciais com
+portfólio e suporte"*.
+
+### O MIX REAL, por região
+
+| Marca | Categoria | RJ | SC |
+|---|---|:--:|:--:|
+| **mART** | Home Decor | ✓ | ✓ |
+| **VIA AROMA** | Aromatização de ambientes | ✓ | ✓ |
+| **Vertí** | Plantas Permanentes | ✓ | ✓ |
+| **fullfit** | Utilidades Domésticas | ✓ | ✓ |
+| **ST. JAMES** | Utilidades | ✓ | ✓ |
+| **DINATALE** | Natal e Páscoa | ✓ | ✓ |
+| **studio L** | Colares Decorativos | — | ✓ |
+| **buba** | Linha Infantil | — | ✓ |
+
+Seis marcas comuns, duas exclusivas de Santa Catarina.
+
+### Três coisas que esse mix revela
+
+**1. É um sistema de ambientação completo, não um sortimento aleatório.**
+Vaso e decoração, planta permanente, aroma, utilidade, sazonal, infantil. **Dá
+para vestir um ambiente inteiro só com o que a Camargo representa** — sem
+depender de marca externa nenhuma. A casa navegável não precisa de catálogo de
+terceiro para ficar completa.
+
+**2. DINATALE é a demonstração que fecha.** Natal e Páscoa é a compra de maior
+urgência, maior margem e prazo mais curto que um lojista de decoração faz — e
+ela acontece **meses antes**, porque o lojista precisa *imaginar* a loja
+vestida. A ferramenta elimina o imaginar.
+
+Mostrar em agosto o ambiente montado de Natal, com o produto que ele vai pedir,
+é o argumento mais forte disponível. E se repete todo ano, duas vezes — o que
+transforma a ferramenta de entrega única em motivo recorrente de retorno.
+
+**3. O mix muda por região, e isso vira requisito.** Lojista do RJ não pode ver
+`studio L` nem `buba`, que ele não consegue pedir. **Filtro por região é
+obrigatório, não enfeite** — produto visível e não pedível queima credibilidade
+na hora.
+
+### Um limite honesto: VIA AROMA
+
+Aromatização não se renderiza. O difusor e a embalagem são objetos como
+qualquer outro; o cheiro não é. Tratar pela apresentação — o objeto na cena, a
+descrição na ficha — e não tentar representar o irrepresentável.
+
+### E o que a ferramenta substitui, nas palavras deles
+
+*"Visitas presenciais com portfólio"* e *"orientação prática sobre exposição"*.
+A Camargo atende RJ e SC com telefone 48 — opera à distância e viaja para
+mostrar portfólio. **A ferramenta é a visita, sem o deslocamento** — e roda
+para todas as lojas ao mesmo tempo.
+
+### O que não deu para ler
+
+`martcollection.com.br` devolve **503 em toda tentativa automática**, inclusive
+`/produtos/`, `/catalogos/guia-de-compras/`, o LP `/decor/` e a área do cliente.
+A página `/catalogo-2026/` devolve só a navegação — conteúdo montado por
+JavaScript. Proteção contra robô, não indisponibilidade.
+
+**Consequência prática:** os dados de produto da MART **têm que vir de
+`vendas/`**, do seu Mac ou da área do cliente logada. Não há caminho automático.
 
 ### O que isso muda — e quase tudo muda para melhor
 
@@ -262,11 +330,8 @@ com a realidade do lojista; demo com peça de exceção parece catálogo de sonh
 
 ## 5. O que preciso de você
 
-**Confirmação do §0** — se Camargo é atacado de decoração e MART é vaso e
-planta permanente, ou se errei em algo.
-
-**Quais marcas a Camargo trabalha além da MART** — este foi seu ponto, e virou
-o §4.
+**§0 confirmado nas fontes oficiais** — e o mix das oito marcas está mapeado.
+Só me diga se houver marca que o site não lista, ou região além de RJ e SC.
 
 **O catálogo.** `vendas/` está no seu Mac; nenhuma sessão em nuvem alcança:
 
