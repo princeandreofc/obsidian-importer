@@ -12,4 +12,7 @@ contexto, escreva na mesma linha depois de ` — `.
 
 ## Analisados
 
-(o briefing move para cá, com a data e o link do achado)
+- 21/08 — https://www.instagram.com/reel/DZU1D_8OI62/ (kallawaymarketing, 96%)
+- 21/08 — https://www.instagram.com/p/DcOGDRgkhj6/ (gowtham_techie, 22%)
+- 21/08 — https://www.instagram.com/p/Dbvj6qejZq2/ (grafikcem, 1,7%)
+- 21/08 — https://www.instagram.com/reel/Db81wkIujaN/ — MURO DE LOGIN, não lido
