@@ -6,6 +6,66 @@
 
 ---
 
+## 0. Correção de premissa — pesquisa de 21/08
+
+**A primeira versão deste documento assumiu showroom de móveis. Está errado.**
+
+Pesquisa nas fontes públicas:
+
+| Quem | O que é | O que vende |
+|---|---|---|
+| **Camargo & Pinheiro** | representação comercial / atacado, desde 2012 | itens decorativos, plantas permanentes, presentes, utilidades domésticas |
+| **MART (Mart Collection)** | marca brasileira de decoração | vasos, plantas e flores artificiais, objetos e acessórios decorativos |
+
+**Nenhum dos dois vende móvel.** E o cliente da Camargo **é loja**, não
+consumidor final — eles são atacado atendendo varejo.
+
+*Confirmar se algum desses pontos estiver errado; o resto do documento depende
+deles.*
+
+### O que isso muda — e quase tudo muda para melhor
+
+**1. Os SKUs de demonstração atuais estão errados.** O Pop Campanhas hoje traz
+`MRT-1042 Sofá retrátil`, `MRT-1088 Poltrona giratória`, `MRT-2011 Mesa de
+centro`. Se o catálogo real é vaso e planta permanente, mostrar isso à Camargo
+sinaliza que não conhecemos o negócio deles. **Trocar antes de qualquer
+apresentação.**
+
+**2. O problema do 3D praticamente evapora.** Vaso e objeto decorativo são
+pequenos e fotografáveis em mesa giratória com celular. Fotogrametria nessa
+escala é viável de verdade — ao contrário de sofá. E vaso liso é quase sólido de
+revolução: dá para reconstruir com base geométrica honesta, não por invenção.
+
+O "giro sob o produto" sai de **dependência bloqueante** para **tarefa de
+produção**. Muda o risco do projeto inteiro.
+
+**3. A casa inverte de papel.** Não é showroom de móvel — é **tela de
+ambientação**. O móvel é **cenário**; a decoração é **produto**. Consequência
+direta no orçamento de detalhe:
+
+| Elemento | Papel | Investimento |
+|---|---|---|
+| Cômodo e mobília | contexto neutro | baixo — genérico serve, e serve melhor |
+| Objeto decorativo | **o produto** | alto — é o que o cliente compra |
+
+Não é preciso modelar duzentos sofás. São precisos **poucos cômodos neutros bem
+feitos e muitos objetos pequenos bem capturados**. Ordens de grandeza mais
+barato, e escalável de verdade.
+
+**4. A ferramenta É a proposta de valor da Camargo.** O site deles declara:
+*"suporte personalizado focado nas necessidades das lojas, incluindo dicas
+práticas de exposição, ambientação e vendas."*
+
+Uma casa navegável onde o lojista vê a decoração arranjada em ambientes **é esse
+serviço, produtizado e rodando sozinho**. Isso reposiciona a fase 2 inteira: não
+é *"olha essa ferramenta"*, é *"seu serviço de ambientação, disponível para cada
+loja cliente, o tempo todo, sem consultor presente."*
+
+**5. Pergunta em aberto: casa ou vitrine?** O cliente da Camargo é lojista. Ele
+quer ver como fica **na casa do consumidor dele** (para vender) ou **na loja
+dele** (para expor)? Os dois se defendem, e talvez sejam dois modos do mesmo
+produto. **Decisão sua — muda qual é o primeiro ambiente.**
+
 ## 1. O que realmente fecha negócio B2B
 
 Vale separar duas coisas que costumam ser confundidas, porque a diferença
@@ -38,16 +98,20 @@ dele.
 
 ## 2. A dependência crítica: de onde vem o 3D dos produtos
 
-**Este é o ponto que pode quebrar o projeto na frente da MART. Precisa ser
-decidido antes de qualquer linha de código.**
+**Reavaliado após o §0.** O risco caiu muito: objeto decorativo pequeno é
+capturável; sofá não era. O que segue valendo é a regra — não inventar
+aparência de produto real. O caminho mudou de "impossível sem a MART" para
+"produção fotográfica que nós mesmos especificamos".
 
 O pedido é "giro sob o produto". Giro de 360° exige uma de três coisas:
 
-| Origem | Existe hoje? | Risco |
+| Origem | Viável para decoração? | Observação |
 |---|---|---|
-| Modelo 3D real do produto | **provavelmente não** — catálogo é foto 2D | — |
-| Sequência de fotos multiângulo | raro em catálogo comercial | — |
-| 3D gerado por IA a partir de foto | tecnicamente possível | **inaceitável** |
+| Mesa giratória + celular | **sim** | objeto pequeno; 24–36 fotos bastam |
+| Fotogrametria | **sim** | escala favorável, ao contrário de móvel |
+| Sólido de revolução a partir de 2 vistas | **sim, para vaso liso** | base geométrica real |
+| Modelo 3D fornecido pela MART | talvez | perguntar; muda o custo da fase 3 |
+| 3D gerado por IA a partir de uma foto | **não** | inventa o que não foi visto |
 
 **Por que a terceira opção está fora.** Gerar o verso de um sofá que só foi
 fotografado de frente é **inventar a aparência de um produto real de um
@@ -144,34 +208,77 @@ A casa é a vitrine; a loja é a operação.
 
 ## 4. As três fases, casadas com o plano comercial
 
+### Multibrand não é detalhe — é o produto
+
+Seu ponto: *"temos que ver as marcas que ele trabalha antes de iniciar, e fazer
+uma real como demo para eles também, com o que trabalham no dia a dia."*
+
+Isso é mais forte do que parece, e reordena as fases.
+
+**Demo só com MART é ferramenta da MART.** A Camargo olha e vê o ativo de um
+fornecedor. **Demo com o mix real dela é a vitrine dela** — e aí a conversa
+muda de categoria.
+
+Há um motivo estrutural: o valor de um representante **é a curadoria entre
+marcas**. Ferramenta que só lê um fornecedor é peça de marketing daquele
+fornecedor. Ferramenta que lê o mix inteiro é o instrumento de venda do
+representante — vale mais, e é muito mais difícil de substituir.
+
+**E inverte a posição na fase 3.** Em vez de chegar à MART pedindo modelos 3D,
+chega-se dizendo: *"seu catálogo divide ambiente com as outras marcas que a
+Camargo representa. Quem tem 3D, gira. Quem não tem, não."* Isso é entrada por
+necessidade demonstrada — e por comparação com concorrente, que é o argumento
+mais eficaz que existe com fabricante.
+
+Por isso a fase 1 **precisa** do mix real, não só da MART.
+
+### As fases
+
 | Fase | Para quem | Escopo | Depende de |
 |---|---|---|---|
-| **1 — Piloto** | seus clientes comerciais | hall + 3 cômodos, SKUs reais MART, navegação, inspetor, exportação | catálogo em `vendas/` |
-| **2 — Camargo e Pinheiro** | parceiro MART | catálogo e marca deles, mais cômodos | aceite da fase 1 |
-| **3 — MART** | fabricante | catálogo completo, 3D real dos produtos | modelos 3D da MART |
+| **1 — Piloto** | seus clientes comerciais | 3 ambientes, **mix real de marcas** da Camargo, navegação, inspetor, exportação | catálogo em `vendas/` |
+| **2 — Camargo e Pinheiro** | o representante | marca deles, catálogo completo, mais ambientes | aceite da fase 1 |
+| **3 — MART** | o fabricante | 3D real do catálogo MART, destaque frente às outras marcas | modelos ou protocolo de captura |
 
 A fase 1 precisa ser **excelente e barata**, porque é trabalho especulativo. A
-excelência vem de luz, escala e acabamento — não de volume de conteúdo. Três
-cômodos impecáveis fecham mais que dez medianos.
+excelência vem de luz, escala e acabamento — não de volume. **Três ambientes
+impecáveis fecham mais que dez medianos**, e poucos SKUs bem capturados fecham
+mais que o catálogo inteiro mal recortado.
+
+### Levantamento das marcas — antes de começar
+
+Antes de qualquer captura, listar de `vendas/`:
+
+| Marca | Categoria | Nº de SKUs | Tem 3D? | Foto multiângulo? |
+|---|---|---:|---|---|
+| MART | vasos, permanentes | | | |
+| *(demais)* | | | | |
+
+Isso define o que entra no piloto. Critério de escolha dos SKUs: **os que a
+Camargo mais vende**, não os mais bonitos. Demo com item de giro alto conversa
+com a realidade do lojista; demo com peça de exceção parece catálogo de sonho.
 
 ---
 
 ## 5. O que preciso de você
 
-**Bloqueante — o catálogo.** A pasta `vendas/` está no seu Mac; nenhuma sessão
-em nuvem alcança. Preciso saber:
+**Confirmação do §0** — se Camargo é atacado de decoração e MART é vaso e
+planta permanente, ou se errei em algo.
 
-1. **Quantos SKUs** o catálogo oficial da MART tem
-2. **Formato das imagens** — resolução, e se há fundo branco recortável
-3. **Há algum modelo 3D?** `.obj`, `.fbx`, `.glb`, `.skp`, `.3ds`. Fabricante de
-   móveis às vezes tem, para render de catálogo. **Se houver um só, muda o plano**
-4. **Há foto multiângulo** de algum produto?
+**Quais marcas a Camargo trabalha além da MART** — este foi seu ponto, e virou
+o §4.
+
+**O catálogo.** `vendas/` está no seu Mac; nenhuma sessão em nuvem alcança:
+
+1. **Quantos SKUs**, e de quantas marcas
+2. **Formato das imagens** — resolução, fundo branco recortável?
+3. **Há foto multiângulo** de algum item?
+4. **A MART tem modelo 3D?** Se tiver, muda o custo da fase 3
 5. **Campos disponíveis** — medida, material, acabamento, cor, linha
 
-Uma amostra de 5 SKUs com tudo que existe já me deixa começar.
+Amostra de 5 SKUs com tudo que existe já me deixa começar.
 
-**Decisão sua:** quais **3 cômodos** entram na fase 1. Sugestão pela densidade
-de catálogo e apelo comercial: **sala de estar, quarto de casal, home office.**
+**Decisão sua — o contexto.** Casa do consumidor ou vitrine da loja? Ver §0.5.
 
 ---
 
