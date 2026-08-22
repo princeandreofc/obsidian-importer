@@ -1,0 +1,684 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Spiral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,560;1,9..144,340&display=swap">
+<style>
+/* ═══════ THE SPIRAL — gêmea Cinema 5D · Ali Love (preview privado) ═══════
+   Mundo único e comprometido. Copy verbatim do press kit aprovado 07/2026. */
+:root{
+  --tinta:#0a0806; --carvao:#14100c; --linha:#2a231c;
+  --osso:#efe6d5; --osso-2:#b3a898; --osso-3:#83786a;
+  --ouro:#d4a24e; --ouro-vivo:#eebd6b;
+  --neon:#69e6d2; --rosa:#e07a8f;
+  --serif:"Fraunces",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--tinta);color:var(--osso);font-family:var(--sans)}
+body{line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:var(--sans);cursor:pointer}
+button:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
+a{color:var(--ouro-vivo)}
+.scroll-space{height:900vh}
+#cena{position:fixed;inset:0;width:100vw;height:100vh;display:block;touch-action:none;
+  transition:filter .35s}
+/* vinheta + grão */
+.veu{position:fixed;inset:0;pointer-events:none;z-index:3;
+  background:radial-gradient(115% 88% at 50% 45%,transparent 52%,rgba(3,2,1,.62) 100%)}
+.veu::after{content:"";position:absolute;inset:0;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+/* CRT da Era II */
+.crt{position:fixed;inset:0;pointer-events:none;z-index:3;opacity:0;transition:opacity 1s;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 3px)}
+.crt.on{opacity:.5}
+@media (prefers-reduced-motion:reduce){.crt{transition:none}}
+
+/* ── HUD lente ── */
+.hud{position:fixed;inset:0;pointer-events:none;z-index:5;color:var(--osso-2);
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  font-variant-numeric:tabular-nums}
+.hud svg{position:absolute;inset:0;width:100%;height:100%}
+.hud .ler{position:absolute;display:flex;flex-direction:column;gap:3px}
+.hud .ler b{color:var(--ouro);font-weight:500}
+#l-era{left:26px;top:22px}
+#l-rot{right:26px;top:22px;text-align:right}
+#l-dep{left:26px;bottom:18px}
+#l-coord{right:26px;bottom:88px;text-align:right}
+.hud .marca{position:absolute;left:50%;top:20px;transform:translateX(-50%);
+  color:var(--osso);letter-spacing:.34em;font-weight:700}
+
+/* ── capítulos (copy verbatim, DOM nítido) ── */
+.cap{position:fixed;z-index:6;left:clamp(18px,5vw,64px);bottom:clamp(70px,12vh,120px);
+  max-width:min(560px,88vw);opacity:0;transform:translateY(14px);
+  transition:opacity .7s,transform .7s;pointer-events:none}
+.cap.viva{opacity:1;transform:none;pointer-events:auto}
+@media (prefers-reduced-motion:reduce){.cap{transition:none}}
+.cap .k{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ouro)}
+.cap h2{font-family:var(--serif);font-weight:340;font-size:clamp(30px,5.2vw,58px);
+  line-height:1.02;margin:8px 0 10px;text-wrap:balance;text-shadow:0 2px 30px rgba(0,0,0,.75)}
+.cap h2 em{font-style:italic;color:var(--ouro-vivo)}
+.cap p{font-size:clamp(13px,1.5vw,15.5px);color:var(--osso-2);max-width:58ch}
+.cap blockquote{margin-top:10px;border-left:2px solid var(--ouro);padding-left:12px;
+  font-family:var(--serif);font-style:italic;font-size:14.5px;color:var(--osso)}
+.cap blockquote cite{display:block;margin-top:4px;font-family:var(--sans);font-style:normal;
+  font-size:9.5px;letter-spacing:.24em;color:var(--osso-3)}
+.cap .stats{display:flex;gap:26px;margin-top:14px;flex-wrap:wrap}
+.cap .stats div b{display:block;font-family:var(--serif);font-size:26px;color:var(--osso)}
+.cap .stats div span{font-size:10px;letter-spacing:.14em;color:var(--osso-3);text-transform:uppercase}
+.cap .ctas{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.btn{border:0;border-radius:999px;padding:12px 20px;font-size:12.5px;font-weight:700;
+  letter-spacing:.04em;text-decoration:none;display:inline-block}
+.btn-ouro{background:var(--ouro);color:var(--tinta)}
+.btn-ouro:hover{background:var(--ouro-vivo)}
+.btn-ghost{background:rgba(20,16,12,.7);border:1px solid var(--linha);color:var(--osso)}
+.dica{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:6;
+  font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--osso-3);
+  animation:pulsa 2.8s ease-in-out infinite}
+@keyframes pulsa{50%{opacity:.3}}
+.dica.fora{animation:none;opacity:0;transition:opacity .6s}
+@media (prefers-reduced-motion:reduce){.dica{animation:none}}
+
+/* ── VJ DECK ── */
+#b-vj{position:fixed;right:18px;bottom:18px;z-index:8}
+.deck{position:fixed;right:18px;bottom:70px;z-index:8;width:min(300px,92vw);
+  background:rgba(16,12,9,.92);border:1px solid var(--linha);border-radius:14px;
+  padding:16px;display:none;backdrop-filter:blur(8px)}
+.deck.on{display:block}
+.deck h3{font-family:var(--serif);font-weight:560;font-size:19px;margin-bottom:2px}
+.deck .sub{font-size:10.5px;color:var(--osso-3);margin-bottom:12px;line-height:1.5}
+.pads{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pad{border:1px solid var(--linha);background:var(--carvao);color:var(--osso-2);
+  border-radius:10px;padding:12px 6px;font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;text-align:center}
+.pad small{display:block;color:var(--osso-3);font-size:9px;margin-top:3px}
+.pad[aria-pressed="true"]{background:var(--ouro);color:var(--tinta);border-color:var(--ouro)}
+.pad.rec[aria-pressed="true"]{background:var(--rosa);border-color:var(--rosa)}
+.deck .aviso{margin-top:10px;font-size:9.5px;color:var(--osso-3);line-height:1.5;
+  border-top:1px solid var(--linha);padding-top:8px}
+
+/* fallback sem WebGL */
+.fallback{display:none;min-height:100vh;padding:12vh 6vw;background:var(--tinta);position:relative;z-index:9}
+body.sem-gl .fallback{display:block}
+body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,body.sem-gl .crt,body.sem-gl #b-vj{display:none}
+.fallback h1{font-family:var(--serif);font-weight:340;font-size:clamp(40px,8vw,84px)}
+.fallback p{max-width:60ch;color:var(--osso-2);margin-top:12px}
+
+@media (max-width:640px){
+  #l-dep,#l-coord{bottom:64px}
+  .cap{bottom:clamp(90px,14vh,140px)}
+  .dica{left:18px;transform:none;text-align:left;max-width:52vw;letter-spacing:.18em}
+}
+@media print{body{background:#fff}}
+</style>
+
+<div class="scroll-space" aria-hidden="true"></div>
+<canvas id="cena" aria-label="The Spiral — jornada tridimensional pela carreira de Ali Love"></canvas>
+<div class="veu" aria-hidden="true"></div>
+<div class="crt" id="crt" aria-hidden="true"></div>
+
+<!-- HUD lente inteligente: vetor puro, dados reais -->
+<div class="hud" aria-hidden="true">
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+    <path d="M3,10 L3,3 L10,3 M90,3 L97,3 L97,10 M97,90 L97,97 L90,97 M10,97 L3,97 L3,90"
+      fill="none" stroke="rgba(212,162,78,.5)" stroke-width=".22" vector-effect="non-scaling-stroke"/>
+  </svg>
+  <svg viewBox="-50 -50 100 100" style="mix-blend-mode:screen">
+    <g fill="none" stroke="rgba(239,230,213,.13)" stroke-width=".15" vector-effect="non-scaling-stroke">
+      <circle r="26"/><circle r="18"/><circle r="8"/>
+      <line x1="-30" x2="-22" y1="0" y2="0"/><line x1="22" x2="30" y1="0" y2="0"/>
+      <line y1="-30" y2="-22" x1="0" x2="0"/><line y1="22" y2="30" x1="0" x2="0"/>
+    </g>
+  </svg>
+  <span class="marca">THE&nbsp;SPIRAL</span>
+  <div class="ler" id="l-era"><span>ERA</span><b id="v-era">—</b></div>
+  <div class="ler" id="l-rot"><span>ROTATION</span><b>33.3 RPM</b></div>
+  <div class="ler" id="l-dep"><span>DEPTH</span><b id="v-dep">0%</b></div>
+  <div class="ler" id="l-coord"><span>θ / φ</span><b id="v-coord">0.00 / 0.00</b></div>
+</div>
+
+<!-- ── capítulos: copy verbatim do press kit aprovado ── -->
+<section class="cap viva" id="cap0">
+  <p class="k">Ali Love · A Report &amp; A Tribute · July 2026</p>
+  <h2>The golden voice that refuses to stay in its <em>box</em>.</h2>
+  <p>Twenty years of UK dance music, one unmistakable voice. This is a portrait of
+     Ali Love — told with love, by the family that built a world around it.</p>
+</section>
+
+<section class="cap" id="cap1">
+  <p class="k">Era I · The Voice</p>
+  <h2>Some voices you recognise in a single <em>bar</em>.</h2>
+  <p>London's Ali Love — frontman, songwriter, entertainer — has spent two decades
+     lending his to the records that shaped UK dance music: the Chemical Brothers,
+     Justice, CamelPhat, Róisín Murphy. Always unmistakably himself, whoever's
+     name was on the sleeve.</p>
+  <blockquote>“One of London's most inventive and unpredictable voices in dance music.”
+    <cite>The Vinyl Factory</cite></blockquote>
+</section>
+
+<section class="cap" id="cap2">
+  <p class="k">Era II · Psychedelic House</p>
+  <h2>Club records with a soul singer <em>inside</em> them.</h2>
+  <p>With Infinity Ink and Hot Natured, Ali helped define an era. “Forward Motion”
+     and the benchmark “Benediction” — written with Jamie Jones and Lee Foss —
+     remain reference points of psychedelic house. His “Confusion” with Keinemusik
+     became an Essential New Tune for Pete Tong on BBC Radio 1 — and was covered
+     by Drake, who cites the song as an inspiration.</p>
+  <blockquote>“Rarely less than entertaining.”<cite>Resident Advisor</cite></blockquote>
+</section>
+
+<section class="cap" id="cap3">
+  <p class="k">Era III · The Arena → Now</p>
+  <h2>The club voice, at symphony <em>scale</em>.</h2>
+  <p>In December 2024 he took that voice to the arena: guest vocalist with Pete Tong
+     Presents Ibiza Classics — sixty-five musicians on stage. Two nights at The O2.
+     Twenty-plus years in, hundreds of thousands listening every month, Ali Love is
+     recording a new solo album. The voice is not done. It is just getting warmed up.</p>
+  <div class="stats">
+    <div><b>20+</b><span>years, one voice</span></div>
+    <div><b>~690k</b><span>monthly listeners</span></div>
+    <div><b>The O2 ×2</b><span>arena, 2024</span></div>
+    <div><b>10+</b><span>labels</span></div>
+  </div>
+</section>
+
+<section class="cap" id="cap4">
+  <p class="k">A Homenagem · The Tribute</p>
+  <h2>Love always <em>wins</em>.</h2>
+  <p>In 2023, Hot Creations released “Da Da On” — Ali Love with Prince Andre, HOTC204.
+     It was more than a record. It was a door held open. The world we built around
+     The Spiral — the film, the site, this very page — began as a thank-you that got
+     out of hand.</p>
+  <blockquote>To Ali — mentor, brother, family.<cite>André Boliveira · Prince Andre · Puressência</cite></blockquote>
+  <div class="ctas">
+    <a class="btn btn-ouro"  href="https://www.alilove.world" target="_blank" rel="noopener">ALILOVE.WORLD →</a>
+    <a class="btn btn-ghost" href="mailto:bookings@alilove.com">BOOKINGS@ALILOVE.COM</a>
+  </div>
+  <p style="margin-top:12px;font-size:10px;letter-spacing:.3em;color:var(--osso-3)">
+    LOVE ALWAYS WINS · ALI LOVE × AB MOTION</p>
+</section>
+
+<p class="dica" id="dica">role para mergulhar no disco ↓</p>
+
+<button class="btn btn-ghost" id="b-vj" type="button" aria-pressed="false">VJ MODE</button>
+<div class="deck" id="deck" role="group" aria-label="Mesa VJ">
+  <h3>VJ Deck</h3>
+  <p class="sub">Arte abstrata ao vivo sobre a cena. O pulso aqui é visual — no
+     ao-vivo, sincroniza na mesa com o áudio real.</p>
+  <div class="pads">
+    <button class="pad" data-fx="pulse"  aria-pressed="false" type="button">Pulse<small>1</small></button>
+    <button class="pad" data-fx="trails" aria-pressed="false" type="button">Trails<small>2</small></button>
+    <button class="pad" data-fx="hue"    aria-pressed="false" type="button">Hue<small>3</small></button>
+    <button class="pad" data-fx="burst"  aria-pressed="false" type="button">Burst<small>4</small></button>
+    <button class="pad" data-fx="warp"   aria-pressed="false" type="button">Warp<small>5</small></button>
+    <button class="pad rec" data-fx="rec" aria-pressed="false" type="button">Rec<small>R</small></button>
+  </div>
+  <p class="aviso">Sem strobe: efeitos limitados a transições suaves por segurança
+     fotossensível. REC grava WebM direto do palco — seu loop, seu arquivo.</p>
+</div>
+
+<div class="fallback">
+  <p class="k" style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ouro)">The Spiral · preview</p>
+  <h1>A espiral pede WebGL</h1>
+  <p>Este navegador não liberou o 3D. O retrato completo — The Report &amp; The Tribute —
+     vive em <a href="https://www.alilove.world">alilove.world</a>. Love always wins.</p>
+</div>
+
+@@THREE@@
+
+<script>
+"use strict";
+/* ═══════ THE SPIRAL — jornada em 5 capítulos, 3 eras ═══════ */
+const $=id=>document.getElementById(id);
+const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const lerp=(a,b,t)=>a+(b-a)*t;
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+
+function temGL(){try{const c=document.createElement("canvas");
+  return !!(window.WebGLRenderingContext&&(c.getContext("webgl")||c.getContext("experimental-webgl")));
+}catch(e){return false}}
+
+let renderer,scene,camera,relogio={t:performance.now()};
+let disco,discoGrupo,portais=[],eqBarras,cogumelos,cogCores=[],vagalumes,engrenagens=[],fadePlane;
+let neblina;
+let fx={pulse:false,trails:false,hue:false,warp:false};
+let hueDeg=0,burstPool=[];
+let gravador=null,gravaChunks=[];
+let scrollSuave=0;
+let fpsAcc=0,fpsN=0,fpsRuim=0,degradou=false;
+
+/* ── trilha: hélice que mergulha no disco e desce pelas eras ── */
+let curva,frames;
+const SEGS=600;
+const EIXO=new THREE.Vector3();
+function montaTrilha(){
+  const pts=[];
+  /* aproximação ao disco (y alto) → mergulho no sulco → hélice descendente
+     atravessando 3 câmaras → clareira final */
+  pts.push(new THREE.Vector3(0,26,34));
+  pts.push(new THREE.Vector3(0,14,20));
+  pts.push(new THREE.Vector3(6,7.5,9));          /* beira do sulco */
+  const voltas=3.1, passoY=-13.5, R0=7.2;
+  for(let i=0;i<=64;i++){
+    const t=i/64, a=t*Math.PI*2*voltas;
+    const r=R0+Math.sin(t*Math.PI)*4.5;          /* respira */
+    pts.push(new THREE.Vector3(Math.cos(a)*r, 4+t*passoY*3.2, Math.sin(a)*r));
+  }
+  pts.push(new THREE.Vector3(0,-130,-6));
+  pts.push(new THREE.Vector3(0,-134,-22));
+  curva=new THREE.CatmullRomCurve3(pts,false,"centripetal",.35);
+  frames=curva.computeFrenetFrames(SEGS,false);
+}
+function poseNaTrilha(p){
+  const t=clamp(p,0,0.9995);
+  const i=Math.min(SEGS-1,Math.floor(t*SEGS));
+  const pos=curva.getPointAt(t);
+  const tan=curva.getTangentAt(t);
+  const nor=frames.normals[i], bin=frames.binormals[i];
+  /* respiração de primeira pessoa */
+  const tt=performance.now()*.001;
+  const bobX=reduz?0:Math.sin(tt*1.9)*.05, bobY=reduz?0:Math.cos(tt*3.7)*.06;
+  camera.position.copy(pos).addScaledVector(nor,bobY).addScaledVector(bin,bobX);
+  const alvo=curva.getPointAt(clamp(t+.015,0,1));
+  /* dentro das câmaras o olhar pende para o eixo da hélice — a era se apresenta */
+  const peso=.38*clamp((t-.12)/.05,0,1)*clamp((.92-t)/.05,0,1);
+  if(peso>0){EIXO.set(0,pos.y-2.5,0);alvo.lerp(EIXO,peso)}
+  camera.up.copy(nor).multiplyScalar(-1);        /* inclina com o sulco */
+  if(camera.up.y<0)camera.up.multiplyScalar(-1); /* nunca de cabeça pra baixo total */
+  camera.lookAt(alvo);
+}
+
+/* ── texturas procedurais (matemática, não imagem alheia) ── */
+function texSulcos(){
+  const c=document.createElement("canvas");c.width=c.height=1024;
+  const g=c.getContext("2d");
+  g.fillStyle="#17120d";g.fillRect(0,0,1024,1024);
+  g.translate(512,512);
+  for(let r=90;r<505;r+=2.4){
+    g.beginPath();g.arc(0,0,r,0,6.2832);
+    g.strokeStyle=`rgba(${52+Math.random()*40},${44+Math.random()*32},${34+Math.random()*24},.85)`;
+    g.lineWidth=1.1;g.stroke();
+  }
+  /* selo central */
+  g.beginPath();g.arc(0,0,88,0,6.2832);g.fillStyle="#d4a24e";g.fill();
+  g.fillStyle="#141008";g.textAlign="center";
+  g.font="700 34px Archivo, sans-serif";g.fillText("ALI LOVE",0,-8);
+  g.font="500 20px Archivo, sans-serif";g.fillText("THE SPIRAL",0,22);
+  g.font="500 14px Archivo, sans-serif";g.fillText("33⅓ RPM · STEREO",0,48);
+  const t=new THREE.CanvasTexture(c);t.anisotropy=8;return t;
+}
+function texRuido(rep){
+  const c=document.createElement("canvas");c.width=c.height=256;
+  const g=c.getContext("2d"),d=g.createImageData(256,256);
+  for(let i=0;i<d.data.length;i+=4){const v=190+Math.random()*65;
+    d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=255}
+  g.putImageData(d,0,0);
+  const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rep,rep);return t;
+}
+
+function montaCena(){
+  const canvas=$("cena");
+  renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:"high-performance",
+    preserveDrawingBuffer:true});
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+  renderer.setSize(innerWidth,innerHeight,false);
+  renderer.outputEncoding=THREE.sRGBEncoding;
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.0;
+  renderer.shadowMap.enabled=false;              /* espiral vive de emissivos */
+  renderer.autoClearColor=true;
+
+  scene=new THREE.Scene();
+  neblina=new THREE.FogExp2(0x0a0806,.010);scene.fog=neblina;
+  camera=new THREE.PerspectiveCamera(66,innerWidth/innerHeight,.1,170);
+
+  /* ambiente PMREM discreto */
+  const pmrem=new THREE.PMREMGenerator(renderer);
+  const env=new THREE.Scene();
+  env.add(new THREE.Mesh(new THREE.BoxGeometry(60,30,60),
+    new THREE.MeshBasicMaterial({color:0x141009,side:THREE.BackSide})));
+  const lz=(x,y,z,c,i)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(9,5),
+    new THREE.MeshBasicMaterial({color:c}));m.position.set(x,y,z);m.lookAt(0,0,0);
+    m.material.color.multiplyScalar(i);env.add(m)};
+  lz(0,12,-18,0xffdfae,3.0);lz(-16,6,8,0x8fd8cc,1.6);lz(14,4,10,0xe07a8f,1.2);
+  scene.environment=pmrem.fromScene(env,.04).texture;
+
+  scene.add(new THREE.HemisphereLight(0xfff1d8,0x0c0906,.38));
+
+  /* ═ O VINIL GERADOR ═ */
+  discoGrupo=new THREE.Group();
+  const sul=texSulcos();
+  disco=new THREE.Mesh(new THREE.CylinderGeometry(10,10,.35,128),
+    new THREE.MeshStandardMaterial({map:sul,roughness:.32,metalness:.42,
+      bumpMap:sul,bumpScale:.02}));
+  discoGrupo.add(disco);
+  const borda=new THREE.Mesh(new THREE.TorusGeometry(10.02,.09,10,140),
+    new THREE.MeshBasicMaterial({color:0xd4a24e,transparent:true,opacity:.5}));
+  borda.rotation.x=Math.PI/2;discoGrupo.add(borda);
+  /* selo autoiluminado — o rótulo dourado lê sob qualquer luz */
+  const cSelo=document.createElement("canvas");cSelo.width=cSelo.height=256;
+  const gS=cSelo.getContext("2d");
+  gS.beginPath();gS.arc(128,128,126,0,6.2832);gS.fillStyle="#d4a24e";gS.fill();
+  gS.beginPath();gS.arc(128,128,10,0,6.2832);gS.fillStyle="#141008";gS.fill();
+  gS.fillStyle="#141008";gS.textAlign="center";
+  gS.font="700 34px Archivo, sans-serif";gS.fillText("ALI LOVE",128,104);
+  gS.font="500 21px Archivo, sans-serif";gS.fillText("THE SPIRAL",128,164);
+  gS.font="500 15px Archivo, sans-serif";gS.fillText("33⅓ RPM · STEREO",128,196);
+  const selo=new THREE.Mesh(new THREE.CircleGeometry(1.72,48),
+    new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cSelo),fog:false}));
+  selo.rotation.x=-Math.PI/2;selo.position.y=.19;disco.add(selo);
+  const luzDisco=new THREE.SpotLight(0xffe9c0,2.6,80,.62,.55,0);
+  luzDisco.position.set(6,22,10);luzDisco.target=disco;
+  discoGrupo.add(luzDisco);discoGrupo.add(luzDisco.target);
+  scene.add(discoGrupo);
+
+  /* ═ ERA I — brutalismo industrial-orgânico (y ≈ -6 → -18) ═ */
+  const eraI=new THREE.Group();eraI.position.y=-10;
+  const metal=new THREE.MeshStandardMaterial({color:0x5a4f42,roughness:.88,metalness:.55,
+    roughnessMap:texRuido(4)});
+  for(let k=0;k<9;k++){
+    const g=new THREE.Group();
+    const prato=new THREE.Mesh(new THREE.CylinderGeometry(1.6+Math.random(), 1.6+Math.random(), .18, 40),metal);
+    const eixo=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,2.6,10),metal);
+    const anel=new THREE.Mesh(new THREE.TorusGeometry(2.2+Math.random()*.8,.06,8,60),
+      new THREE.MeshStandardMaterial({color:0x8a6f4d,roughness:.6,metalness:.7}));
+    anel.rotation.x=Math.PI/2;
+    g.add(prato,eixo,anel);
+    const a=k/9*Math.PI*2;
+    g.position.set(Math.cos(a)*(9+Math.random()*4),-2-Math.random()*10,Math.sin(a)*(9+Math.random()*4));
+    g.rotation.set(Math.random()*.7,Math.random()*3,Math.random()*.7);
+    g.userData.v=(Math.random()-.5)*.35;
+    engrenagens.push(g);eraI.add(g);
+  }
+  const brasas=makePoints(240,()=>[(Math.random()-.5)*30,-14+Math.random()*14,(Math.random()-.5)*30],0xd97a3d,.06,.55);
+  eraI.add(brasas);scene.add(eraI);
+
+  /* ═ ERA II — malha geométrica analógica (y ≈ -24 → -40) ═ */
+  const eraII=new THREE.Group();eraII.position.y=-32;
+  const gridMat=new THREE.LineBasicMaterial({color:0x69e6d2,transparent:true,opacity:.5});
+  const gpts=[];
+  for(let i=-12;i<=12;i++){gpts.push(-12,0,i, 12,0,i, i,0,-12, i,0,12)}
+  const ggeo=new THREE.BufferGeometry();
+  ggeo.setAttribute("position",new THREE.Float32BufferAttribute(gpts.flatMap((v,ix)=>ix%3===1?[v-6]:[v]),3));
+  eraII.add(new THREE.LineSegments(ggeo,gridMat));
+  const wf=[new THREE.IcosahedronGeometry(1.6,0),new THREE.OctahedronGeometry(1.9,0),
+            new THREE.TorusGeometry(1.6,.5,8,24)];
+  for(let k=0;k<10;k++){
+    const m=new THREE.Mesh(wf[k%3],
+      new THREE.MeshBasicMaterial({color:k%2?0x69e6d2:0xe07a8f,wireframe:true,
+        transparent:true,opacity:.85}));
+    const a=k/10*Math.PI*2;
+    m.position.set(Math.cos(a)*(8.5+Math.random()*3.5),(Math.random()-.5)*9,Math.sin(a)*(8.5+Math.random()*3.5));
+    m.userData.v=.2+Math.random()*.5;
+    eraII.add(m);portais.push(m);
+  }
+  /* equalizador instanciado — pulso procedural */
+  const nb=72;
+  eqBarras=new THREE.InstancedMesh(new THREE.BoxGeometry(.34,1,.34),
+    new THREE.MeshBasicMaterial({color:0x69e6d2,transparent:true,opacity:.8}),nb);
+  const M=new THREE.Matrix4();
+  for(let i=0;i<nb;i++){
+    const a=i/nb*Math.PI*2;
+    M.makeTranslation(Math.cos(a)*11.5,-4,Math.sin(a)*11.5);
+    eqBarras.setMatrixAt(i,M);
+  }
+  eraII.add(eqBarras);scene.add(eraII);
+
+  /* ═ ERA III — jardim solarpunk noturno (y ≈ -46 → -64) ═ */
+  const eraIII=new THREE.Group();eraIII.position.y=-56;
+  /* cogumelos instanciados: caule + chapéu lathe */
+  /* cúpula fechada no ápice (x=0 no topo), aba curvando para baixo até a borda */
+  const perfil=[];
+  for(let i=0;i<=8;i++){const t=i/8;
+    perfil.push(new THREE.Vector2(1.15*Math.sin(t*Math.PI*.58), .62*Math.cos(t*Math.PI*.5)))}
+  const chapeuGeo=new THREE.LatheGeometry(perfil,20);
+  const NC=420;
+  const matCog=new THREE.MeshStandardMaterial({color:0x2a2a2a,roughness:.4,metalness:0,
+    emissive:0xffffff,emissiveIntensity:.3,vertexColors:false,side:THREE.DoubleSide,
+    envMapIntensity:.2});
+  /* brilho na cor da própria instância (senão tudo estoura em branco) */
+  matCog.onBeforeCompile=sh=>{sh.fragmentShader=sh.fragmentShader.replace(
+    "vec3 totalEmissiveRadiance = emissive;",
+    "vec3 totalEmissiveRadiance = emissive;\n#if defined(USE_COLOR) || defined(USE_INSTANCING_COLOR)\n totalEmissiveRadiance *= vColor;\n#endif")};
+  cogumelos=new THREE.InstancedMesh(chapeuGeo,matCog,NC);
+  const caules=new THREE.InstancedMesh(new THREE.CylinderGeometry(.10,.16,1,8),
+    new THREE.MeshStandardMaterial({color:0x241f19,roughness:.85,
+      emissive:0x8fe0c0,emissiveIntensity:.1,envMapIntensity:.2}),NC);
+  const cores=[0x2a9a80,0x8a3fb0,0xc25570,0xc08030,0x3a7ab0,0x5aa838];
+  const Q=new THREE.Quaternion(),E=new THREE.Euler(),S=new THREE.Vector3(),P=new THREE.Vector3();
+  for(let i=0;i<NC;i++){
+    /* duas faixas de plantio: clareira interna e mata externa —
+       o corredor de voo (r 7.2–11.7) fica livre de chapéus */
+    const dentro=i%3===0;
+    const a=i*.15, r=dentro?1.5+Math.random()*2.4:13.6+Math.random()*5.2;
+    const esc=.3+Math.random()*(dentro?.5:.9);
+    P.set(Math.cos(a)*r,-7+((i*.045)%14)*.62,Math.sin(a)*r);
+    E.set((Math.random()-.5)*.3,Math.random()*6.28,(Math.random()-.5)*.3);
+    Q.setFromEuler(E);S.set(esc,esc,esc);
+    M.compose(P,Q,S);
+    cogumelos.setMatrixAt(i,M);
+    const c=new THREE.Color(cores[i%cores.length]);
+    cogumelos.setColorAt(i,c);cogCores.push(c.clone());
+    P.y-=esc*.5;S.set(esc,esc*1.35,esc);M.compose(P,Q,S);
+    caules.setMatrixAt(i,M);
+  }
+  cogumelos.instanceColor.needsUpdate=true;
+  eraIII.add(cogumelos,caules);
+  /* chão do jardim — sem ele os cogumelos flutuam no vazio */
+  /* básico e escuro de propósito: imune a luz — o jardim flutua num veludo */
+  const chao=new THREE.Mesh(new THREE.CircleGeometry(21,48),
+    new THREE.MeshBasicMaterial({color:0x0a0f0d}));
+  chao.rotation.x=-Math.PI/2;chao.position.y=-7.3;eraIII.add(chao);
+  /* cúpula de vidro + lua */
+  /* membrana-aurora: basic aditivo fraco — imune a luz, só um respiro teal no céu */
+  const cupula=new THREE.Mesh(new THREE.SphereGeometry(20,40,24,0,6.2832,0,1.35),
+    new THREE.MeshBasicMaterial({color:0x0e1613,blending:THREE.AdditiveBlending,
+      transparent:true,opacity:.8,side:THREE.BackSide,depthWrite:false,fog:false}));
+  cupula.position.y=-6;eraIII.add(cupula);
+  const lua=new THREE.Mesh(new THREE.SphereGeometry(2.2,24,24),
+    new THREE.MeshBasicMaterial({color:0xf4ead2,fog:false}));
+  lua.position.set(-16,12,-20);eraIII.add(lua);
+  const luzLua=new THREE.PointLight(0xbfe8ff,.45,60,2);
+  luzLua.position.set(0,4,0);eraIII.add(luzLua);
+  /* vagalumes: poucos e fracos — 300 brilhos aditivos vistos de cima viram véu */
+  vagalumes=makePoints(90,()=>{const a=Math.random()*6.28,r=4+Math.random()*13;
+    return [Math.cos(a)*r,-7+Math.random()*5.5,Math.sin(a)*r]},0xcfffa8,.07,.45);
+  eraIII.add(vagalumes);
+  scene.add(eraIII);
+
+  /* ═ portais entre eras ═ */
+  [[0,-22,0xd4a24e],[0,-44,0x69e6d2]].forEach(([x,y,c])=>{
+    const t=new THREE.Mesh(new THREE.TorusGeometry(4.4,.16,12,80),
+      new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:.85}));
+    t.position.set(x,y,0);t.rotation.x=Math.PI/2;
+    t.userData.giro=.4;scene.add(t);portais.push(t);
+  });
+
+  /* plano de fade para TRAILS (feedback de VJ) */
+  fadePlane=new THREE.Mesh(new THREE.PlaneGeometry(2,2),
+    new THREE.MeshBasicMaterial({color:0x0a0806,transparent:true,opacity:.22,depthTest:false}));
+  fadePlane.renderOrder=999;fadePlane.frustumCulled=false;fadePlane.visible=false;
+  /* colado na câmera */
+  camera.add(fadePlane);fadePlane.position.z=-.5;fadePlane.scale.set(3,3,1);
+  scene.add(camera);
+}
+let texPonto=null;
+function spritePonto(){                      /* disco suave — pontos viram brilho, não quadrado */
+  if(texPonto)return texPonto;
+  const c=document.createElement("canvas");c.width=c.height=32;
+  const g=c.getContext("2d"),rg=g.createRadialGradient(16,16,0,16,16,16);
+  rg.addColorStop(0,"rgba(255,255,255,1)");rg.addColorStop(.45,"rgba(255,255,255,.5)");
+  rg.addColorStop(1,"rgba(255,255,255,0)");
+  g.fillStyle=rg;g.fillRect(0,0,32,32);
+  texPonto=new THREE.CanvasTexture(c);return texPonto;
+}
+function makePoints(n,posFn,cor,tam,op){
+  const arr=new Float32Array(n*3);
+  for(let i=0;i<n;i++){const[x,y,z]=posFn(i);arr[i*3]=x;arr[i*3+1]=y;arr[i*3+2]=z}
+  const g=new THREE.BufferGeometry();
+  g.setAttribute("position",new THREE.BufferAttribute(arr,3));
+  return new THREE.Points(g,new THREE.PointsMaterial({color:cor,size:tam,transparent:true,
+    opacity:op,map:spritePonto(),blending:THREE.AdditiveBlending,depthWrite:false}));
+}
+
+/* ── capítulos / eras por profundidade ── */
+const FASES=[
+  {ate:.16,cap:"cap0",era:"O DISCO",fog:0x0a0806,dens:.010},
+  {ate:.40,cap:"cap1",era:"I · INDUSTRIAL",fog:0x120c07,dens:.040},
+  {ate:.66,cap:"cap2",era:"II · ANALOG GRID",fog:0x041014,dens:.036},
+  {ate:.88,cap:"cap3",era:"III · NIGHT GARDEN",fog:0x06110c,dens:.021},
+  {ate:1.01,cap:"cap4",era:"THE TRIBUTE",fog:0x0a0806,dens:.024},
+];
+let faseVis=-1;
+const corFog=new THREE.Color(), corAlvo=new THREE.Color();
+function pintaFase(p){
+  let idx=FASES.findIndex(f=>p<f.ate);if(idx<0)idx=FASES.length-1;
+  corAlvo.setHex(FASES[idx].fog);
+  neblina.color.lerp(corAlvo,reduz?1:.05);
+  neblina.density=lerp(neblina.density,FASES[idx].dens,reduz?1:.05);
+  $("crt").classList.toggle("on",idx===2);
+  if(idx===faseVis)return;faseVis=idx;
+  document.querySelectorAll(".cap").forEach(c=>c.classList.remove("viva"));
+  $(FASES[idx].cap).classList.add("viva");
+  $("v-era").textContent=FASES[idx].era;
+  $("dica").classList.toggle("fora",idx!==0);
+}
+
+/* ── VJ ── */
+function togglePad(fxNome,btn){
+  if(fxNome==="burst"){burst();flashPad(btn);return}
+  if(fxNome==="rec"){toggleRec(btn);return}
+  fx[fxNome]=!fx[fxNome];
+  btn.setAttribute("aria-pressed",String(fx[fxNome]));
+  if(fxNome==="trails"){renderer.autoClearColor=!fx.trails;fadePlane.visible=fx.trails}
+  if(fxNome==="hue"&&!fx.hue){hueDeg=0;$("cena").style.filter=""}
+}
+function flashPad(b){b.setAttribute("aria-pressed","true");
+  setTimeout(()=>b.setAttribute("aria-pressed","false"),180)}
+function burst(){
+  const n=260,arr=new Float32Array(n*3),vel=[];
+  const o=camera.position.clone().add(camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(6));
+  for(let i=0;i<n;i++){arr[i*3]=o.x;arr[i*3+1]=o.y;arr[i*3+2]=o.z;
+    vel.push(new THREE.Vector3((Math.random()-.5),(Math.random()-.5),(Math.random()-.5)).normalize().multiplyScalar(.22+Math.random()*.34))}
+  const g=new THREE.BufferGeometry();
+  g.setAttribute("position",new THREE.BufferAttribute(arr,3));
+  const p=new THREE.Points(g,new THREE.PointsMaterial({color:0xe8a640,size:.09,transparent:true,
+    opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));
+  p.userData={vel,vida:1};scene.add(p);burstPool.push(p);
+}
+function toggleRec(btn){
+  if(gravador){gravador.stop();return}
+  const stream=$("cena").captureStream(30);
+  gravaChunks=[];
+  try{gravador=new MediaRecorder(stream,{mimeType:"video/webm;codecs=vp9"})}
+  catch(e){try{gravador=new MediaRecorder(stream,{mimeType:"video/webm"})}
+  catch(e2){alert("Este navegador não grava WebM.");return}}
+  gravador.ondataavailable=e=>{if(e.data.size)gravaChunks.push(e.data)};
+  gravador.onstop=()=>{
+    const blob=new Blob(gravaChunks,{type:"video/webm"});
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download="the-spiral-vj-loop.webm";a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+    gravador=null;btn.setAttribute("aria-pressed","false");
+  };
+  gravador.start();btn.setAttribute("aria-pressed","true");
+}
+
+/* ── laço ── */
+function quadro(){
+  requestAnimationFrame(quadro);
+  const agora=performance.now(),dt=Math.min(.05,(agora-relogio.t)/1000);relogio.t=agora;
+
+  fpsAcc+=dt;fpsN++;
+  if(fpsAcc>=1){const f=fpsN/fpsAcc;fpsAcc=0;fpsN=0;
+    if(f<32)fpsRuim++;else fpsRuim=0;
+    if(fpsRuim>=3&&!degradou){degradou=true;renderer.setPixelRatio(1);
+      if(vagalumes)vagalumes.visible=false;}}
+
+  const max=document.documentElement.scrollHeight-innerHeight;
+  const alvo=max>0?scrollY/max:0;
+  scrollSuave=reduz?alvo:lerp(scrollSuave,alvo,.065);
+
+  /* warp de VJ dobra a velocidade percebida do mergulho */
+  const pAplicado=fx.warp?clamp(scrollSuave*1.0+Math.sin(agora*.0006)*.006,0,1):scrollSuave;
+  poseNaTrilha(pAplicado);
+  pintaFase(scrollSuave);
+
+  const t=agora*.001;
+  /* 33⅓ RPM de verdade: 3.49 rad/s (metade sob reduced) */
+  disco.rotation.y+=dt*(reduz?1.7:3.49);
+  engrenagens.forEach(g=>{g.rotation.y+=dt*g.userData.v;g.rotation.x+=dt*g.userData.v*.4});
+  portais.forEach(m=>{if(m.userData.giro)m.rotation.z+=dt*m.userData.giro;
+    else{m.rotation.x+=dt*m.userData.v*.5;m.rotation.y+=dt*m.userData.v}});
+
+  /* equalizador procedural (pulse dobra a amplitude) */
+  if(eqBarras){
+    const Mm=new THREE.Matrix4(),amp=fx.pulse?2.4:1;
+    for(let i=0;i<72;i++){
+      const a=i/72*Math.PI*2;
+      const h=(.6+Math.abs(Math.sin(t*2.1+i*.42))*2.6)*amp;
+      Mm.makeScale(1,h,1);
+      Mm.setPosition(Math.cos(a)*11.5,-4+h/2,Math.sin(a)*11.5);
+      eqBarras.setMatrixAt(i,Mm);
+    }
+    eqBarras.instanceMatrix.needsUpdate=true;
+  }
+  /* cogumelos respiram e pulsam cor */
+  if(cogumelos&&!reduz){
+    const k=(Math.sin(t*1.4)+1)/2;
+    cogumelos.material.emissiveIntensity=.18+k*.22+(fx.pulse?.25:0);
+  }
+  if(vagalumes){vagalumes.rotation.y=t*.05}
+
+  /* hue de VJ via filtro no canvas — barato e reversível */
+  if(fx.hue){hueDeg=(hueDeg+dt*40)%360;$("cena").style.filter=`hue-rotate(${hueDeg}deg)`}
+
+  /* bursts vivem e morrem */
+  for(let i=burstPool.length-1;i>=0;i--){
+    const p=burstPool[i];p.userData.vida-=dt*.6;
+    const pos=p.geometry.attributes.position;
+    for(let k=0;k<pos.count;k++){
+      pos.setXYZ(k,pos.getX(k)+p.userData.vel[k].x,pos.getY(k)+p.userData.vel[k].y,
+                   pos.getZ(k)+p.userData.vel[k].z)}
+    pos.needsUpdate=true;p.material.opacity=p.userData.vida*.55;
+    if(p.userData.vida<=0){scene.remove(p);p.geometry.dispose();p.material.dispose();
+      burstPool.splice(i,1)}
+  }
+
+  /* leituras do HUD */
+  $("v-dep").textContent=Math.round(scrollSuave*100)+"%";
+  const sph=new THREE.Spherical().setFromVector3(camera.position);
+  $("v-coord").textContent=sph.theta.toFixed(2)+" / "+sph.phi.toFixed(2);
+
+  renderer.render(scene,camera);
+}
+function dimensiona(){
+  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight,false);
+}
+
+/* ── boot (nada de typeof em const na zona morta) ── */
+if(!temGL()){document.body.classList.add("sem-gl")}
+else{
+  try{
+    montaTrilha();montaCena();
+    $("b-vj").addEventListener("click",()=>{
+      const on=$("deck").classList.toggle("on");
+      $("b-vj").setAttribute("aria-pressed",String(on));
+    });
+    document.querySelectorAll(".pad").forEach(b=>
+      b.addEventListener("click",()=>togglePad(b.dataset.fx,b)));
+    addEventListener("keydown",e=>{
+      const mapa={"1":"pulse","2":"trails","3":"hue","4":"burst","5":"warp",
+                  r:"rec",R:"rec"};
+      const fxN=mapa[e.key];if(!fxN)return;
+      const btn=document.querySelector(`.pad[data-fx="${fxN}"]`);
+      if(btn)togglePad(fxN,btn);
+    });
+    addEventListener("resize",dimensiona);
+    pintaFase(0);
+    quadro();
+  }catch(err){console.error("Spiral:",err);document.body.classList.add("sem-gl")}
+}
+</script>

@@ -1,6 +1,6 @@
 # HeyGen — prompts dos filmes da loja Pop Casa
 
-**Data:** 21/08/2026 · **Estado:** prontos para render privado, nenhum crédito consumido
+**Data:** 21/08/2026 · **Estado:** `CANÔNICO` — validado em 22/08/2026; nenhum crédito consumido
 **Herda do pacote V2:** narração travada (sobra vira motion/b-roll/música, nunca fala nova),
 private review, PT-BR, sem claim inventado, gate de pronúncia por filme.
 
@@ -47,7 +47,7 @@ Do not show partner-brand names in the B2C film until the official list arrives.
 
 ## Filme 1 — Demo MART (reunião Tina & Fernando Bento) · 45 s
 
-**Narração (travada, 92 palavras ≈ 38 s @145wpm):**
+**Narração (travada, 82 palavras ≈ 34 s @145wpm):**
 > Isto não é um catálogo. É a casa onde o catálogo mora. Quatro peças reais da
 > MART, dois mil e vinte e seis, cada uma na sua vitrine de luz. Role, e você
 > caminha. Clique, e você chega perto — trezentos e sessenta graus ao redor da
@@ -63,7 +63,7 @@ imprimindo na Loja · 6) lockup Pop Casa.
 
 ## Filme 2 — Pop Casa Studio B2B · 30 s
 
-**Narração (58 palavras ≈ 24 s):**
+**Narração (52 palavras ≈ 22 s):**
 > Vendedor não precisa de mais um PDF. Precisa de uma sala. Aqui o lojista anda
 > pelo mix, vê a peça de todos os lados, monta o pedido brincando — e sai com a
 > folha de proposta assinável na mão. Sem preço público. Sem fricção. Pop Casa
@@ -75,7 +75,7 @@ carrinho→proposta → folha A4. Fechar no contato Camargo & Pinheiro.
 
 ## Filme 3 — Pop Casa Client B2C · 30 s
 
-**Narração (52 palavras ≈ 22 s):**
+**Narração (49 palavras ≈ 20 s):**
 > Tem site que a gente visita. E tem site que a gente conta pros amigos. Entre,
 > ande pela casa, chegue perto do que gostou, gire, aproxime, troque o ambiente
 > de cor. Mesmo sem comprar nada hoje, você vai querer voltar amanhã. Pop Casa:
@@ -105,3 +105,30 @@ contato 48 99988-2213. **CRITICAL:** `CAMARGO & PINHEIRO · DESDE 2012`
 | B2B | nenhuma além da captura |
 | B2C | lista de marcas do Fernando Bento **não entra** neste corte |
 | Camargo | confirmar leitura do telefone em voz (dígito a dígito) |
+
+
+---
+
+## Canonização — validação de 22/08/2026
+
+**O que está garantido por verificação, não por promessa:**
+
+| Verificação | Resultado |
+|---|---|
+| 4 sites de captura respondendo | HTTP 200 nos quatro |
+| Experiência Pop Casa renderizando | testada em Chromium headless, screenshots em anexo no PR |
+| Contagem das 4 narrações | recontada por script; números corrigidos (82/52/49/34) |
+| Fala × alvo | todas cabem com folga de +6 a +11 s — sobra vira motion, nunca fala |
+| Regra anti-invenção | herdada do pacote V2, presente no bloco universal |
+
+**O que NENHUM documento pode garantir daqui:** o comportamento do render do
+HeyGen em si — isso só se verifica no primeiro render privado, com o conector
+autorizado pelo proprietário. O primeiro corte é o teste; os prompts foram
+escritos para que a única variável seja o HeyGen, não o material.
+
+**Nota sobre as capas aprovadas (Cosmic Top Secret, Secret Gardens/Observatory
+Sessions, Lunar/Moon Tides):** carregam selo e numeração de catálogo no estilo
+Hot Creations (HOTC-283/284). Para prévia e validação interna, cobertas pela
+autorização assinada. **Antes de qualquer publicação**, a numeração e o selo
+precisam do aval do label — número de catálogo é afirmação factual do label,
+não nossa.
