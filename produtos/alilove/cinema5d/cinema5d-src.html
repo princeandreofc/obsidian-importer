@@ -574,12 +574,19 @@ function toggleRec(btn){
   catch(e){try{gravador=new MediaRecorder(stream,{mimeType:"video/webm"})}
   catch(e2){alert("Este navegador não grava WebM.");return}}
   gravador.ondataavailable=e=>{if(e.data.size)gravaChunks.push(e.data)};
-  gravador.onstop=()=>{
+  gravador.onstop=async()=>{
     const blob=new Blob(gravaChunks,{type:"video/webm"});
-    const a=document.createElement("a");
-    a.href=URL.createObjectURL(blob);
-    a.download="the-spiral-vj-loop.webm";a.click();
-    setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+    /* no viewer de artifact o download nativo é bloqueado — lá vai pela capability;
+       fora dele (arquivo local, deploy), âncora normal */
+    const dl=(window.claude&&window.claude.use)
+      ?await window.claude.use("downloads").catch(()=>null):null;
+    if(dl){try{await dl.save({filename:"the-spiral-vj-loop.webm",data:blob})}catch(e){}}
+    else{
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(blob);
+      a.download="the-spiral-vj-loop.webm";a.click();
+      setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+    }
     gravador=null;btn.setAttribute("aria-pressed","false");
   };
   gravador.start();btn.setAttribute("aria-pressed","true");
