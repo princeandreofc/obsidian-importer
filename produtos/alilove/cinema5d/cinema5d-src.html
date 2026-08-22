@@ -20,7 +20,7 @@ body{line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button{font-family:var(--sans);cursor:pointer}
 button:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
 a{color:var(--ouro-vivo)}
-.scroll-space{height:900vh}
+.scroll-space{height:1500vh}
 #cena{position:fixed;inset:0;width:100vw;height:100vh;display:block;touch-action:none;
   transition:filter .35s}
 /* vinheta + grão */
@@ -47,6 +47,100 @@ a{color:var(--ouro-vivo)}
 #l-coord{right:26px;bottom:88px;text-align:right}
 .hud .marca{position:absolute;left:50%;top:20px;transform:translateX(-50%);
   color:var(--osso);letter-spacing:.34em;font-weight:700}
+
+/* ── PORTAL DO SITE ORIGINAL — clonado de alilove.world, CSS verbatim ──
+   (anel cônico, núcleo de vídeo, assinatura; cores exatas via fallbacks var()) */
+#portal-clone{position:fixed;inset:0;z-index:5;display:grid;place-items:center;
+  pointer-events:none;opacity:1;transition:opacity .8s}
+#portal-clone.fora{opacity:0}
+#portal-clone .miolo{display:flex;flex-direction:column;align-items:center;
+  gap:clamp(.9rem,2.6vw,1.6rem);transform:translateY(-4vh)}
+.portal-kicker{font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.28em;color:var(--teal,#15e8c8);opacity:.85}
+.portal-ring{position:relative;width:min(430px,72vw);aspect-ratio:1;border-radius:50%;
+  padding:clamp(10px,2.4vw,20px);
+  background:conic-gradient(from 0deg,#7b5cff,#15e8c8,#ff2e93,#e9b44c,#7b5cff);
+  box-shadow:0 0 60px rgba(123,92,255,.35),0 0 120px rgba(21,232,200,.15);
+  animation:portalspin 18s linear infinite}
+@keyframes portalspin{to{transform:rotate(360deg)}}
+.portal-media{position:relative;width:100%;height:100%;border-radius:50%;overflow:hidden;
+  background:transparent;animation:portalspin 18s linear infinite reverse}
+.portal-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:opacity 1s ease}
+.portal-scrim{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent 40%,rgba(7,6,15,.72) 100%)}
+.portal-sig{position:absolute;inset:0;display:grid;place-items:center;margin:0;
+  font-family:var(--serif);font-weight:340;font-size:clamp(1.6rem,5.5vw,3rem);letter-spacing:.02em;
+  color:var(--ink,#f4f1ea);text-shadow:0 2px 30px rgba(7,6,15,.9);
+  animation:sigpulse 4s ease-in-out infinite}
+@keyframes sigpulse{0%,100%{text-shadow:0 2px 30px rgba(7,6,15,.9),0 0 0 rgba(255,46,147,0)}50%{text-shadow:0 2px 30px rgba(7,6,15,.9),0 0 26px rgba(255,46,147,.45)}}
+.portal-love{font-family:var(--font-mono,monospace);font-size:12px;letter-spacing:.3em;color:var(--gold,#e9b44c);opacity:.8;margin:0}
+@media (prefers-reduced-motion:reduce){.portal-ring,.portal-media,.portal-sig{animation:none}}
+body.m-vj #portal-clone,body.sem-gl #portal-clone{display:none}
+@media (max-width:640px){#portal-clone .miolo{transform:translateY(-9vh)}}
+
+/* ── tintura: camada final de cor (grade violeta→ouro, paleta alilove.world) ── */
+.grade{position:fixed;inset:0;pointer-events:none;z-index:4;mix-blend-mode:overlay;
+  background:linear-gradient(180deg,rgba(72,38,120,.16),transparent 38%,transparent 60%,rgba(212,162,78,.12)),
+             radial-gradient(120% 100% at 50% 120%,rgba(24,10,44,.35),transparent 55%)}
+
+/* ── menu espelho do site (mesma estrutura: Film…EPK) ── */
+.menu{position:fixed;top:46px;left:50%;transform:translateX(-50%);z-index:7;
+  display:flex;gap:4px;max-width:min(92vw,860px);overflow-x:auto;padding:4px 6px;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+  background:rgba(12,8,16,.55);border:1px solid rgba(212,162,78,.16);border-radius:999px;
+  backdrop-filter:blur(8px)}
+.menu::-webkit-scrollbar{display:none}
+.menu button{border:0;background:transparent;color:var(--osso-2);font-size:9.5px;
+  letter-spacing:.16em;text-transform:uppercase;padding:7px 10px;border-radius:999px;
+  white-space:nowrap;flex:0 0 auto}
+.menu button.viva,.menu button:hover{color:var(--tinta);background:var(--ouro)}
+
+/* ── player (Listen) ── */
+.player{margin-top:14px;border:1px solid rgba(212,162,78,.28);border-radius:14px;
+  padding:14px;background:rgba(14,9,18,.72);backdrop-filter:blur(6px);max-width:430px}
+.player .linha1{display:flex;gap:10px;align-items:center}
+.player .btn-play{width:46px;height:46px;border-radius:50%;border:0;background:var(--ouro);
+  color:var(--tinta);font-size:16px;font-weight:700;flex:0 0 auto}
+.player .btn-play:disabled{opacity:.35}
+.player .faixa{flex:1;min-width:0}
+.player .faixa b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;color:var(--osso)}
+.player .faixa span{font-size:9.5px;letter-spacing:.14em;color:var(--osso-3);
+  text-transform:uppercase}
+.player progress{width:100%;height:4px;margin-top:10px;accent-color:var(--ouro);
+  -webkit-appearance:none;appearance:none;border:0;background:var(--linha);border-radius:2px}
+.player progress::-webkit-progress-bar{background:var(--linha);border-radius:2px}
+.player progress::-webkit-progress-value{background:var(--ouro);border-radius:2px}
+.player .solta{display:block;margin-top:10px;border:1px dashed rgba(212,162,78,.4);
+  border-radius:10px;padding:11px;text-align:center;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--osso-2);cursor:pointer}
+.player input[type=file]{display:none}
+.player .nota{margin-top:8px;font-size:9px;color:var(--osso-3);letter-spacing:.08em}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.chips span{border:1px solid var(--linha);border-radius:999px;padding:6px 12px;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--osso-2)}
+
+/* ── The Sleeves (Records) — 4 temas, arte gerativa própria ── */
+.sleeves{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;max-width:560px}
+.sleeves figure{margin:0}
+.sleeves canvas{width:100%;aspect-ratio:1;border-radius:6px;display:block;
+  border:1px solid rgba(212,162,78,.35);box-shadow:0 6px 24px rgba(0,0,0,.5)}
+.sleeves figcaption{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--osso-3);margin-top:6px;line-height:1.5}
+.sleeves figcaption b{display:block;color:var(--osso-2);font-size:9px}
+@media (max-width:640px){.sleeves{grid-template-columns:repeat(2,1fr)}}
+
+/* ── Archive (13 lançamentos verbatim) ── */
+.arquivo{columns:2;gap:26px;margin-top:12px;max-width:520px;font-size:12px;color:var(--osso-2)}
+.arquivo li{list-style:none;padding:4px 0;border-bottom:1px solid rgba(42,35,28,.6);
+  break-inside:avoid;display:flex;justify-content:space-between;gap:10px}
+.arquivo li i{font-style:normal;color:var(--osso-3);font-size:10.5px}
+@media (max-width:480px){.arquivo{columns:1}}
+
+/* ── modos: jornada (site) × vj (página isolada) ── */
+body.m-jornada .deck,body.m-jornada #b-vj,body.m-jornada .voltar{display:none!important}
+body.m-vj .cap,body.m-vj .menu,body.m-vj .scroll-space,body.m-vj .dica{display:none!important}
+body.m-vj .deck{display:block}
+.voltar{position:fixed;left:18px;bottom:18px;z-index:8}
 
 /* ── capítulos (copy verbatim, DOM nítido) ── */
 .cap{position:fixed;z-index:6;left:clamp(18px,5vw,64px);bottom:clamp(70px,12vh,120px);
@@ -100,12 +194,16 @@ a{color:var(--ouro-vivo)}
 /* fallback sem WebGL */
 .fallback{display:none;min-height:100vh;padding:12vh 6vw;background:var(--tinta);position:relative;z-index:9}
 body.sem-gl .fallback{display:block}
-body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,body.sem-gl .crt,body.sem-gl #b-vj{display:none}
+body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,
+body.sem-gl .crt,body.sem-gl #b-vj,body.sem-gl .menu,body.sem-gl .grade,
+body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
 .fallback h1{font-family:var(--serif);font-weight:340;font-size:clamp(40px,8vw,84px)}
 .fallback p{max-width:60ch;color:var(--osso-2);margin-top:12px}
 
 @media (max-width:640px){
   #l-dep,#l-coord{bottom:64px}
+  #l-era,#l-rot{display:none}   /* o menu já diz a seção; topo respira */
+  .menu{top:52px}
   .cap{bottom:clamp(90px,14vh,140px)}
   .dica{left:18px;transform:none;text-align:left;max-width:52vw;letter-spacing:.18em}
 }
@@ -115,7 +213,28 @@ body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,bo
 <div class="scroll-space" aria-hidden="true"></div>
 <canvas id="cena" aria-label="The Spiral — jornada tridimensional pela carreira de Ali Love"></canvas>
 <div class="veu" aria-hidden="true"></div>
+<div class="grade" aria-hidden="true"></div>
 <div class="crt" id="crt" aria-hidden="true"></div>
+
+<!-- portal do site original (alilove.world) — o disco como centro, como está lá -->
+<div id="portal-clone" aria-hidden="true">
+  <div class="miolo">
+    <div class="portal-kicker">BRING LOVE · COSMIC RAVE</div>
+    <div class="portal-ring">
+      <div class="portal-media">
+        <video autoplay muted loop playsinline preload="auto"
+          poster="https://www.alilove.world/media/film/posters/title-card.jpg"
+          onerror="this.style.display='none'">
+          <source src="https://www.alilove.world/media/film/title-card.mp4" type="video/mp4"
+            onerror="this.parentElement.style.display='none'">
+        </video>
+        <div class="portal-scrim"></div>
+        <h2 class="portal-sig" data-txt="BRING LOVE">BRING LOVE</h2>
+      </div>
+    </div>
+    <p class="portal-love">LOVE ALWAYS WINS</p>
+  </div>
+</div>
 
 <!-- HUD lente inteligente: vetor puro, dados reais -->
 <div class="hud" aria-hidden="true">
@@ -137,16 +256,52 @@ body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,bo
   <div class="ler" id="l-coord"><span>θ / φ</span><b id="v-coord">0.00 / 0.00</b></div>
 </div>
 
-<!-- ── capítulos: copy verbatim do press kit aprovado ── -->
+<!-- ── menu: a MESMA estrutura do alilove.world, na mesma ordem ── -->
+<nav class="menu" id="menu" aria-label="Seções — espelho de alilove.world">
+  <button data-sec="1" type="button">Film</button>
+  <button data-sec="2" type="button">Visuals</button>
+  <button data-sec="3" type="button">Brand</button>
+  <button data-sec="4" type="button">Secret</button>
+  <button data-sec="5" type="button">Listen</button>
+  <button data-sec="6" type="button">Records</button>
+  <button data-sec="7" type="button">Archive</button>
+  <button data-sec="8" type="button">Live</button>
+  <button data-sec="9" type="button">Press</button>
+  <button data-sec="10" type="button">EPK</button>
+</nav>
+
+<!-- ── seções: estrutura verbatim do site, copy do press kit aprovado ── -->
 <section class="cap viva" id="cap0">
-  <p class="k">Ali Love · A Report &amp; A Tribute · July 2026</p>
-  <h2>The golden voice that refuses to stay in its <em>box</em>.</h2>
-  <p>Twenty years of UK dance music, one unmistakable voice. This is a portrait of
-     Ali Love — told with love, by the family that built a world around it.</p>
+  <p class="k">Ali Love · alilove.world</p>
+  <h2>Bring <em>Love</em>.</h2>
+  <p>A cosmic, soulful frontman turning the dancefloor into communion. Twenty years
+     of records carried by one golden voice.</p>
 </section>
 
 <section class="cap" id="cap1">
-  <p class="k">Era I · The Voice</p>
+  <p class="k">Film · Tema — Cosmic Top Secret</p>
+  <h2>The new campaign <em>film</em>.</h2>
+  <p>Cosmic Rave — 8:08 of communion. Twenty years of UK dance music, one
+     unmistakable voice: this is a portrait of Ali Love, told with love, by the
+     family that built a world around it.</p>
+  <div class="ctas">
+    <a class="btn btn-ghost" href="https://www.alilove.world" target="_blank" rel="noopener">ASSISTIR NO SITE →</a>
+  </div>
+</section>
+
+<section class="cap" id="cap2">
+  <p class="k">Visuals · Tema — Code Lagoon · Midnight Frequency Sessions</p>
+  <h2>Art you can <em>touch</em>.</h2>
+  <p>The visuals engine behind The Spiral paints trails, bursts and warp over the
+     world in real time. The full desk lives on its own stage — abstract art with
+     real VJ resources, ready for the live show.</p>
+  <div class="ctas">
+    <a class="btn btn-ouro" href="@@VJURL@@" target="_blank" rel="noopener">ABRIR O VJ STUDIO ↗</a>
+  </div>
+</section>
+
+<section class="cap" id="cap3">
+  <p class="k">Brand · Identity &amp; lookbook</p>
   <h2>Some voices you recognise in a single <em>bar</em>.</h2>
   <p>London's Ali Love — frontman, songwriter, entertainer — has spent two decades
      lending his to the records that shaped UK dance music: the Chemical Brothers,
@@ -156,19 +311,77 @@ body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,bo
     <cite>The Vinyl Factory</cite></blockquote>
 </section>
 
-<section class="cap" id="cap2">
-  <p class="k">Era II · Psychedelic House</p>
-  <h2>Club records with a soul singer <em>inside</em> them.</h2>
-  <p>With Infinity Ink and Hot Natured, Ali helped define an era. “Forward Motion”
-     and the benchmark “Benediction” — written with Jamie Jones and Lee Foss —
-     remain reference points of psychedelic house. His “Confusion” with Keinemusik
-     became an Essential New Tune for Pete Tong on BBC Radio 1 — and was covered
-     by Drake, who cites the song as an inspiration.</p>
-  <blockquote>“Rarely less than entertaining.”<cite>Resident Advisor</cite></blockquote>
+<section class="cap" id="cap4">
+  <p class="k">Secret · Tema — Hidden Frequencies · Midnight Listening Room</p>
+  <h2>Quiet <em>proof</em>.</h2>
+  <p>They call it house. I call it communion. Love always wins — not as a slogan,
+     as a result. Bring it to the floor. Bring it to the record. Bring it to the
+     stranger beside you.</p>
 </section>
 
-<section class="cap" id="cap3">
-  <p class="k">Era III · The Arena → Now</p>
+<section class="cap" id="cap5">
+  <p class="k">Listen · Tema — Lunar Tides · Tropical Coast Sessions</p>
+  <h2>One golden <em>voice</em>.</h2>
+  <div class="player" id="player">
+    <div class="linha1">
+      <button class="btn-play" id="p-play" type="button" disabled aria-label="Tocar ou pausar">►</button>
+      <div class="faixa">
+        <b id="p-nome">Nenhuma faixa carregada</b>
+        <span id="p-tempo">solte o single de hoje aqui</span>
+      </div>
+    </div>
+    <progress id="p-barra" max="1" value="0"></progress>
+    <label class="solta">Tocar um arquivo de áudio — o palco reage ao som
+      <input id="p-arquivo" type="file" accept="audio/*"></label>
+    <p class="nota">O áudio toca só no seu aparelho — nada é enviado. Visual reage
+       aos graves em tempo real.</p>
+    <audio id="p-el"></audio>
+  </div>
+  <div class="chips" aria-label="Plataformas">
+    <span>Spotify</span><span>SoundCloud</span><span>Beatport</span><span>Discogs</span>
+  </div>
+  <div class="ctas">
+    <a class="btn btn-ghost" href="https://www.alilove.world" target="_blank" rel="noopener">OUVIR NAS PLATAFORMAS →</a>
+  </div>
+</section>
+
+<section class="cap" id="cap6">
+  <p class="k">Records · I ♥ Records</p>
+  <h2>The <em>Sleeves</em>.</h2>
+  <div class="sleeves" id="sleeves">
+    <figure><canvas data-tema="cosmic" width="300" height="300"></canvas>
+      <figcaption><b>Cosmic Top Secret</b>Ali Love</figcaption></figure>
+    <figure><canvas data-tema="lagoon" width="300" height="300"></canvas>
+      <figcaption><b>Code Lagoon</b>Midnight Frequency Sessions</figcaption></figure>
+    <figure><canvas data-tema="tides" width="300" height="300"></canvas>
+      <figcaption><b>Lunar Tides</b>Tropical Coast Sessions</figcaption></figure>
+    <figure><canvas data-tema="hidden" width="300" height="300"></canvas>
+      <figcaption><b>Hidden Frequencies</b>Midnight Listening Room</figcaption></figure>
+  </div>
+</section>
+
+<section class="cap" id="cap7">
+  <p class="k">Archive · 2006–2021</p>
+  <h2>Thirteen ways to say <em>love</em>.</h2>
+  <ul class="arquivo">
+    <li>K-Hole / Camera on a Pole<i>2006</i></li>
+    <li>Do It Again<i>2007</i></li>
+    <li>Love Harder<i>2010</i></li>
+    <li>Civilization<i>2011</i></li>
+    <li>Forward Motion<i>2011</i></li>
+    <li>Infinity<i>2012</i></li>
+    <li>Benediction<i>2012</i></li>
+    <li>Different Sides of the Sun<i>2013</i></li>
+    <li>P.U.M.P.<i>2014</i></li>
+    <li>EML Ritual<i>2015</i></li>
+    <li>Jacuzzi Rollercoaster<i>2018</i></li>
+    <li>Spektrum<i>2020</i></li>
+    <li>Confusion<i>2021</i></li>
+  </ul>
+</section>
+
+<section class="cap" id="cap8">
+  <p class="k">Live · On stage</p>
   <h2>The club voice, at symphony <em>scale</em>.</h2>
   <p>In December 2024 he took that voice to the arena: guest vocalist with Pete Tong
      Presents Ibiza Classics — sixty-five musicians on stage. Two nights at The O2.
@@ -182,8 +395,19 @@ body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,bo
   </div>
 </section>
 
-<section class="cap" id="cap4">
-  <p class="k">A Homenagem · The Tribute</p>
+<section class="cap" id="cap9">
+  <p class="k">Press · Quiet proof</p>
+  <h2>Club records with a soul singer <em>inside</em> them.</h2>
+  <p>With Infinity Ink and Hot Natured, Ali helped define an era. “Forward Motion”
+     and the benchmark “Benediction” — written with Jamie Jones and Lee Foss —
+     remain reference points of psychedelic house. His “Confusion” with Keinemusik
+     became an Essential New Tune for Pete Tong on BBC Radio 1 — and was covered
+     by Drake, who cites the song as an inspiration.</p>
+  <blockquote>“Rarely less than entertaining.”<cite>Resident Advisor</cite></blockquote>
+</section>
+
+<section class="cap" id="cap10">
+  <p class="k">EPK · Bookings</p>
   <h2>Love always <em>wins</em>.</h2>
   <p>In 2023, Hot Creations released “Da Da On” — Ali Love with Prince Andre, HOTC204.
      It was more than a record. It was a door held open. The world we built around
@@ -196,6 +420,8 @@ body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,bo
   </div>
   <p style="margin-top:12px;font-size:10px;letter-spacing:.3em;color:var(--osso-3)">
     LOVE ALWAYS WINS · ALI LOVE × AB MOTION</p>
+  <p style="margin-top:6px;font-size:9px;letter-spacing:.2em;color:var(--osso-3)">
+    © 2026 ALI LOVE · LOVE ALWAYS WINS.</p>
 </section>
 
 <p class="dica" id="dica">role para mergulhar no disco ↓</p>
@@ -213,9 +439,18 @@ body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,bo
     <button class="pad" data-fx="warp"   aria-pressed="false" type="button">Warp<small>5</small></button>
     <button class="pad rec" data-fx="rec" aria-pressed="false" type="button">Rec<small>R</small></button>
   </div>
+  <label class="solta" style="display:block;margin-top:10px;border:1px dashed rgba(212,162,78,.4);
+    border-radius:10px;padding:10px;text-align:center;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--osso-2);cursor:pointer">
+    Tocar áudio — o palco reage aos graves
+    <input id="vj-arquivo" type="file" accept="audio/*" style="display:none"></label>
+  <audio id="vj-el"></audio>
   <p class="aviso">Sem strobe: efeitos limitados a transições suaves por segurança
-     fotossensível. REC grava WebM direto do palco — seu loop, seu arquivo.</p>
+     fotossensível. REC grava WebM direto do palco — seu loop, seu arquivo.
+     O áudio toca só no seu aparelho; nada é enviado.</p>
 </div>
+
+<a class="btn btn-ghost voltar" href="@@VJURL@@" target="_blank" rel="noopener">← VOLTAR À JORNADA</a>
 
 <div class="fallback">
   <p class="k" style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ouro)">The Spiral · preview</p>
@@ -228,7 +463,10 @@ body.sem-gl .scroll-space,body.sem-gl #cena,body.sem-gl .hud,body.sem-gl .veu,bo
 
 <script>
 "use strict";
-/* ═══════ THE SPIRAL — jornada em 5 capítulos, 3 eras ═══════ */
+/* ═══════ THE SPIRAL — espelho de alilove.world em cinema 5D ═══════
+   MODO "jornada": o site (estrutura idêntica ao alilove.world).
+   MODO "vj": página isolada do VJ Studio (deriva automática + mesa). */
+const MODO="@@MODO@@";
 const $=id=>document.getElementById(id);
 const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -239,10 +477,16 @@ function temGL(){try{const c=document.createElement("canvas");
 }catch(e){return false}}
 
 let renderer,scene,camera,relogio={t:performance.now()};
-let disco,discoGrupo,portais=[],eqBarras,cogumelos,cogCores=[],vagalumes,engrenagens=[],fadePlane;
-let neblina;
+let disco,discoGrupo,bordaDisco,portais=[],eqBarras,cogumelos,cogCores=[],vagalumes,engrenagens=[],fadePlane;
+let neblina,planetas=[],estrelas;
 let fx={pulse:false,trails:false,hue:false,warp:false};
 let hueDeg=0,burstPool=[];
+/* tintura: camada final de cor sobre o palco */
+const FILTRO_BASE="saturate(1.22) contrast(1.07) brightness(1.03)";
+/* áudio real — player (jornada) e mesa (vj) compartilham o motor */
+let audioCtx=null,analyser=null,dadosFreq=null,audioEl=null,nivelGrave=0,nivelMedio=0;
+/* portal clonado: profundidade — atravessa-se o anel ao mergulhar */
+let portalEl=null,portalMiolo=null,paraX=0,paraY=0,paraXA=0,paraYA=0;
 let gravador=null,gravaChunks=[];
 let scrollSuave=0;
 let fpsAcc=0,fpsN=0,fpsRuim=0,degradou=false;
@@ -352,9 +596,9 @@ function montaCena(){
     new THREE.MeshStandardMaterial({map:sul,roughness:.32,metalness:.42,
       bumpMap:sul,bumpScale:.02}));
   discoGrupo.add(disco);
-  const borda=new THREE.Mesh(new THREE.TorusGeometry(10.02,.09,10,140),
+  bordaDisco=new THREE.Mesh(new THREE.TorusGeometry(10.02,.09,10,140),
     new THREE.MeshBasicMaterial({color:0xd4a24e,transparent:true,opacity:.5}));
-  borda.rotation.x=Math.PI/2;discoGrupo.add(borda);
+  bordaDisco.rotation.x=Math.PI/2;discoGrupo.add(bordaDisco);
   /* selo autoiluminado — o rótulo dourado lê sob qualquer luz */
   const cSelo=document.createElement("canvas");cSelo.width=cSelo.height=256;
   const gS=cSelo.getContext("2d");
@@ -494,6 +738,56 @@ function montaCena(){
     t.userData.giro=.4;scene.add(t);portais.push(t);
   });
 
+  /* ═ galáxia — o palco flutua no espaço ═ */
+  const cNeb=document.createElement("canvas");cNeb.width=1024;cNeb.height=512;
+  const gN=cNeb.getContext("2d");
+  gN.fillStyle="#050309";gN.fillRect(0,0,1024,512);
+  const mancha=(x,y,r,cor,a)=>{const rg=gN.createRadialGradient(x,y,0,x,y,r);
+    rg.addColorStop(0,cor.replace("A",a));rg.addColorStop(1,cor.replace("A","0"));
+    gN.fillStyle=rg;gN.fillRect(x-r,y-r,r*2,r*2)};
+  mancha(300,190,260,"rgba(88,52,150,A)",".38");   /* nebulosa violeta */
+  mancha(700,300,300,"rgba(20,90,100,A)",".30");   /* véu teal (Code Lagoon) */
+  mancha(520,120,200,"rgba(190,140,60,A)",".22");  /* poeira dourada */
+  mancha(880,110,150,"rgba(180,90,120,A)",".18");  /* rosa cósmico */
+  mancha(140,400,180,"rgba(60,80,160,A)",".20");   /* azul lunar */
+  for(let i=0;i<420;i++){const v=Math.random();
+    gN.fillStyle=`rgba(255,${230+Math.random()*25|0},${200+Math.random()*40|0},${.25+v*.65})`;
+    gN.fillRect(Math.random()*1024,Math.random()*512,v>.92?2:1,v>.92?2:1)}
+  const ceu=new THREE.Mesh(new THREE.SphereGeometry(158,32,20),
+    new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cNeb),side:THREE.BackSide,fog:false}));
+  ceu.rotation.y=1.2;scene.add(ceu);
+  estrelas=makePoints(2200,()=>{const u=Math.random()*6.2832,v=Math.acos(2*Math.random()-1);
+    const r=115+Math.random()*35;
+    return [r*Math.sin(v)*Math.cos(u),r*Math.cos(v)-40,r*Math.sin(v)*Math.sin(u)]},0xfff2dc,.6,.9);
+  estrelas.material.fog=false;scene.add(estrelas);
+
+  /* planetas em órbita lenta — o "efeito gravitacional" */
+  const texListras=(cores)=>{const c=document.createElement("canvas");c.width=8;c.height=128;
+    const g2=c.getContext("2d");cores.forEach((cor,i)=>{g2.fillStyle=cor;
+      g2.fillRect(0,i*128/cores.length,8,128/cores.length+1)});
+    const t=new THREE.CanvasTexture(c);t.magFilter=THREE.LinearFilter;return t};
+  const fazPlaneta=(r,mat,R,cy,w,ph)=>{const p=new THREE.Mesh(new THREE.SphereGeometry(r,28,20),mat);
+    p.userData={R,cy,w,ph};planetas.push(p);scene.add(p);return p};
+  /* gigante listrado (Cosmic Top Secret) com anel */
+  const sat=fazPlaneta(6.5,new THREE.MeshBasicMaterial({fog:false,
+    map:texListras(["#c8b088","#8a6a42","#e2d3ae","#6a4a30","#b89468","#54382a","#d8c49a"])}),
+    92,-18,.021,0);
+  const anel=new THREE.Mesh(new THREE.RingGeometry(8.6,12.4,48),
+    new THREE.MeshBasicMaterial({color:0xcbb287,transparent:true,opacity:.5,
+      side:THREE.DoubleSide,fog:false}));
+  anel.rotation.x=Math.PI/2.4;sat.add(anel);
+  /* lua fria (Lunar Tides) */
+  const cLua=document.createElement("canvas");cLua.width=cLua.height=128;
+  const gL=cLua.getContext("2d");gL.fillStyle="#c9d2d8";gL.fillRect(0,0,128,128);
+  for(let i=0;i<40;i++){gL.beginPath();
+    gL.arc(Math.random()*128,Math.random()*128,1+Math.random()*7,0,6.2832);
+    gL.fillStyle=`rgba(120,132,142,${.2+Math.random()*.4})`;gL.fill()}
+  fazPlaneta(3.1,new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cLua),fog:false}),
+    78,10,.033,2.4);
+  /* anã teal (Code Lagoon) */
+  fazPlaneta(2.3,new THREE.MeshBasicMaterial({color:0x2f8a7e,fog:false}),
+    104,-118,.027,4.2);
+
   /* plano de fade para TRAILS (feedback de VJ) */
   fadePlane=new THREE.Mesh(new THREE.PlaneGeometry(2,2),
     new THREE.MeshBasicMaterial({color:0x0a0806,transparent:true,opacity:.22,depthTest:false}));
@@ -523,11 +817,17 @@ function makePoints(n,posFn,cor,tam,op){
 
 /* ── capítulos / eras por profundidade ── */
 const FASES=[
-  {ate:.16,cap:"cap0",era:"O DISCO",fog:0x0a0806,dens:.010},
-  {ate:.40,cap:"cap1",era:"I · INDUSTRIAL",fog:0x120c07,dens:.040},
-  {ate:.66,cap:"cap2",era:"II · ANALOG GRID",fog:0x041014,dens:.036},
-  {ate:.88,cap:"cap3",era:"III · NIGHT GARDEN",fog:0x06110c,dens:.021},
-  {ate:1.01,cap:"cap4",era:"THE TRIBUTE",fog:0x0a0806,dens:.024},
+  {ate:.09,cap:"cap0", era:"BRING LOVE",         fog:0x0a0614,dens:.010},
+  {ate:.22,cap:"cap1", era:"COSMIC TOP SECRET",  fog:0x140a08,dens:.038},
+  {ate:.36,cap:"cap2", era:"CODE LAGOON",        fog:0x04101a,dens:.034},
+  {ate:.46,cap:"cap3", era:"BRAND",              fog:0x0f0a12,dens:.026},
+  {ate:.55,cap:"cap4", era:"HIDDEN FREQUENCIES", fog:0x120b06,dens:.024},
+  {ate:.66,cap:"cap5", era:"LUNAR TIDES",        fog:0x081018,dens:.019},
+  {ate:.75,cap:"cap6", era:"I ♥ RECORDS",        fog:0x0c0714,dens:.015},
+  {ate:.83,cap:"cap7", era:"THE ARCHIVE",        fog:0x0a0612,dens:.013},
+  {ate:.90,cap:"cap8", era:"ON STAGE",           fog:0x0d0a06,dens:.012},
+  {ate:.96,cap:"cap9", era:"QUIET PROOF",        fog:0x0a0810,dens:.011},
+  {ate:1.01,cap:"cap10",era:"LOVE ALWAYS WINS",  fog:0x0a0614,dens:.010},
 ];
 let faseVis=-1;
 const corFog=new THREE.Color(), corAlvo=new THREE.Color();
@@ -542,6 +842,8 @@ function pintaFase(p){
   $(FASES[idx].cap).classList.add("viva");
   $("v-era").textContent=FASES[idx].era;
   $("dica").classList.toggle("fora",idx!==0);
+  document.querySelectorAll(".menu button").forEach(b=>
+    b.classList.toggle("viva",+b.dataset.sec===idx));
 }
 
 /* ── VJ ── */
@@ -551,7 +853,7 @@ function togglePad(fxNome,btn){
   fx[fxNome]=!fx[fxNome];
   btn.setAttribute("aria-pressed",String(fx[fxNome]));
   if(fxNome==="trails"){renderer.autoClearColor=!fx.trails;fadePlane.visible=fx.trails}
-  if(fxNome==="hue"&&!fx.hue){hueDeg=0;$("cena").style.filter=""}
+  if(fxNome==="hue"&&!fx.hue){hueDeg=0;$("cena").style.filter=FILTRO_BASE}
 }
 function flashPad(b){b.setAttribute("aria-pressed","true");
   setTimeout(()=>b.setAttribute("aria-pressed","false"),180)}
@@ -592,6 +894,101 @@ function toggleRec(btn){
   gravador.start();btn.setAttribute("aria-pressed","true");
 }
 
+/* ── áudio real: um motor, dois palcos (player da jornada, mesa do vj) ── */
+function ligaAudio(el,arquivo){
+  el.src=URL.createObjectURL(arquivo);
+  if(!audioCtx){
+    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    const fonte=audioCtx.createMediaElementSource(el);
+    analyser=audioCtx.createAnalyser();analyser.fftSize=256;
+    dadosFreq=new Uint8Array(analyser.frequencyBinCount);
+    fonte.connect(analyser);analyser.connect(audioCtx.destination);
+  }
+  audioEl=el;audioCtx.resume();
+  return el.play();
+}
+function medeAudio(){
+  if(analyser&&audioEl&&!audioEl.paused){
+    analyser.getByteFrequencyData(dadosFreq);
+    let g=0;for(let i=0;i<9;i++)g+=dadosFreq[i];
+    let m=0;for(let i=9;i<40;i++)m+=dadosFreq[i];
+    nivelGrave=lerp(nivelGrave,g/9/255,.4);
+    nivelMedio=lerp(nivelMedio,m/31/255,.4);
+  }else{nivelGrave*=.92;nivelMedio*=.92}
+}
+
+/* ── The Sleeves: 4 temas das capas, arte gerativa própria (sem imagem alheia) ── */
+function pintaSleeves(){
+  document.querySelectorAll("#sleeves canvas").forEach(cv=>{
+    const g=cv.getContext("2d"),T=cv.dataset.tema,W=300;
+    const anel=(x,y,r0,n,passo,cor)=>{g.strokeStyle=cor;for(let i=0;i<n;i++){
+      g.beginPath();g.arc(x,y,r0+i*passo,0,6.2832);g.stroke()}};
+    if(T==="cosmic"){
+      g.fillStyle="#e9dcc0";g.fillRect(0,0,W,W);
+      g.strokeStyle="#17130e";g.lineWidth=6;g.beginPath();g.arc(150,158,118,0,6.2832);g.stroke();
+      g.fillStyle="#101a20";g.beginPath();g.arc(150,158,112,0,6.2832);g.fill();
+      g.fillStyle="#e9dcc0";g.beginPath();
+      g.moveTo(150,70);g.lineTo(222,240);g.lineTo(78,240);g.closePath();g.fill();
+      g.fillStyle="#5c9ba0";g.beginPath();
+      g.moveTo(150,150);g.lineTo(206,240);g.lineTo(94,240);g.closePath();g.fill();
+      g.fillStyle="#17130e";g.beginPath();g.arc(150,140,10,0,6.2832);g.fill();
+      g.lineWidth=1.4;anel(150,105,6,4,7,"#e9dcc0");
+      g.fillStyle="#d78a83";g.beginPath();g.arc(96,110,17,0,6.2832);g.fill();
+      g.fillStyle="#101a20";g.beginPath();g.arc(104,106,15,0,6.2832);g.fill();
+      for(let i=0;i<46;i++){g.fillStyle="rgba(233,220,192,.8)";
+        const a=Math.random()*6.2832,r=118*Math.sqrt(Math.random());
+        const x=150+Math.cos(a)*r,y=158+Math.sin(a)*r;
+        if(y<160)g.fillRect(x,y,1.4,1.4)}
+    }else if(T==="lagoon"){
+      g.fillStyle="#06131a";g.fillRect(0,0,W,W);
+      g.lineWidth=1;anel(150,96,10,7,13,"rgba(105,230,210,.5)");
+      g.fillStyle="rgba(14,42,52,.9)";g.beginPath();
+      g.ellipse(150,212,118,52,0,0,6.2832);g.fill();
+      g.lineWidth=1.2;
+      anel(120,206,6,4,9,"rgba(105,230,210,.55)");anel(196,224,5,3,8,"rgba(105,230,210,.4)");
+      const cog=(x,y,r,cor)=>{g.fillStyle=cor;g.beginPath();
+        g.arc(x,y,r,Math.PI,0);g.fill();g.fillRect(x-r*.16,y,r*.32,r*.9)};
+      cog(52,236,15,"#c26be0");cog(252,244,12,"#e07a8f");cog(226,180,9,"#69e6d2");
+      for(let i=0;i<40;i++){g.fillStyle="rgba(160,240,220,.5)";
+        g.fillRect(Math.random()*W,Math.random()*150,1.2,1.2)}
+    }else if(T==="tides"){
+      g.fillStyle="#0a1526";g.fillRect(0,0,W,W);
+      const rg=g.createRadialGradient(150,108,4,150,108,66);
+      rg.addColorStop(0,"rgba(244,234,210,1)");rg.addColorStop(.42,"rgba(244,234,210,.9)");
+      rg.addColorStop(1,"rgba(244,234,210,0)");
+      g.fillStyle=rg;g.beginPath();g.arc(150,108,66,0,6.2832);g.fill();
+      g.strokeStyle="rgba(216,205,180,.35)";g.lineWidth=1;
+      g.beginPath();g.arc(150,108,84,0,6.2832);g.stroke();
+      for(let i=0;i<12;i++){const y=196+i*8;
+        g.strokeStyle=`rgba(180,210,235,${.34-i*.024})`;
+        g.beginPath();g.moveTo(20+((i*37)%40),y);g.lineTo(280-((i*29)%46),y);g.stroke()}
+      g.strokeStyle="#0d2418";g.lineWidth=5;
+      g.beginPath();g.moveTo(268,250);g.quadraticCurveTo(258,170,222,132);g.stroke();
+      g.lineWidth=2.4;
+      for(let i=0;i<6;i++){g.beginPath();g.moveTo(222,132);
+        g.quadraticCurveTo(222+(i-2.5)*22,110+((i%2)*10),222+(i-2.5)*34,128+(i%3)*8);g.stroke()}
+      anel(150,214,8,3,10,"rgba(244,234,210,.4)");
+    }else{
+      g.fillStyle="#170f0a";g.fillRect(0,0,W,W);
+      const rg=g.createRadialGradient(94,96,4,94,96,88);
+      rg.addColorStop(0,"rgba(226,168,84,.9)");rg.addColorStop(1,"rgba(226,168,84,0)");
+      g.fillStyle=rg;g.fillRect(0,0,W,W);
+      g.fillStyle="#0d0906";g.beginPath();g.arc(190,196,64,0,6.2832);g.fill();
+      g.fillStyle="#c25a2e";g.beginPath();g.arc(190,196,20,0,6.2832);g.fill();
+      g.fillStyle="#0d0906";g.beginPath();g.arc(190,196,3,0,6.2832);g.fill();
+      g.strokeStyle="rgba(233,220,192,.14)";g.lineWidth=1;
+      for(let i=0;i<9;i++){g.beginPath();g.arc(190,196,26+i*4.2,0,6.2832);g.stroke()}
+      g.strokeStyle="#1d2f1d";g.lineWidth=4;
+      for(let i=0;i<5;i++){g.beginPath();g.moveTo(34+i*10,300);
+        g.quadraticCurveTo(20+i*16,210+i*8,54+i*20,168+i*12);g.stroke()}
+      for(let i=0;i<26;i++){g.fillStyle="rgba(233,220,192,.55)";
+        g.fillRect(40+Math.random()*220,26+Math.random()*66,1.3,1.3)}
+      g.fillStyle="rgba(230,140,190,.85)";
+      g.beginPath();g.arc(258,120,13,Math.PI,0);g.fill();g.fillRect(255,120,6,16);
+    }
+  });
+}
+
 /* ── laço ── */
 function quadro(){
   requestAnimationFrame(quadro);
@@ -603,9 +1000,16 @@ function quadro(){
     if(fpsRuim>=3&&!degradou){degradou=true;renderer.setPixelRatio(1);
       if(vagalumes)vagalumes.visible=false;}}
 
-  const max=document.documentElement.scrollHeight-innerHeight;
-  const alvo=max>0?scrollY/max:0;
-  scrollSuave=reduz?alvo:lerp(scrollSuave,alvo,.065);
+  medeAudio();
+  if(MODO==="vj"){
+    /* página isolada: deriva automática pelo palco inteiro (~110s ida e volta) */
+    const alvoVj=(Math.sin(agora*.000057)+1)/2*.93;
+    scrollSuave=reduz?alvoVj:lerp(scrollSuave,alvoVj,.03);
+  }else{
+    const max=document.documentElement.scrollHeight-innerHeight;
+    const alvo=max>0?scrollY/max:0;
+    scrollSuave=reduz?alvo:lerp(scrollSuave,alvo,.065);
+  }
 
   /* warp de VJ dobra a velocidade percebida do mergulho */
   const pAplicado=fx.warp?clamp(scrollSuave*1.0+Math.sin(agora*.0006)*.006,0,1):scrollSuave;
@@ -619,9 +1023,30 @@ function quadro(){
   portais.forEach(m=>{if(m.userData.giro)m.rotation.z+=dt*m.userData.giro;
     else{m.rotation.x+=dt*m.userData.v*.5;m.rotation.y+=dt*m.userData.v}});
 
+  /* portal do site original: profundidade real — o anel cresce e você o atravessa */
+  if(MODO!=="vj"&&portalMiolo){
+    paraXA=lerp(paraXA,paraX,.06);paraYA=lerp(paraYA,paraY,.06);
+    const pp=clamp(scrollSuave/FASES[0].ate,0,1);
+    if(reduz){portalEl.style.opacity=String(pp<1?1:0)}
+    else{
+      portalMiolo.style.transform=
+        `translate(${paraXA*14}px,calc(${-4-pp*7}vh + ${paraYA*10}px)) scale(${1+pp*2.2})`;
+      portalEl.style.opacity=String(Math.max(0,1-pp*1.12));
+    }
+  }
+
+  /* gravidade lenta: planetas orbitam, céu respira */
+  planetas.forEach(p=>{const u=p.userData;
+    p.position.set(Math.cos(t*u.w+u.ph)*u.R,u.cy+Math.sin(t*u.w*.5+u.ph)*5,
+                   Math.sin(t*u.w+u.ph)*u.R);
+    p.rotation.y=t*.06});
+  if(estrelas)estrelas.rotation.y=t*.004;
+  /* grave do áudio pulsa a borda dourada do vinil */
+  if(bordaDisco)bordaDisco.material.opacity=.5+nivelGrave*.45;
+
   /* equalizador procedural (pulse dobra a amplitude) */
   if(eqBarras){
-    const Mm=new THREE.Matrix4(),amp=fx.pulse?2.4:1;
+    const Mm=new THREE.Matrix4(),amp=(fx.pulse?2.4:1)+nivelGrave*2.8;
     for(let i=0;i<72;i++){
       const a=i/72*Math.PI*2;
       const h=(.6+Math.abs(Math.sin(t*2.1+i*.42))*2.6)*amp;
@@ -634,12 +1059,13 @@ function quadro(){
   /* cogumelos respiram e pulsam cor */
   if(cogumelos&&!reduz){
     const k=(Math.sin(t*1.4)+1)/2;
-    cogumelos.material.emissiveIntensity=.18+k*.22+(fx.pulse?.25:0);
+    cogumelos.material.emissiveIntensity=.18+k*.22+(fx.pulse?.25:0)+nivelGrave*.4;
   }
   if(vagalumes){vagalumes.rotation.y=t*.05}
 
   /* hue de VJ via filtro no canvas — barato e reversível */
-  if(fx.hue){hueDeg=(hueDeg+dt*40)%360;$("cena").style.filter=`hue-rotate(${hueDeg}deg)`}
+  if(fx.hue){hueDeg=(hueDeg+dt*40)%360;
+    $("cena").style.filter=FILTRO_BASE+` hue-rotate(${hueDeg}deg)`}
 
   /* bursts vivem e morrem */
   for(let i=burstPool.length-1;i>=0;i--){
@@ -669,20 +1095,68 @@ function dimensiona(){
 if(!temGL()){document.body.classList.add("sem-gl")}
 else{
   try{
+    document.body.classList.add("m-"+MODO);
+    $("cena").style.filter=FILTRO_BASE;
     montaTrilha();montaCena();
-    $("b-vj").addEventListener("click",()=>{
-      const on=$("deck").classList.toggle("on");
-      $("b-vj").setAttribute("aria-pressed",String(on));
-    });
-    document.querySelectorAll(".pad").forEach(b=>
-      b.addEventListener("click",()=>togglePad(b.dataset.fx,b)));
-    addEventListener("keydown",e=>{
-      const mapa={"1":"pulse","2":"trails","3":"hue","4":"burst","5":"warp",
-                  r:"rec",R:"rec"};
-      const fxN=mapa[e.key];if(!fxN)return;
-      const btn=document.querySelector(`.pad[data-fx="${fxN}"]`);
-      if(btn)togglePad(fxN,btn);
-    });
+
+    if(MODO==="vj"){
+      /* página isolada: mesa aberta, teclado vivo, áudio na mesa */
+      $("dica").textContent="";
+      $("deck").classList.add("on");
+      $("b-vj").setAttribute("aria-pressed","true");
+      $("b-vj").addEventListener("click",()=>{
+        const on=$("deck").classList.toggle("on");
+        $("b-vj").setAttribute("aria-pressed",String(on));
+      });
+      document.querySelectorAll(".pad").forEach(b=>
+        b.addEventListener("click",()=>togglePad(b.dataset.fx,b)));
+      addEventListener("keydown",e=>{
+        const mapa={"1":"pulse","2":"trails","3":"hue","4":"burst","5":"warp",
+                    r:"rec",R:"rec"};
+        const fxN=mapa[e.key];if(!fxN)return;
+        const btn=document.querySelector(`.pad[data-fx="${fxN}"]`);
+        if(btn)togglePad(fxN,btn);
+      });
+      const inpV=$("vj-arquivo");
+      inpV.addEventListener("change",()=>{
+        if(inpV.files[0])ligaAudio($("vj-el"),inpV.files[0]).catch(()=>{});
+      });
+    }else{
+      /* portal com paralaxe de mouse */
+      portalEl=$("portal-clone");
+      portalMiolo=portalEl?portalEl.querySelector(".miolo"):null;
+      addEventListener("mousemove",e=>{
+        paraX=(e.clientX/innerWidth-.5)*2;paraY=(e.clientY/innerHeight-.5)*2;
+      },{passive:true});
+      /* jornada: menu espelho do site + player do Listen */
+      document.querySelectorAll(".menu button").forEach(b=>
+        b.addEventListener("click",()=>{
+          const idx=+b.dataset.sec;
+          const ini=FASES[idx-1].ate, fim=Math.min(FASES[idx].ate,1);
+          const max=document.documentElement.scrollHeight-innerHeight;
+          scrollTo({top:max*((ini+fim)/2),behavior:reduz?"auto":"smooth"});
+        }));
+      pintaSleeves();
+      const fmtT=s=>{s|=0;return (s/60|0)+":"+String(s%60).padStart(2,"0")};
+      const inp=$("p-arquivo"),el=$("p-el"),bt=$("p-play");
+      inp.addEventListener("change",()=>{
+        const f=inp.files[0];if(!f)return;
+        $("p-nome").textContent=f.name.replace(/\.[^.]+$/,"");
+        bt.disabled=false;bt.textContent="❚❚";
+        ligaAudio(el,f).catch(()=>{bt.textContent="►"});
+      });
+      bt.addEventListener("click",()=>{
+        if(!el.src)return;
+        if(el.paused){if(audioCtx)audioCtx.resume();el.play();bt.textContent="❚❚"}
+        else{el.pause();bt.textContent="►"}
+      });
+      el.addEventListener("timeupdate",()=>{
+        if(el.duration){$("p-barra").value=el.currentTime/el.duration;
+          $("p-tempo").textContent=fmtT(el.currentTime)+" / "+fmtT(el.duration)}
+      });
+      el.addEventListener("ended",()=>{bt.textContent="►"});
+    }
+
     addEventListener("resize",dimensiona);
     pintaFase(0);
     quadro();
