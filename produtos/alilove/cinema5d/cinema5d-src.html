@@ -20,7 +20,7 @@ body{line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button{font-family:var(--sans);cursor:pointer}
 button:focus-visible{outline:2px solid var(--ouro);outline-offset:2px}
 a{color:var(--ouro-vivo)}
-.scroll-space{height:1500vh}
+.scroll-space{height:2100vh}
 #cena{position:fixed;inset:0;width:100vw;height:100vh;display:block;touch-action:none;
   transition:filter .35s}
 /* vinheta + grão */
@@ -53,6 +53,17 @@ a{color:var(--ouro-vivo)}
 #portal-clone{position:fixed;inset:0;z-index:5;display:grid;place-items:center;
   pointer-events:none;opacity:1;transition:opacity .8s}
 #portal-clone.fora{opacity:0}
+.portal-backdrop{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.48;filter:saturate(.82) contrast(1.08);transform:scale(1.025)}
+/* núcleo vivo: nebulosa girando — o miolo do anel nunca fica preto */
+.portal-nucleo{position:absolute;inset:-20%;border-radius:50%;
+  background:
+    radial-gradient(circle at 42% 40%,rgba(123,92,255,.55),transparent 46%),
+    radial-gradient(circle at 62% 62%,rgba(21,232,200,.4),transparent 44%),
+    radial-gradient(circle at 50% 30%,rgba(255,46,147,.3),transparent 40%),
+    radial-gradient(circle at 55% 55%,rgba(233,180,76,.25),transparent 52%),
+    #07060f;
+  filter:blur(14px);animation:portalspin 42s linear infinite}
 #portal-clone .miolo{display:flex;flex-direction:column;align-items:center;
   gap:clamp(.9rem,2.6vw,1.6rem);transform:translateY(-4vh)}
 .portal-kicker{font-family:var(--font-mono,monospace);font-size:11px;letter-spacing:.28em;color:var(--teal,#15e8c8);opacity:.85}
@@ -115,6 +126,10 @@ body.m-vj #portal-clone,body.sem-gl #portal-clone{display:none}
   text-transform:uppercase;color:var(--osso-2);cursor:pointer}
 .player input[type=file]{display:none}
 .player .nota{margin-top:8px;font-size:9px;color:var(--osso-3);letter-spacing:.08em}
+.btn-mic{margin-top:10px;width:100%;border:1px solid var(--linha);background:var(--carvao);
+  color:var(--osso-2);border-radius:10px;padding:10px;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer}
+.btn-mic[aria-pressed="true"]{background:var(--ouro);color:var(--tinta);border-color:var(--ouro)}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .chips a{border:1px solid var(--linha);border-radius:999px;padding:6px 12px;
   font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--osso-2);
@@ -126,7 +141,7 @@ body.m-vj #portal-clone,body.sem-gl #portal-clone{display:none}
 .spotify-nota{font-size:9px;color:var(--osso-3);letter-spacing:.08em;margin-top:6px;max-width:430px}
 
 /* ── The Sleeves (Records) — 4 temas, arte gerativa própria ── */
-.sleeves{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;max-width:560px}
+.sleeves{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;max-width:520px}
 .sleeves figure{margin:0}
 .sleeves canvas{width:100%;aspect-ratio:1;border-radius:6px;display:block;
   border:1px solid rgba(212,162,78,.35);box-shadow:0 6px 24px rgba(0,0,0,.5)}
@@ -224,10 +239,14 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
 
 <!-- portal do site original (alilove.world) — o disco como centro, como está lá -->
 <div id="portal-clone" aria-hidden="true">
+  <img class="portal-backdrop" alt="" aria-hidden="true"
+    src="https://www.alilove.world/media/campaign/ali-love-cosmic-portal-v1.webp"
+    onerror="this.style.display='none'">
   <div class="miolo">
     <div class="portal-kicker">BRING LOVE · COSMIC RAVE</div>
     <div class="portal-ring">
       <div class="portal-media">
+        <div class="portal-nucleo" aria-hidden="true"></div>
         <video autoplay muted loop playsinline preload="auto"
           poster="https://www.alilove.world/media/film/posters/title-card.jpg"
           onerror="this.style.display='none'">
@@ -348,6 +367,9 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
       <input id="p-arquivo" type="file" accept="audio/*"></label>
     <p class="nota">O áudio toca só no seu aparelho — nada é enviado. Visual reage
        aos graves em tempo real.</p>
+    <button class="btn-mic" id="p-mic" type="button" aria-pressed="false">
+      🎙 Reagir ao som do ambiente — toque no Spotify e ligue aqui</button>
+    <p class="nota">O microfone alimenta só o visual, nada é gravado nem enviado.</p>
     <audio id="p-el"></audio>
   </div>
   <div class="chips" aria-label="Plataformas">
@@ -370,6 +392,10 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
       <figcaption><b>Lunar Tides</b>Tropical Coast Sessions</figcaption></figure>
     <figure><canvas data-tema="hidden" width="300" height="300"></canvas>
       <figcaption><b>Hidden Frequencies</b>Midnight Listening Room</figcaption></figure>
+    <figure><canvas data-tema="skyline" width="300" height="300"></canvas>
+      <figcaption><b>Skyline Paradise</b>Moon Garden Sessions</figcaption></figure>
+    <figure><canvas data-tema="gardens" width="300" height="300"></canvas>
+      <figcaption><b>Secret Gardens</b>Mushroom Observatory Sessions</figcaption></figure>
   </div>
 </section>
 
@@ -457,6 +483,8 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
     text-transform:uppercase;color:var(--osso-2);cursor:pointer">
     Tocar áudio — o palco reage aos graves
     <input id="vj-arquivo" type="file" accept="audio/*" style="display:none"></label>
+  <button class="btn-mic" id="vj-mic" type="button" aria-pressed="false">
+    🎙 Reagir ao som do ambiente</button>
   <audio id="vj-el"></audio>
   <p class="aviso">Sem strobe: efeitos limitados a transições suaves por segurança
      fotossensível. REC grava WebM direto do palco — seu loop, seu arquivo.
@@ -500,6 +528,8 @@ const FILTRO_BASE="saturate(1.22) contrast(1.07) brightness(1.03)";
 let audioCtx=null,analyser=null,dadosFreq=null,audioEl=null,nivelGrave=0,nivelMedio=0;
 /* portal clonado: profundidade — atravessa-se o anel ao mergulhar */
 let portalEl=null,portalMiolo=null,paraX=0,paraY=0,paraXA=0,paraYA=0;
+/* tintura viva por seção + microfone (Spotify ambiente → motion) */
+let matizAtual=0,satAtual=1.22,micOn=false,micStream=null;
 let gravador=null,gravaChunks=[];
 let scrollSuave=0;
 let fpsAcc=0,fpsN=0,fpsRuim=0,degradou=false;
@@ -537,6 +567,9 @@ function poseNaTrilha(p){
   const bobX=reduz?0:Math.sin(tt*1.9)*.05, bobY=reduz?0:Math.cos(tt*3.7)*.06;
   camera.position.copy(pos).addScaledVector(nor,bobY).addScaledVector(bin,bobX);
   const alvo=curva.getPointAt(clamp(t+.015,0,1));
+  /* no hero o olhar sobe para a nebulosa (o portal reina sozinho);
+     o vinil entra em quadro conforme o mergulho começa */
+  if(MODO!=="vj"&&t<.09)alvo.y+=(1-clamp(t/.09,0,1))*16;
   /* dentro das câmaras o olhar pende para o eixo da hélice — a era se apresenta */
   const peso=.38*clamp((t-.12)/.05,0,1)*clamp((.92-t)/.05,0,1);
   if(peso>0){EIXO.set(0,pos.y-2.5,0);alvo.lerp(EIXO,peso)}
@@ -774,32 +807,74 @@ function montaCena(){
     return [r*Math.sin(v)*Math.cos(u),r*Math.cos(v)-40,r*Math.sin(v)*Math.sin(u)]},0xfff2dc,.6,.9);
   estrelas.material.fog=false;scene.add(estrelas);
 
-  /* planetas em órbita lenta — o "efeito gravitacional" */
-  const texListras=(cores)=>{const c=document.createElement("canvas");c.width=8;c.height=128;
-    const g2=c.getContext("2d");cores.forEach((cor,i)=>{g2.fillStyle=cor;
-      g2.fillRect(0,i*128/cores.length,8,128/cores.length+1)});
-    const t=new THREE.CanvasTexture(c);t.magFilter=THREE.LinearFilter;return t};
-  const fazPlaneta=(r,mat,R,cy,w,ph)=>{const p=new THREE.Mesh(new THREE.SphereGeometry(r,28,20),mat);
-    p.userData={R,cy,w,ph};planetas.push(p);scene.add(p);return p};
-  /* gigante listrado (Cosmic Top Secret) com anel */
-  const sat=fazPlaneta(6.5,new THREE.MeshBasicMaterial({fog:false,
-    map:texListras(["#c8b088","#8a6a42","#e2d3ae","#6a4a30","#b89468","#54382a","#d8c49a"])}),
-    92,-18,.021,0);
-  const anel=new THREE.Mesh(new THREE.RingGeometry(8.6,12.4,48),
-    new THREE.MeshBasicMaterial({color:0xcbb287,transparent:true,opacity:.5,
-      side:THREE.DoubleSide,fog:false}));
+  /* planetas em órbita lenta — o "efeito gravitacional", agora com realismo:
+     bandas turbulentas, terminador de sombra fixo, atmosfera e anel com falhas */
+  const texGigante=(cores)=>{const c=document.createElement("canvas");c.width=512;c.height=256;
+    const g2=c.getContext("2d");
+    const nB=cores.length,hB=256/nB;
+    cores.forEach((cor,i)=>{g2.fillStyle=cor;g2.fillRect(0,i*hB,512,hB+1)});
+    /* turbulência: riscos horizontais deslocados, como correntes de vento */
+    for(let i=0;i<900;i++){const y=Math.random()*256;
+      const idx=Math.min(nB-1,(y/hB)|0);
+      g2.fillStyle=cores[(idx+ (Math.random()<.5?1:nB-1))%nB];
+      g2.globalAlpha=.12+Math.random()*.2;
+      const w=30+Math.random()*140,h=1+Math.random()*3.2;
+      g2.fillRect(Math.random()*512-40,y,w,h)}
+    g2.globalAlpha=1;
+    /* escurecimento polar */
+    const gr=g2.createLinearGradient(0,0,0,256);
+    gr.addColorStop(0,"rgba(20,12,8,.55)");gr.addColorStop(.18,"rgba(20,12,8,0)");
+    gr.addColorStop(.82,"rgba(20,12,8,0)");gr.addColorStop(1,"rgba(20,12,8,.55)");
+    g2.fillStyle=gr;g2.fillRect(0,0,512,256);
+    const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t};
+  const sombraDe=(r)=>{ /* terminador fixo: meia-casca escura voltada para longe da nebulosa */
+    const s=new THREE.Mesh(new THREE.SphereGeometry(r*1.012,28,20,0,Math.PI),
+      new THREE.MeshBasicMaterial({color:0x020104,transparent:true,opacity:.62,
+        fog:false,depthWrite:false}));
+    s.rotation.y=Math.PI*.9;return s};
+  const brilhoDe=(r,cor)=>{const c=document.createElement("canvas");c.width=c.height=128;
+    const g2=c.getContext("2d"),rg=g2.createRadialGradient(64,64,r*0,64,64,64);
+    rg.addColorStop(0,cor+"00");rg.addColorStop(.62,cor+"00");
+    rg.addColorStop(.8,cor+"55");rg.addColorStop(1,cor+"00");
+    g2.fillStyle=rg;g2.fillRect(0,0,128,128);
+    const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),
+      transparent:true,fog:false,depthWrite:false}));
+    sp.scale.setScalar(r*3.1);return sp};
+  const fazPlaneta=(r,mat,R,cy,w,ph,corAtm)=>{
+    const p=new THREE.Mesh(new THREE.SphereGeometry(r,40,28),mat);
+    p.userData={R,cy,w,ph};
+    p.add(sombraDe(r));if(corAtm)p.add(brilhoDe(r,corAtm));
+    planetas.push(p);scene.add(p);return p};
+  /* gigante listrado (Cosmic Top Secret) com anel de falhas */
+  const sat=fazPlaneta(7.4,new THREE.MeshBasicMaterial({fog:false,
+    map:texGigante(["#c8b088","#8a6a42","#e2d3ae","#6a4a30","#b89468","#54382a","#d8c49a"])}),
+    92,-18,.021,0,"#e2c896");
+  const cAnel=document.createElement("canvas");cAnel.width=256;cAnel.height=8;
+  const gA=cAnel.getContext("2d");
+  for(let x=0;x<256;x++){const v=Math.sin(x*.35)*.5+.5,vaz=(x>78&&x<92)||(x>168&&x<178);
+    gA.fillStyle=`rgba(${190+v*40|0},${160+v*30|0},${118+v*24|0},${vaz?0:.28+v*.5})`;
+    gA.fillRect(x,0,1,8)}
+  const tAnel=new THREE.CanvasTexture(cAnel);
+  const anel=new THREE.Mesh(new THREE.RingGeometry(9.4,14.6,72),
+    new THREE.MeshBasicMaterial({map:tAnel,transparent:true,side:THREE.DoubleSide,fog:false}));
+  /* uv radial do RingGeometry é ao longo do raio via rotação da textura */
   anel.rotation.x=Math.PI/2.4;sat.add(anel);
-  /* lua fria (Lunar Tides) */
-  const cLua=document.createElement("canvas");cLua.width=cLua.height=128;
-  const gL=cLua.getContext("2d");gL.fillStyle="#c9d2d8";gL.fillRect(0,0,128,128);
-  for(let i=0;i<40;i++){gL.beginPath();
-    gL.arc(Math.random()*128,Math.random()*128,1+Math.random()*7,0,6.2832);
-    gL.fillStyle=`rgba(120,132,142,${.2+Math.random()*.4})`;gL.fill()}
-  fazPlaneta(3.1,new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cLua),fog:false}),
-    78,10,.033,2.4);
-  /* anã teal (Code Lagoon) */
-  fazPlaneta(2.3,new THREE.MeshBasicMaterial({color:0x2f8a7e,fog:false}),
-    104,-118,.027,4.2);
+  /* lua fria (Lunar Tides) — crateras com borda iluminada */
+  const cLua=document.createElement("canvas");cLua.width=cLua.height=256;
+  const gL=cLua.getContext("2d");gL.fillStyle="#cdd5da";gL.fillRect(0,0,256,256);
+  for(let i=0;i<26;i++){gL.fillStyle=`rgba(148,158,168,${.15+Math.random()*.3})`;
+    const w=20+Math.random()*70;gL.fillRect(Math.random()*256-20,Math.random()*256,w,w*.4)}
+  for(let i=0;i<70;i++){const x=Math.random()*256,y=Math.random()*256,r=1.5+Math.random()*9;
+    gL.beginPath();gL.arc(x,y,r,0,6.2832);
+    gL.fillStyle=`rgba(112,124,134,${.25+Math.random()*.4})`;gL.fill();
+    gL.beginPath();gL.arc(x,y,r,Math.PI*.9,Math.PI*1.9);
+    gL.strokeStyle="rgba(236,242,246,.5)";gL.lineWidth=1;gL.stroke()}
+  fazPlaneta(3.4,new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cLua),fog:false}),
+    78,10,.033,2.4,"#cfe0ec");
+  /* anã teal (Code Lagoon) com faixas frias */
+  fazPlaneta(2.6,new THREE.MeshBasicMaterial({fog:false,
+    map:texGigante(["#2f8a7e","#1c5a55","#3fa392","#14423e","#2a7a70"])}),
+    104,-118,.027,4.2,"#69e6d2");
 
   /* plano de fade para TRAILS (feedback de VJ) */
   fadePlane=new THREE.Mesh(new THREE.PlaneGeometry(2,2),
@@ -829,18 +904,20 @@ function makePoints(n,posFn,cor,tam,op){
 }
 
 /* ── capítulos / eras por profundidade ── */
+/* cada seção é um mundo: além de névoa, cada uma tem matiz e saturação próprios
+   (a tintura muda de capa em capa, como nas artes dos discos) */
 const FASES=[
-  {ate:.09,cap:"cap0", era:"BRING LOVE",         fog:0x0a0614,dens:.010},
-  {ate:.22,cap:"cap1", era:"COSMIC TOP SECRET",  fog:0x140a08,dens:.038},
-  {ate:.36,cap:"cap2", era:"CODE LAGOON",        fog:0x04101a,dens:.034},
-  {ate:.46,cap:"cap3", era:"BRAND",              fog:0x0f0a12,dens:.026},
-  {ate:.55,cap:"cap4", era:"HIDDEN FREQUENCIES", fog:0x120b06,dens:.024},
-  {ate:.66,cap:"cap5", era:"LUNAR TIDES",        fog:0x081018,dens:.019},
-  {ate:.75,cap:"cap6", era:"I ♥ RECORDS",        fog:0x0c0714,dens:.015},
-  {ate:.83,cap:"cap7", era:"THE ARCHIVE",        fog:0x0a0612,dens:.013},
-  {ate:.90,cap:"cap8", era:"ON STAGE",           fog:0x0d0a06,dens:.012},
-  {ate:.96,cap:"cap9", era:"QUIET PROOF",        fog:0x0a0810,dens:.011},
-  {ate:1.01,cap:"cap10",era:"LOVE ALWAYS WINS",  fog:0x0a0614,dens:.010},
+  {ate:.09,cap:"cap0", era:"BRING LOVE",         fog:0x0a0614,dens:.010,matiz:0,  sat:1.22},
+  {ate:.22,cap:"cap1", era:"COSMIC TOP SECRET",  fog:0x140a08,dens:.038,matiz:14, sat:1.16},
+  {ate:.36,cap:"cap2", era:"CODE LAGOON",        fog:0x04101a,dens:.034,matiz:-32,sat:1.30},
+  {ate:.46,cap:"cap3", era:"BRAND",              fog:0x0f0a12,dens:.026,matiz:0,  sat:1.14},
+  {ate:.55,cap:"cap4", era:"HIDDEN FREQUENCIES", fog:0x120b06,dens:.024,matiz:22, sat:1.26},
+  {ate:.66,cap:"cap5", era:"LUNAR TIDES",        fog:0x081018,dens:.019,matiz:-52,sat:1.28},
+  {ate:.75,cap:"cap6", era:"I ♥ RECORDS",        fog:0x0c0714,dens:.015,matiz:-8, sat:1.20},
+  {ate:.83,cap:"cap7", era:"THE ARCHIVE",        fog:0x0a0612,dens:.013,matiz:6,  sat:1.14},
+  {ate:.90,cap:"cap8", era:"ON STAGE",           fog:0x0d0a06,dens:.012,matiz:28, sat:1.30},
+  {ate:.96,cap:"cap9", era:"QUIET PROOF",        fog:0x0a0810,dens:.011,matiz:-14,sat:1.18},
+  {ate:1.01,cap:"cap10",era:"LOVE ALWAYS WINS",  fog:0x0a0614,dens:.010,matiz:8,  sat:1.22},
 ];
 let faseVis=-1;
 const corFog=new THREE.Color(), corAlvo=new THREE.Color();
@@ -866,7 +943,7 @@ function togglePad(fxNome,btn){
   fx[fxNome]=!fx[fxNome];
   btn.setAttribute("aria-pressed",String(fx[fxNome]));
   if(fxNome==="trails"){renderer.autoClearColor=!fx.trails;fadePlane.visible=fx.trails}
-  if(fxNome==="hue"&&!fx.hue){hueDeg=0;$("cena").style.filter=FILTRO_BASE}
+  if(fxNome==="hue"&&!fx.hue)hueDeg=0;
 }
 function flashPad(b){b.setAttribute("aria-pressed","true");
   setTimeout(()=>b.setAttribute("aria-pressed","false"),180)}
@@ -920,8 +997,23 @@ function ligaAudio(el,arquivo){
   audioEl=el;audioCtx.resume();
   return el.play();
 }
+function ligaMic(botao){
+  if(micOn){
+    if(micStream)micStream.getTracks().forEach(t=>t.stop());
+    micOn=false;micStream=null;botao.setAttribute("aria-pressed","false");return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false}}).then(st=>{
+    micStream=st;
+    if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+    if(!analyser){analyser=audioCtx.createAnalyser();analyser.fftSize=256;
+      dadosFreq=new Uint8Array(analyser.frequencyBinCount)}
+    /* fonte do mic vai só ao analisador — nunca às caixas (sem microfonia) */
+    audioCtx.createMediaStreamSource(st).connect(analyser);
+    audioCtx.resume();micOn=true;botao.setAttribute("aria-pressed","true");
+  }).catch(()=>{botao.textContent="MIC NEGADO PELO NAVEGADOR"});
+}
 function medeAudio(){
-  if(analyser&&audioEl&&!audioEl.paused){
+  if(analyser&&(micOn||(audioEl&&!audioEl.paused))){
     analyser.getByteFrequencyData(dadosFreq);
     let g=0;for(let i=0;i<9;i++)g+=dadosFreq[i];
     let m=0;for(let i=9;i<40;i++)m+=dadosFreq[i];
@@ -981,6 +1073,51 @@ function pintaSleeves(){
       for(let i=0;i<6;i++){g.beginPath();g.moveTo(222,132);
         g.quadraticCurveTo(222+(i-2.5)*22,110+((i%2)*10),222+(i-2.5)*34,128+(i%3)*8);g.stroke()}
       anel(150,214,8,3,10,"rgba(244,234,210,.4)");
+    }else if(T==="skyline"){
+      g.fillStyle="#0a1424";g.fillRect(0,0,W,W);
+      /* duas luas */
+      g.fillStyle="#cfd8de";g.beginPath();g.arc(64,64,22,0,6.2832);g.fill();
+      g.fillStyle="#9fb3be";g.beginPath();g.arc(150,42,9,0,6.2832);g.fill();
+      /* skyline com janelas acesas */
+      const prédios=[[10,150,34],[52,120,30],[90,168,26],[122,132,38],[168,150,30],[206,116,34],[248,160,28]];
+      prédios.forEach(([x,y,w2])=>{g.fillStyle="#101c2e";g.fillRect(x,y,w2,300-y);
+        for(let j=0;j<14;j++){g.fillStyle=`rgba(233,180,76,${Math.random()<.5?.7:.15})`;
+          g.fillRect(x+3+(j%3)*(w2/3),y+6+((j/3)|0)*14,3,4)}});
+      /* varanda-jardim em primeiro plano */
+      g.strokeStyle="#1d3a2a";g.lineWidth=5;
+      g.beginPath();g.moveTo(0,262);g.quadraticCurveTo(150,238,300,266);g.stroke();
+      const cog2=(x,y,r,cor)=>{g.fillStyle=cor;g.beginPath();
+        g.arc(x,y,r,Math.PI,0);g.fill();g.fillRect(x-r*.16,y,r*.32,r*.9)};
+      cog2(40,282,13,"#e07a8f");cog2(258,286,11,"#c26be0");cog2(150,290,9,"#69e6d2");
+      for(let i=0;i<30;i++){g.fillStyle="rgba(233,220,192,.6)";
+        g.fillRect(Math.random()*W,Math.random()*120,1.2,1.2)}
+    }else if(T==="gardens"){
+      g.fillStyle="#08131a";g.fillRect(0,0,W,W);
+      /* arco da estufa */
+      g.strokeStyle="rgba(212,162,78,.7)";g.lineWidth=3;
+      g.beginPath();g.arc(150,190,120,Math.PI,0);g.stroke();
+      g.beginPath();g.arc(150,190,86,Math.PI,0);g.stroke();
+      g.lineWidth=1;
+      for(let i=0;i<7;i++){g.beginPath();g.moveTo(150,70);
+        g.lineTo(30+i*40,190);g.stroke()}
+      /* porta acesa */
+      g.fillStyle="rgba(233,180,76,.85)";
+      g.beginPath();g.arc(150,190,20,Math.PI,0);g.fill();g.fillRect(130,190,40,26);
+      /* lua e constelações */
+      g.fillStyle="#cfd8de";g.beginPath();g.arc(150,96,17,0,6.2832);g.fill();
+      g.strokeStyle="rgba(233,220,192,.3)";
+      for(let i=0;i<8;i++){const x1=Math.random()*W,y1=Math.random()*80;
+        g.beginPath();g.moveTo(x1,y1);g.lineTo(x1+20+Math.random()*30,y1+8+Math.random()*16);g.stroke()}
+      /* cogumelos do observatório */
+      const cog3=(x,y,r,cor)=>{g.fillStyle=cor;g.beginPath();
+        g.arc(x,y,r,Math.PI,0);g.fill();g.fillRect(x-r*.16,y,r*.32,r*.9)};
+      cog3(52,252,16,"#69e6d2");cog3(96,268,11,"#c26be0");cog3(206,258,14,"#e07a8f");
+      cog3(252,270,10,"#e0a755");cog3(150,276,8,"#8fe06b");
+      /* espelho d'água com vitórias-régias */
+      g.fillStyle="rgba(14,42,52,.8)";g.beginPath();
+      g.ellipse(150,286,110,16,0,0,6.2832);g.fill();
+      for(let i=0;i<6;i++){g.fillStyle="rgba(105,230,180,.5)";
+        g.beginPath();g.ellipse(70+i*32,284+(i%2)*4,7,2.6,0,0,6.2832);g.fill()}
     }else{
       g.fillStyle="#170f0a";g.fillRect(0,0,W,W);
       const rg=g.createRadialGradient(94,96,4,94,96,88);
@@ -1076,9 +1213,13 @@ function quadro(){
   }
   if(vagalumes){vagalumes.rotation.y=t*.05}
 
-  /* hue de VJ via filtro no canvas — barato e reversível */
-  if(fx.hue){hueDeg=(hueDeg+dt*40)%360;
-    $("cena").style.filter=FILTRO_BASE+` hue-rotate(${hueDeg}deg)`}
+  /* tintura viva: cada seção um mundo — e o hue do VJ soma por cima */
+  if(fx.hue)hueDeg=(hueDeg+dt*40)%360;
+  const fTint=FASES[faseVis<0?0:faseVis];
+  matizAtual=lerp(matizAtual,fTint.matiz,.03);
+  satAtual=lerp(satAtual,fTint.sat,.03);
+  $("cena").style.filter=`saturate(${satAtual.toFixed(3)}) contrast(1.07) `+
+    `brightness(1.03) hue-rotate(${(matizAtual+(fx.hue?hueDeg:0)).toFixed(1)}deg)`;
 
   /* bursts vivem e morrem */
   for(let i=burstPool.length-1;i>=0;i--){
@@ -1134,6 +1275,7 @@ else{
       inpV.addEventListener("change",()=>{
         if(inpV.files[0])ligaAudio($("vj-el"),inpV.files[0]).catch(()=>{});
       });
+      $("vj-mic").addEventListener("click",()=>ligaMic($("vj-mic")));
     }else{
       /* portal com paralaxe de mouse */
       portalEl=$("portal-clone");
@@ -1168,6 +1310,7 @@ else{
           $("p-tempo").textContent=fmtT(el.currentTime)+" / "+fmtT(el.duration)}
       });
       el.addEventListener("ended",()=>{bt.textContent="►"});
+      $("p-mic").addEventListener("click",()=>ligaMic($("p-mic")));
     }
 
     addEventListener("resize",dimensiona);
