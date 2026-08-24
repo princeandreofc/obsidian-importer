@@ -88,6 +88,17 @@ a{color:var(--ouro-vivo)}
 body.m-vj #portal-clone,body.sem-gl #portal-clone{display:none}
 @media (max-width:640px){#portal-clone .miolo{transform:translateY(-9vh)}}
 
+/* ── mundos: a capa de cada seção como fundo cinema-5D (Ken Burns + blend) ── */
+#mundos{position:fixed;inset:0;z-index:2;pointer-events:none}
+#mundos .mundo{position:absolute;inset:-7%;opacity:0;transition:opacity 1.4s ease;
+  background-size:cover;background-position:center;mix-blend-mode:screen;
+  filter:saturate(1.12) contrast(1.04)}
+#mundos .mundo.viva{opacity:.34;animation:kenburns 30s ease-in-out infinite alternate}
+@keyframes kenburns{from{transform:scale(1) translate(0,0)}
+  to{transform:scale(1.14) translate(-2.2%,1.6%)}}
+@media (prefers-reduced-motion:reduce){#mundos .mundo.viva{animation:none}}
+body.m-vj #mundos,body.sem-gl #mundos{display:none}
+
 /* ── tintura: camada final de cor (grade violeta→ouro, paleta alilove.world) ── */
 .grade{position:fixed;inset:0;pointer-events:none;z-index:4;mix-blend-mode:overlay;
   background:linear-gradient(180deg,rgba(72,38,120,.16),transparent 38%,transparent 60%,rgba(212,162,78,.12)),
@@ -126,6 +137,16 @@ body.m-vj #portal-clone,body.sem-gl #portal-clone{display:none}
   text-transform:uppercase;color:var(--osso-2);cursor:pointer}
 .player input[type=file]{display:none}
 .player .nota{margin-top:8px;font-size:9px;color:var(--osso-3);letter-spacing:.08em}
+/* telas de mídia oficial do site (vídeo/pôster hot-link de alilove.world) */
+.tela{margin-top:14px;max-width:430px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;
+  border:1px solid rgba(212,162,78,.3);background:#0a0812;position:relative}
+.tela video{width:100%;height:100%;object-fit:cover;display:block}
+.tela.sem-midia{display:none}
+.tela .rotulo{position:absolute;left:10px;bottom:8px;font-size:8.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--osso-2);text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.fitas{display:flex;gap:8px;margin-top:12px;max-width:430px}
+.fitas img{width:33.33%;min-width:0;aspect-ratio:1;object-fit:cover;display:block;
+  border-radius:8px;border:1px solid rgba(212,162,78,.25)}
 .btn-mic{margin-top:10px;width:100%;border:1px solid var(--linha);background:var(--carvao);
   color:var(--osso-2);border-radius:10px;padding:10px;font-size:10px;letter-spacing:.1em;
   text-transform:uppercase;cursor:pointer}
@@ -234,6 +255,7 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
 <div class="scroll-space" aria-hidden="true"></div>
 <canvas id="cena" aria-label="The Spiral — jornada tridimensional pela carreira de Ali Love"></canvas>
 <div class="veu" aria-hidden="true"></div>
+<div id="mundos" aria-hidden="true"></div>
 <div class="grade" aria-hidden="true"></div>
 <div class="crt" id="crt" aria-hidden="true"></div>
 
@@ -309,6 +331,14 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
   <p>Cosmic Rave — 8:08 of communion. Twenty years of UK dance music, one
      unmistakable voice: this is a portrait of Ali Love, told with love, by the
      family that built a world around it.</p>
+  <div class="tela" id="tela-film">
+    <video id="film-rot" muted loop playsinline autoplay preload="metadata"
+      poster="https://www.alilove.world/media/film/posters/title-card.jpg"
+      onerror="this.closest('.tela').classList.add('sem-midia')">
+      <source src="https://www.alilove.world/media/film/title-card.mp4" type="video/mp4">
+    </video>
+    <span class="rotulo" id="film-rotulo">COSMIC RAVE · 01/11</span>
+  </div>
   <div class="ctas">
     <a class="btn btn-ghost" href="https://www.alilove.world" target="_blank" rel="noopener">ASSISTIR NO SITE →</a>
   </div>
@@ -320,6 +350,14 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
   <p>The visuals engine behind The Spiral paints trails, bursts and warp over the
      world in real time. The full desk lives on its own stage — abstract art with
      real VJ resources, ready for the live show.</p>
+  <div class="fitas" aria-hidden="true">
+    <img src="https://www.alilove.world/media/film/posters/spiral-vortex.jpg" alt=""
+      loading="lazy" onerror="this.style.display='none'">
+    <img src="https://www.alilove.world/media/film/posters/nebula-spiral.jpg" alt=""
+      loading="lazy" onerror="this.style.display='none'">
+    <img src="https://www.alilove.world/media/film/posters/orbital-rings.jpg" alt=""
+      loading="lazy" onerror="this.style.display='none'">
+  </div>
   <div class="ctas">
     <a class="btn btn-ouro" href="https://claude.ai/code/artifact/8ae9e2fa-be3d-4aee-b92b-c6d3343c6d50" target="_blank" rel="noopener">ABRIR O VJ STUDIO ↗</a>
   </div>
@@ -342,6 +380,14 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
   <p>They call it house. I call it communion. Love always wins — not as a slogan,
      as a result. Bring it to the floor. Bring it to the record. Bring it to the
      stranger beside you.</p>
+  <div class="fitas" aria-hidden="true">
+    <img src="https://www.alilove.world/media/film/posters/hooded-portal.jpg" alt=""
+      loading="lazy" onerror="this.style.display='none'">
+    <img src="https://www.alilove.world/media/film/posters/ritual-figure.jpg" alt=""
+      loading="lazy" onerror="this.style.display='none'">
+    <img src="https://www.alilove.world/media/film/posters/hooded-hd.jpg" alt=""
+      loading="lazy" onerror="this.style.display='none'">
+  </div>
 </section>
 
 <section class="cap" id="cap5">
@@ -355,22 +401,10 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
   <p class="spotify-nota">Player oficial do artista (o mesmo do site). Se não abrir
      neste preview, é o sandbox — no arquivo e no site ele carrega.</p>
   <div class="player" id="player">
-    <div class="linha1">
-      <button class="btn-play" id="p-play" type="button" disabled aria-label="Tocar ou pausar">►</button>
-      <div class="faixa">
-        <b id="p-nome">Nenhuma faixa carregada</b>
-        <span id="p-tempo">solte o single de hoje aqui</span>
-      </div>
-    </div>
-    <progress id="p-barra" max="1" value="0"></progress>
-    <label class="solta">Tocar um arquivo de áudio — o palco reage ao som
-      <input id="p-arquivo" type="file" accept="audio/*"></label>
-    <p class="nota">O áudio toca só no seu aparelho — nada é enviado. Visual reage
-       aos graves em tempo real.</p>
     <button class="btn-mic" id="p-mic" type="button" aria-pressed="false">
-      🎙 Reagir ao som do ambiente — toque no Spotify e ligue aqui</button>
-    <p class="nota">O microfone alimenta só o visual, nada é gravado nem enviado.</p>
-    <audio id="p-el"></audio>
+      🎙 O palco dança com a música — dê o play no Spotify e ligue aqui</button>
+    <p class="nota">O microfone alimenta só o visual: nada é gravado nem enviado.
+       Para tocar um arquivo seu, use o VJ Studio.</p>
   </div>
   <div class="chips" aria-label="Plataformas">
     <a href="https://open.spotify.com/artist/5XJp0gYotUfFraS626GSge" target="_blank" rel="noopener">Spotify</a>
@@ -426,6 +460,14 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
      Presents Ibiza Classics — sixty-five musicians on stage. Two nights at The O2.
      Twenty-plus years in, hundreds of thousands listening every month, Ali Love is
      recording a new solo album. The voice is not done. It is just getting warmed up.</p>
+  <div class="tela" id="tela-live">
+    <video id="live-rot" muted loop playsinline autoplay preload="metadata"
+      poster="https://www.alilove.world/media/live/posters/stage-1.jpg"
+      onerror="this.closest('.tela').classList.add('sem-midia')">
+      <source src="https://www.alilove.world/media/live/stage-1.mp4" type="video/mp4">
+    </video>
+    <span class="rotulo">ON STAGE · AO VIVO</span>
+  </div>
   <div class="stats">
     <div><b>20+</b><span>years, one voice</span></div>
     <div><b>~690k</b><span>monthly listeners</span></div>
@@ -516,6 +558,10 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
    MODO "jornada": o site (estrutura idêntica ao alilove.world).
    MODO "vj": página isolada do VJ Studio (deriva automática + mesa). */
 const MODO="vj";
+/* capas reais (data URI ou caminho) por tema; vazio → arte gerativa própria.
+   Mapa seção→tema: cada página do site vive dentro da sua capa. */
+const CAPAS={};
+const MUNDO_POR_SECAO={1:"cosmic",2:"lagoon",3:"skyline",4:"gardens",5:"hidden",7:"tides"};
 const $=id=>document.getElementById(id);
 const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -572,7 +618,10 @@ function poseNaTrilha(p){
   const nor=frames.normals[i], bin=frames.binormals[i];
   /* respiração de primeira pessoa */
   const tt=performance.now()*.001;
-  const bobX=reduz?0:Math.sin(tt*1.9)*.05, bobY=reduz?0:Math.cos(tt*3.7)*.06;
+  /* a respiração acalma no final — sem balanço no vazio */
+  const calmaBob=1-clamp((t-.9)/.08,0,1)*.75;
+  const bobX=reduz?0:Math.sin(tt*1.9)*.05*calmaBob,
+        bobY=reduz?0:Math.cos(tt*3.7)*.06*calmaBob;
   camera.position.copy(pos).addScaledVector(nor,bobY).addScaledVector(bin,bobX);
   const alvo=curva.getPointAt(clamp(t+.015,0,1));
   /* no hero o olhar sobe para a nebulosa (o portal reina sozinho);
@@ -581,6 +630,10 @@ function poseNaTrilha(p){
   /* dentro das câmaras o olhar pende para o eixo da hélice — a era se apresenta */
   const peso=.38*clamp((t-.12)/.05,0,1)*clamp((.92-t)/.05,0,1);
   if(peso>0){EIXO.set(0,pos.y-2.5,0);alvo.lerp(EIXO,peso)}
+  /* no fim, nada de vazio: o olhar volta para o mundo inteiro lá em cima,
+     entre os planetas — a espiral vista de baixo é o gran finale */
+  const kFim=clamp((t-.9)/.08,0,1);
+  if(kFim>0){EIXO.set(0,-26,0);alvo.lerp(EIXO,kFim*.6)}
   camera.up.copy(nor).multiplyScalar(-1);        /* inclina com o sulco */
   if(camera.up.y<0)camera.up.multiplyScalar(-1); /* nunca de cabeça pra baixo total */
   camera.lookAt(alvo);
@@ -879,10 +932,10 @@ function montaCena(){
     gL.strokeStyle="rgba(236,242,246,.5)";gL.lineWidth=1;gL.stroke()}
   fazPlaneta(3.4,new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cLua),fog:false}),
     78,10,.033,2.4,"#cfe0ec");
-  /* anã teal (Code Lagoon) com faixas frias */
+  /* anã teal (Code Lagoon) com faixas frias — companheira do gran finale */
   fazPlaneta(2.6,new THREE.MeshBasicMaterial({fog:false,
     map:texGigante(["#2f8a7e","#1c5a55","#3fa392","#14423e","#2a7a70"])}),
-    104,-118,.027,4.2,"#69e6d2");
+    30,-122,.05,4.2,"#69e6d2");
 
   /* plano de fade para TRAILS (feedback de VJ) */
   fadePlane=new THREE.Mesh(new THREE.PlaneGeometry(2,2),
@@ -942,6 +995,10 @@ function pintaFase(p){
   $("dica").classList.toggle("fora",idx!==0);
   document.querySelectorAll(".menu button").forEach(b=>
     b.classList.toggle("viva",+b.dataset.sec===idx));
+  /* o mundo (capa) da seção acende; os outros apagam */
+  const temaVivo=MUNDO_POR_SECAO[idx];
+  document.querySelectorAll("#mundos .mundo").forEach(m=>
+    m.classList.toggle("viva",m.dataset.tema===temaVivo));
 }
 
 /* ── VJ ── */
@@ -1030,9 +1087,28 @@ function medeAudio(){
   }else{nivelGrave*=.92;nivelMedio*=.92}
 }
 
-/* ── The Sleeves: 4 temas das capas, arte gerativa própria (sem imagem alheia) ── */
+/* ── mundos: um div de fundo por capa disponível ── */
+function montaMundos(){
+  const raiz=$("mundos");if(!raiz)return;
+  Object.entries(CAPAS).forEach(([tema,src])=>{
+    if(!src)return;
+    const d=document.createElement("div");
+    d.className="mundo";d.dataset.tema=tema;
+    d.style.backgroundImage=`url("${src}")`;
+    raiz.appendChild(d);
+  });
+}
+
+/* ── The Sleeves: capa real quando disponível; senão, arte gerativa própria ── */
 function pintaSleeves(){
   document.querySelectorAll("#sleeves canvas").forEach(cv=>{
+    const capa=CAPAS[cv.dataset.tema];
+    if(capa){
+      const img=new Image();
+      img.src=capa;img.alt="";
+      img.style.cssText="width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block;border:1px solid rgba(212,162,78,.35);box-shadow:0 6px 24px rgba(0,0,0,.5)";
+      cv.replaceWith(img);return;
+    }
     const g=cv.getContext("2d"),T=cv.dataset.tema,W=300;
     const anel=(x,y,r0,n,passo,cor)=>{g.strokeStyle=cor;for(let i=0;i<n;i++){
       g.beginPath();g.arc(x,y,r0+i*passo,0,6.2832);g.stroke()}};
@@ -1175,11 +1251,14 @@ function quadro(){
   pintaFase(scrollSuave);
 
   const t=agora*.001;
+  /* calma crescente: quanto mais fundo, mais sereno (como o hero) */
+  const calma=.55+.45*(1-clamp((scrollSuave-.09)/.5,0,1));
   /* 33⅓ RPM de verdade: 3.49 rad/s (metade sob reduced) */
   disco.rotation.y+=dt*(reduz?1.7:3.49);
-  engrenagens.forEach(g=>{g.rotation.y+=dt*g.userData.v;g.rotation.x+=dt*g.userData.v*.4});
-  portais.forEach(m=>{if(m.userData.giro)m.rotation.z+=dt*m.userData.giro;
-    else{m.rotation.x+=dt*m.userData.v*.5;m.rotation.y+=dt*m.userData.v}});
+  engrenagens.forEach(g=>{g.rotation.y+=dt*g.userData.v*calma;
+    g.rotation.x+=dt*g.userData.v*.4*calma});
+  portais.forEach(m=>{if(m.userData.giro)m.rotation.z+=dt*m.userData.giro*calma;
+    else{m.rotation.x+=dt*m.userData.v*.5*calma;m.rotation.y+=dt*m.userData.v*calma}});
 
   /* portal do site original: profundidade real — o anel cresce e você o atravessa */
   if(MODO!=="vj"&&portalMiolo){
@@ -1207,7 +1286,7 @@ function quadro(){
     const Mm=new THREE.Matrix4(),amp=(fx.pulse?2.4:1)+nivelGrave*2.8;
     for(let i=0;i<72;i++){
       const a=i/72*Math.PI*2;
-      const h=(.6+Math.abs(Math.sin(t*2.1+i*.42))*2.6)*amp;
+      const h=(.6+Math.abs(Math.sin(t*2.1*calma+i*.42))*2.6*calma)*amp;
       Mm.makeScale(1,h,1);
       Mm.setPosition(Math.cos(a)*11.5,-4+h/2,Math.sin(a)*11.5);
       eqBarras.setMatrixAt(i,Mm);
@@ -1299,26 +1378,34 @@ else{
           const max=document.documentElement.scrollHeight-innerHeight;
           scrollTo({top:max*((ini+fim)/2),behavior:reduz?"auto":"smooth"});
         }));
+      montaMundos();
       pintaSleeves();
-      const fmtT=s=>{s|=0;return (s/60|0)+":"+String(s%60).padStart(2,"0")};
-      const inp=$("p-arquivo"),el=$("p-el"),bt=$("p-play");
-      inp.addEventListener("change",()=>{
-        const f=inp.files[0];if(!f)return;
-        $("p-nome").textContent=f.name.replace(/\.[^.]+$/,"");
-        bt.disabled=false;bt.textContent="❚❚";
-        ligaAudio(el,f).catch(()=>{bt.textContent="►"});
-      });
-      bt.addEventListener("click",()=>{
-        if(!el.src)return;
-        if(el.paused){if(audioCtx)audioCtx.resume();el.play();bt.textContent="❚❚"}
-        else{el.pause();bt.textContent="►"}
-      });
-      el.addEventListener("timeupdate",()=>{
-        if(el.duration){$("p-barra").value=el.currentTime/el.duration;
-          $("p-tempo").textContent=fmtT(el.currentTime)+" / "+fmtT(el.duration)}
-      });
-      el.addEventListener("ended",()=>{bt.textContent="►"});
       $("p-mic").addEventListener("click",()=>ligaMic($("p-mic")));
+      /* rotator do filme: os 11 clipes oficiais do site, um palco só */
+      const FILMES=["title-card","nebula-spiral","spiral-mountain","orbital-rings",
+        "cloak-wings","hooded-portal","crowd-ritual","ritual-figure","rings-title",
+        "spiral-vortex","hooded-hd"];
+      let filmeIdx=0;
+      const vf=$("film-rot");
+      if(vf&&!reduz)setInterval(()=>{
+        if(vf.closest(".tela").classList.contains("sem-midia"))return;
+        filmeIdx=(filmeIdx+1)%FILMES.length;
+        const nome=FILMES[filmeIdx];
+        vf.poster=`https://www.alilove.world/media/film/posters/${nome}.jpg`;
+        vf.querySelector("source").src=`https://www.alilove.world/media/film/${nome}.mp4`;
+        vf.load();vf.play().catch(()=>{});
+        $("film-rotulo").textContent=
+          `COSMIC RAVE · ${String(filmeIdx+1).padStart(2,"0")}/11`;
+      },8000);
+      /* palcos do Live alternam também */
+      let palcoIdx=1;const vl=$("live-rot");
+      if(vl&&!reduz)setInterval(()=>{
+        if(vl.closest(".tela").classList.contains("sem-midia"))return;
+        palcoIdx=palcoIdx%4+1;
+        vl.poster=`https://www.alilove.world/media/live/posters/stage-${palcoIdx}.jpg`;
+        vl.querySelector("source").src=`https://www.alilove.world/media/live/stage-${palcoIdx}.mp4`;
+        vl.load();vl.play().catch(()=>{});
+      },9000);
     }
 
     addEventListener("resize",dimensiona);
