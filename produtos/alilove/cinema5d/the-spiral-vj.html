@@ -155,10 +155,76 @@ body.m-vj .tela,body.sem-gl .tela{display:none!important}
 .fitas{display:flex;gap:8px;margin-top:12px;max-width:430px}
 .fitas img{width:33.33%;min-width:0;aspect-ratio:1;object-fit:cover;display:block;
   border-radius:8px;border:1px solid rgba(212,162,78,.25)}
-.btn-mic{margin-top:10px;width:100%;border:1px solid var(--linha);background:var(--carvao);
-  color:var(--osso-2);border-radius:10px;padding:10px;font-size:10px;letter-spacing:.1em;
-  text-transform:uppercase;cursor:pointer}
-.btn-mic[aria-pressed="true"]{background:var(--ouro);color:var(--tinta);border-color:var(--ouro)}
+/* ── LOVE IS THE SIGNAL — tokens de campanha (só elementos novos os usam) ── */
+:root{--vinil:#070709;--indigo:#10122E;--cian:#51D9E8;--rubi:#D83B48;
+  --ambar:#F4B65A;--perola:#F2EEE7;--dia:#F06A2A;
+  --signal-step:528ms;--signal-hold:1056ms;--signal-breath:5280ms;
+  --ease-entry:cubic-bezier(.16,1,.30,1)}
+.player{margin-top:12px;max-width:430px;border:1px solid var(--linha);
+  border-radius:12px;padding:12px;background:rgba(7,7,9,.55)}
+.pl-topo{display:flex;gap:12px;align-items:center}
+.pl-titulo{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ambar)}
+.pl-now{font-size:8.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cian);margin-top:3px}
+.rosa-2d{width:56px;height:56px;flex:none}
+.rosa-2d .r2-pet{fill:none;stroke:var(--cian);stroke-width:6;opacity:.5}
+.rosa-2d .r2-eixo{stroke:var(--perola);stroke-width:3;opacity:.28}
+.rosa-2d .r2-orb{fill:var(--perola);opacity:.5}
+.rosa-2d .r2-esp{fill:none;stroke:var(--ambar);stroke-width:5;opacity:.65}
+.rosa-2d .r2-core{fill:var(--ambar);animation:rosaPulso var(--signal-breath) ease-in-out infinite}
+@keyframes rosaPulso{0%,100%{opacity:.75}50%{opacity:1}}
+.p-masters{display:grid;gap:6px;margin-top:10px}
+.p-masters:empty{display:none}
+.p-master{border:1px solid var(--linha);background:var(--carvao);color:var(--osso-2);
+  border-radius:10px;padding:10px;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;cursor:pointer;text-align:left}
+.p-master[aria-pressed="true"]{background:var(--ambar);color:var(--tinta);border-color:var(--ambar)}
+.aviso-528{margin-top:10px;font-size:8.5px;letter-spacing:.12em;color:var(--osso-3)}
+/* mesa VJ 2.0: bancos de cena + macros */
+.bancos{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.banco{border:1px solid var(--linha);background:var(--carvao);color:var(--osso-2);
+  border-radius:8px;padding:8px 2px;font-size:11px;cursor:pointer;min-height:44px}
+.banco small{display:block;font-size:6.5px;letter-spacing:.14em;margin-top:2px;
+  text-transform:uppercase;color:var(--osso-3)}
+.banco[aria-pressed="true"]{background:var(--indigo);border-color:var(--cian);color:var(--cian)}
+.banco[aria-pressed="true"] small{color:var(--cian)}
+.macros{display:grid;gap:4px;margin-top:10px}
+.macros label{display:grid;grid-template-columns:88px 1fr;align-items:center;gap:8px;
+  font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--osso-2)}
+.macros input{width:100%;accent-color:var(--ambar);min-height:22px}
+.vj-mais{margin-top:10px;border:1px dashed rgba(212,162,78,.35);border-radius:10px;padding:8px}
+.vj-mais summary{font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--osso-2);cursor:pointer}
+/* Resonance Session — jogo local de 30s */
+#b-sessao{position:fixed;left:18px;bottom:18px;z-index:60;min-height:44px}
+body.m-vj #b-sessao,body.sem-gl #b-sessao{display:none}
+.sessao{position:fixed;inset:0;z-index:90;background:rgba(7,7,9,.94);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px}
+.sessao[hidden]{display:none}
+.sessao canvas{width:min(92vw,820px);aspect-ratio:3/2;border-radius:14px;
+  border:1px solid rgba(81,217,232,.3);background:var(--vinil);touch-action:none}
+.ses-hud{width:min(92vw,820px)}
+.ses-estado{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--cian)}
+.ses-barra{height:3px;background:rgba(242,238,231,.14);border-radius:99px;margin-top:8px}
+.ses-barra i{display:block;height:100%;width:0;background:var(--ambar);border-radius:99px}
+.ses-ctl{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.ses-ctl button,.ses-fim button{border:1px solid var(--linha);background:var(--carvao);
+  color:var(--osso-2);border-radius:10px;padding:12px 14px;font-size:10px;
+  letter-spacing:.12em;text-transform:uppercase;cursor:pointer;min-height:44px;min-width:44px}
+.ses-nota{font-size:9px;color:var(--osso-3);letter-spacing:.08em;margin-top:8px}
+.ses-fim{margin-top:10px}
+.ses-fim[hidden]{display:none}
+.ses-msg{font-size:15px;letter-spacing:.4em;text-transform:uppercase;color:var(--ambar)}
+.ses-seed{font-size:9px;color:var(--osso-3);letter-spacing:.2em;margin:6px 0 10px}
+.ses-x{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--linha);background:var(--carvao);color:var(--osso-2);
+  font-size:18px;cursor:pointer}
+/* movimento reduzido: rosa estática, mundos sem Ken Burns
+   (o giro do portal já para na regra original do clone) */
+@media (prefers-reduced-motion: reduce){
+  .rosa-2d .r2-core{animation:none}
+  .mundo{animation:none!important}
+}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .chips a{border:1px solid var(--linha);border-radius:999px;padding:6px 12px;
   font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--osso-2);
@@ -420,10 +486,17 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
   <p class="spotify-nota">Player oficial do artista (o mesmo do site). Se não abrir
      neste preview, é o sandbox — no arquivo e no site ele carrega.</p>
   <div class="player" id="player">
-    <button class="btn-mic" id="p-mic" type="button" aria-pressed="false">
-      🎙 O palco dança com a música — dê o play no Spotify e ligue aqui</button>
-    <p class="nota">O microfone alimenta só o visual: nada é gravado nem enviado.
-       Para tocar um arquivo seu, use o VJ Studio.</p>
+    <div class="pl-topo">
+      <svg class="rosa-2d" viewBox="0 0 528 528" role="img"
+        aria-label="The Resonance Rose"></svg>
+      <div>
+        <p class="pl-titulo">Signal Player · Love Is The Signal</p>
+        <p class="pl-now" id="p-now"></p>
+      </div>
+    </div>
+    <div class="p-masters" id="p-masters" role="group" aria-label="Masters liberados"></div>
+    <p class="nota" id="p-nota"></p>
+    <audio id="p-el"></audio>
   </div>
   <div class="chips" aria-label="Plataformas">
     <a href="https://open.spotify.com/artist/5XJp0gYotUfFraS626GSge" target="_blank" rel="noopener">Spotify</a>
@@ -512,6 +585,8 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
   </div>
   <p style="margin-top:12px;font-size:10px;letter-spacing:.3em;color:var(--osso-3)">
     LOVE ALWAYS WINS · ALI LOVE × AB MOTION</p>
+  <p class="aviso-528">528 Hz is used in this artwork as a cultural and
+     compositional reference. No medical or therapeutic claim is made.</p>
   <p style="margin-top:6px;font-size:9px;letter-spacing:.2em;color:var(--osso-3)">
     © 2026 ALI LOVE · LOVE ALWAYS WINS.</p>
 </section>
@@ -519,6 +594,7 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
 <p class="dica" id="dica">role para mergulhar no disco ↓</p>
 
 <button class="btn btn-ghost" id="b-vj" type="button" aria-pressed="false">VJ MODE</button>
+<button class="btn btn-ghost" id="b-sessao" type="button">RESONANCE SESSION</button>
 <div class="deck" id="deck" role="group" aria-label="Mesa VJ">
   <h3>VJ Deck</h3>
   <p class="sub">Arte abstrata ao vivo sobre a cena. O pulso aqui é visual — no
@@ -531,23 +607,66 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
     <button class="pad" data-fx="warp"   aria-pressed="false" type="button">Warp<small>5</small></button>
     <button class="pad rec" data-fx="rec" aria-pressed="false" type="button">Rec<small>R</small></button>
   </div>
-  <label class="solta" style="display:block;margin-top:10px;border:1px dashed rgba(212,162,78,.4);
-    border-radius:10px;padding:10px;text-align:center;font-size:10px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--osso-2);cursor:pointer">
-    Tocar áudio — o palco reage aos graves
-    <input id="vj-arquivo" type="file" accept="audio/*" style="display:none"></label>
-  <button class="btn-mic" id="vj-mic" type="button" aria-pressed="false">
-    🎙 Reagir ao som do ambiente</button>
+  <div class="bancos" role="group" aria-label="Bancos de cena">
+    <button class="banco" data-cena="orbit"      type="button" aria-pressed="false">A<small>Orbit</small></button>
+    <button class="banco" data-cena="groove"     type="button" aria-pressed="false">B<small>Groove</small></button>
+    <button class="banco" data-cena="garden"     type="button" aria-pressed="false">C<small>Garden</small></button>
+    <button class="banco" data-cena="ritual"     type="button" aria-pressed="false">D<small>Ritual</small></button>
+    <button class="banco" data-cena="day-signal" type="button" aria-pressed="false">E<small>Day&nbsp;Signal</small></button>
+  </div>
+  <div class="macros" role="group" aria-label="Macros">
+    <label>Energy<input id="mc-energy" type="range" min="0" max="100" value="50"></label>
+    <label>Depth<input id="mc-depth" type="range" min="0" max="100" value="50"></label>
+    <label>Memory<input id="mc-memory" type="range" min="0" max="100" value="50"></label>
+    <label>Connection<input id="mc-connection" type="range" min="0" max="100" value="50"></label>
+  </div>
+  <details class="vj-mais" id="vj-mais">
+    <summary>Avançado — arquivo local</summary>
+    <label class="solta" style="display:block;margin-top:8px;border:1px dashed rgba(212,162,78,.4);
+      border-radius:10px;padding:10px;text-align:center;font-size:10px;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--osso-2);cursor:pointer">
+      Tocar um arquivo seu — jam local
+      <input id="vj-arquivo" type="file" accept="audio/*" style="display:none"></label>
+  </details>
   <audio id="vj-el"></audio>
   <p class="aviso">Sem strobe: efeitos limitados a transições suaves por segurança
-     fotossensível. REC grava WebM direto do palco — seu loop, seu arquivo.
-     O áudio toca só no seu aparelho; nada é enviado.</p>
+     fotossensível. REC grava WebM do palco — visual-only por construção; áudio
+     só entra no export com master de captura autorizada. Teclas: cenas a–e ·
+     FX 1–5 · REC r. Nada é enviado.</p>
 </div>
 
 <a class="btn btn-ghost voltar" href="https://claude.ai/code/artifact/8ae9e2fa-be3d-4aee-b92b-c6d3343c6d50" target="_blank" rel="noopener">← VOLTAR À JORNADA</a>
 
+<div class="sessao" id="sessao" role="dialog" aria-modal="true"
+  aria-label="Resonance Session" hidden>
+  <canvas id="ses-tela" width="960" height="640"></canvas>
+  <div class="ses-hud">
+    <p class="ses-estado" id="ses-estado">TUNE IN</p>
+    <div class="ses-barra" aria-hidden="true"><i id="ses-prog"></i></div>
+    <div class="ses-ctl">
+      <button id="ses-tune-menos" type="button" aria-label="Tune para baixo">− TUNE</button>
+      <button id="ses-tune-mais"  type="button" aria-label="Tune para cima">+ TUNE</button>
+      <button id="ses-shape-menos" type="button" aria-label="Shape para baixo">− SHAPE</button>
+      <button id="ses-shape-mais"  type="button" aria-label="Shape para cima">+ SHAPE</button>
+    </div>
+    <p class="ses-nota">30 segundos. ← → afinam · ↑ ↓ moldam · arraste para atrair.
+       Partículas isoladas tremem; grupos alinhados criam pontes. Sem game over —
+       a sala lembra a forma final. Nada é enviado.</p>
+    <div class="ses-fim" id="ses-fim" hidden>
+      <p class="ses-msg" id="ses-msg">THE ROOM REMEMBERS</p>
+      <p class="ses-seed" id="ses-seed"></p>
+      <button id="ses-img" type="button">SAVE IMAGE</button>
+      <button id="ses-rec" type="button" hidden>SAVE LOOP</button>
+      <button id="ses-de-novo" type="button">RETURN</button>
+    </div>
+  </div>
+  <button class="ses-x" id="ses-x" type="button" aria-label="Fechar sessão">×</button>
+</div>
+
 <div class="fallback">
   <p class="k" style="font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ouro)">The Spiral · preview</p>
+  <svg class="rosa-2d" viewBox="0 0 528 528" role="img"
+    aria-label="The Resonance Rose" style="width:96px;height:96px;margin:10px auto"></svg>
   <h1>A espiral pede WebGL</h1>
   <p>Este navegador não liberou o 3D. O retrato completo — The Report &amp; The Tribute —
      vive em <a href="https://www.alilove.world">alilove.world</a>. Love always wins.</p>
@@ -599,8 +718,75 @@ const FILTRO_BASE="saturate(1.22) contrast(1.07) brightness(1.03)";
 let audioCtx=null,analyser=null,dadosFreq=null,audioEl=null,nivelGrave=0,nivelMedio=0;
 /* portal clonado: profundidade — atravessa-se o anel ao mergulhar */
 let portalEl=null,portalMiolo=null,paraX=0,paraY=0,paraXA=0,paraYA=0;
-/* tintura viva por seção + microfone (Spotify ambiente → motion) */
-let matizAtual=0,satAtual=1.22,micOn=false,micStream=null;
+/* tintura viva por seção */
+let matizAtual=0,satAtual=1.22;
+
+/* ═══ LOVE IS THE SIGNAL — SIGNAL PLAYER + direitos fail-closed ═══
+   O motion é dirigido SOMENTE por masters de Ali Love com autorização
+   registrada. O Spotify é o player oficial e permanece independente:
+   nunca é fonte de motion, nunca é capturado (nem por microfone). */
+const MASTERS=[
+  /* Registro MusicAssetRights — fail-closed: vazio = nada toca.
+     Cada master: {id,titulo,src,rightsOwner,proofRef,status,
+       webPlayback,interactiveSync,visualizerUse,downloadableCaptureAudio}
+     status válido p/ produção: "cleared-production". */
+];
+const podeTocar=m=>!!m&&m.status==="cleared-production"&&
+  m.webPlayback===true&&m.interactiveSync===true&&m.visualizerUse===true;
+const podeGravarAudio=m=>podeTocar(m)&&m.downloadableCaptureAudio===true;
+let masterAtivo=null;
+/* leitura em tempo real que dirige THE SPIRAL / RESONANCE / VJ */
+const sinal={low:0,mid:0,high:0,energy:0,positionMs:0,durationMs:0,playing:false};
+
+/* 528 como espinha compositiva — referência cultural, sem alegação médica */
+const SIGNAL_528={calibrationHz:528,foldedHz:[66,132,264,528],
+  transitionMs:528,breathMs:5280,holdMs:1056,normalized:.528};
+/* manifesto de lançamento — embargo: título/data nunca são inventados */
+const RELEASE={campaign:"LOVE IS THE SIGNAL",releaseTitle:null,releaseDate:null,
+  status:"embargoed",currentSignal:null,artworkAssetId:null,audioAssetIds:[]};
+/* memórias biográficas em três camadas éticas — nada não verificado vira
+   copy público; enabled só com evidence/rights liberados */
+const BIOGRAFIA=[
+  {id:"i-love-records",title:"Independent signal / I Love Records",year:null,
+   role:"process",evidence:"needs-artist-verification",rights:"withheld",enabled:false},
+  {id:"do-it-again-2007",title:"Do It Again — The Chemical Brothers",year:2007,
+   role:"featured",evidence:"public-catalog",rights:"approved-preview",enabled:false},
+  {id:"hot-natured",title:"Hot Natured",year:null,
+   role:"group",evidence:"public-catalog",rights:"approved-preview",enabled:false},
+  {id:"infinity-ink",title:"Infinity Ink",year:null,
+   role:"group",evidence:"public-catalog",rights:"approved-preview",enabled:false}
+];
+function validaConteudoPublico(release,memorias,modo){
+  const erros=[];
+  if(modo==="production"&&release.status==="released"){
+    if(!release.releaseTitle)erros.push("releaseTitle");
+    if(!release.releaseDate)erros.push("releaseDate");
+  }
+  if(modo==="production"){
+    for(const m of memorias)
+      if(m.enabled&&(m.evidence!=="project-approved"||m.rights!=="cleared-production"))
+        erros.push("memory:"+m.id);
+    for(const m of MASTERS)if(!podeTocar(m))erros.push("master:"+(m&&m.id));
+  }
+  if(erros.length)throw new Error("Conteúdo público bloqueado: "+erros.join(", "));
+}
+/* macros do VJ 2.0 — sempre presos a [0,1] */
+const macro={energy:.5,depth:.5,memory:.5,connection:.5};
+const defineMacro=(k,v)=>{macro[k]=clamp(+v||0,0,1);return macro[k]};
+/* bancos de cena: deriva-alvo + tintura + fx + macros de partida */
+const CENAS_VJ=[
+ {id:"orbit",     tecla:"a",alvo:.75,matiz:-18,sat:1.10,fx:["trails"],
+  m:{energy:.35,depth:.75,memory:.55,connection:.40}},
+ {id:"groove",    tecla:"b",alvo:.60,matiz:8,  sat:1.25,fx:["pulse"],
+  m:{energy:.55,depth:.35,memory:.70,connection:.35}},
+ {id:"garden",    tecla:"c",alvo:.40,matiz:-50,sat:1.20,fx:[],
+  m:{energy:.30,depth:.50,memory:.40,connection:.85}},
+ {id:"ritual",    tecla:"d",alvo:.86,matiz:22, sat:1.30,fx:["pulse"],
+  m:{energy:.70,depth:.60,memory:.50,connection:.70}},
+ {id:"day-signal",tecla:"e",alvo:.95,matiz:35, sat:1.35,fx:["burst"],
+  m:{energy:.90,depth:.25,memory:.30,connection:.50}}
+];
+let cenaAtiva=null;
 let gravador=null,gravaChunks=[];
 let scrollSuave=0;
 let fpsAcc=0,fpsN=0,fpsRuim=0,degradou=false;
@@ -1003,7 +1189,9 @@ function pintaFase(p){
   let idx=FASES.findIndex(f=>p<f.ate);if(idx<0)idx=FASES.length-1;
   corAlvo.setHex(FASES[idx].fog);
   neblina.color.lerp(corAlvo,reduz?1:.05);
-  neblina.density=lerp(neblina.density,FASES[idx].dens,reduz?1:.05);
+  /* macro DEPTH (mesa): abre ou fecha a névoa da cena */
+  const kNev=MODO==="vj"?(.55+.9*macro.depth):1;
+  neblina.density=lerp(neblina.density,FASES[idx].dens*kNev,reduz?1:.05);
   $("crt").classList.toggle("on",idx===2);
   if(idx===faseVis)return;faseVis=idx;
   document.querySelectorAll(".cap").forEach(c=>c.classList.remove("viva"));
@@ -1036,6 +1224,20 @@ function togglePad(fxNome,btn){
 }
 function flashPad(b){b.setAttribute("aria-pressed","true");
   setTimeout(()=>b.setAttribute("aria-pressed","false"),180)}
+function ligaCena(id){
+  const c=CENAS_VJ.find(x=>x.id===id);if(!c)return;
+  cenaAtiva=c;
+  document.querySelectorAll(".banco").forEach(b=>
+    b.setAttribute("aria-pressed",String(b.dataset.cena===id)));
+  Object.entries(c.m).forEach(([k,v])=>{defineMacro(k,v);
+    const r=$("mc-"+k);if(r)r.value=Math.round(v*100)});
+  ["pulse","trails","hue","warp"].forEach(n=>{
+    if(fx[n]!==c.fx.includes(n)){
+      const btn=document.querySelector(`.pad[data-fx="${n}"]`);
+      if(btn)togglePad(n,btn);
+    }});
+  if(c.fx.includes("burst"))burst();
+}
 function burst(){
   const n=260,arr=new Float32Array(n*3),vel=[];
   const o=camera.position.clone().add(camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(6));
@@ -1049,7 +1251,14 @@ function burst(){
 }
 function toggleRec(btn){
   if(gravador){gravador.stop();return}
+  /* visual-only por construção: captureStream do canvas não carrega áudio.
+     Trilha sonora só entra com master downloadableCaptureAudio autorizado. */
   const stream=$("cena").captureStream(30);
+  if(masterAtivo&&podeGravarAudio(masterAtivo)&&audioCtx&&analyser){
+    const dest=audioCtx.createMediaStreamDestination();
+    analyser.connect(dest);
+    dest.stream.getAudioTracks().forEach(t=>stream.addTrack(t));
+  }
   gravaChunks=[];
   try{gravador=new MediaRecorder(stream,{mimeType:"video/webm;codecs=vp9"})}
   catch(e){try{gravador=new MediaRecorder(stream,{mimeType:"video/webm"})}
@@ -1073,42 +1282,105 @@ function toggleRec(btn){
   gravador.start();btn.setAttribute("aria-pressed","true");
 }
 
-/* ── áudio real: um motor, dois palcos (player da jornada, mesa do vj) ── */
-function ligaAudio(el,arquivo){
-  el.src=URL.createObjectURL(arquivo);
+/* ── SIGNAL PLAYER: um motor, dois palcos (masters na jornada, jam na mesa).
+     HTMLAudioElement → MediaElementSource → Analyser → destino. ── */
+function garanteMotor(el){
   if(!audioCtx){
     audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    const fonte=audioCtx.createMediaElementSource(el);
     analyser=audioCtx.createAnalyser();analyser.fftSize=256;
     dadosFreq=new Uint8Array(analyser.frequencyBinCount);
-    fonte.connect(analyser);analyser.connect(audioCtx.destination);
+    analyser.connect(audioCtx.destination);
+  }
+  if(!el.dataset.ligado){ /* cada elemento só pode virar fonte uma vez */
+    audioCtx.createMediaElementSource(el).connect(analyser);
+    el.dataset.ligado="1";
   }
   audioEl=el;audioCtx.resume();
+}
+function ligaAudio(el,arquivo){
+  el.src=URL.createObjectURL(arquivo);
+  garanteMotor(el);
   return el.play();
 }
-function ligaMic(botao){
-  if(micOn){
-    if(micStream)micStream.getTracks().forEach(t=>t.stop());
-    micOn=false;micStream=null;botao.setAttribute("aria-pressed","false");return;
+function tocaMaster(m,botao){
+  if(!podeTocar(m))return;              /* fail-closed */
+  const el=$("p-el");
+  if(masterAtivo===m&&!el.paused){
+    el.pause();botao.setAttribute("aria-pressed","false");return;
   }
-  navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false}}).then(st=>{
-    micStream=st;
-    if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    if(!analyser){analyser=audioCtx.createAnalyser();analyser.fftSize=256;
-      dadosFreq=new Uint8Array(analyser.frequencyBinCount)}
-    /* fonte do mic vai só ao analisador — nunca às caixas (sem microfonia) */
-    audioCtx.createMediaStreamSource(st).connect(analyser);
-    audioCtx.resume();micOn=true;botao.setAttribute("aria-pressed","true");
-  }).catch(()=>{botao.textContent="MIC NEGADO PELO NAVEGADOR"});
+  masterAtivo=m;el.src=m.src;garanteMotor(el);
+  el.play().catch(()=>{});
+  document.querySelectorAll(".p-master").forEach(b=>b.setAttribute("aria-pressed","false"));
+  botao.setAttribute("aria-pressed","true");
+}
+function montarPlayerSinal(){
+  const caixa=$("p-masters"),nota=$("p-nota"),now=$("p-now");
+  if(!caixa)return;
+  if(now)now.textContent=RELEASE.status==="embargoed"
+    ?"NOW TRANSMITTING — NEW TRANSMISSION":(RELEASE.releaseTitle||"");
+  const livres=MASTERS.filter(podeTocar);
+  if(!livres.length){
+    nota.textContent="Nenhum master liberado ainda — o registro de direitos "+
+      "está vazio e, sem autorização documentada, nada toca (fail-closed). "+
+      "Quando uma faixa de Ali Love entrar liberada, ela toca aqui e o palco "+
+      "inteiro dança com ela. O Spotify acima é o player oficial, independente "+
+      "do motion. Para uma jam local, use o VJ Studio.";
+    return;
+  }
+  livres.forEach(m=>{
+    const b=document.createElement("button");
+    b.type="button";b.className="p-master";b.setAttribute("aria-pressed","false");
+    b.textContent="▶ "+m.titulo;
+    b.addEventListener("click",()=>tocaMaster(m,b));
+    caixa.appendChild(b);
+  });
+  nota.textContent="Masters com direitos registrados — o áudio toca só no seu "+
+    "aparelho. REC continua visual-only, salvo master com captura autorizada.";
+}
+/* emblema 2D — Resonance Rose acessível (SVG semântico, sem canvas) */
+function desenhaRosa2D(svg){
+  const NS="http://www.w3.org/2000/svg",C=264;
+  const el=(t,at)=>{const n=document.createElementNS(NS,t);
+    for(const k in at)n.setAttribute(k,at[k]);svg.appendChild(n);return n};
+  let s=528;const rnd=()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296};
+  for(let i=0;i<6;i++){const a=i/6*Math.PI;      /* 6 eixos cristalinos */
+    el("line",{class:"r2-eixo",x1:C-Math.cos(a)*236,y1:C-Math.sin(a)*236,
+      x2:C+Math.cos(a)*236,y2:C+Math.sin(a)*236})}
+  for(let i=0;i<12;i++){                          /* 12 pétalas harmônicas */
+    const g=el("ellipse",{class:"r2-pet",cx:C,cy:C-118,rx:44,ry:110});
+    g.setAttribute("transform","rotate("+(i*30+(rnd()-.5)*4)+" "+C+" "+C+")")}
+  for(let i=0;i<18;i++){const a=i/18*Math.PI*2;   /* 2 campos orbitais */
+    el("circle",{class:"r2-orb",cx:C+Math.cos(a)*196,cy:C+Math.sin(a)*196,r:3});
+    const b=a+.17;
+    el("circle",{class:"r2-orb",cx:C+Math.cos(b)*158,cy:C+Math.sin(b)*158,r:2.4})}
+  let d="M "+C+" "+C;                             /* espiral da memória */
+  for(let i=0;i<=64;i++){const a=i/64*Math.PI*3.4,r=6+i/64*118;
+    d+=" L "+(C+Math.cos(a)*r).toFixed(1)+" "+(C+Math.sin(a)*r).toFixed(1)}
+  el("path",{class:"r2-esp",d});
+  el("circle",{class:"r2-core",cx:C,cy:C,r:19}); /* núcleo quente */
 }
 function medeAudio(){
-  if(analyser&&(micOn||(audioEl&&!audioEl.paused))){
+  /* SIGNAL PLAYER: HTMLAudioElement → MediaElementSource → Analyser → destino.
+     Gera low/mid/high/energy/positionMs/durationMs/playing em tempo real. */
+  const vivo=analyser&&audioEl&&!audioEl.paused;
+  if(vivo){
     analyser.getByteFrequencyData(dadosFreq);
     let g=0;for(let i=0;i<9;i++)g+=dadosFreq[i];
     let m=0;for(let i=9;i<40;i++)m+=dadosFreq[i];
-    nivelGrave=lerp(nivelGrave,g/9/255,.4);
-    nivelMedio=lerp(nivelMedio,m/31/255,.4);
-  }else{nivelGrave*=.92;nivelMedio*=.92}
+    let a=0;const topo=Math.min(100,dadosFreq.length);
+    for(let i=40;i<topo;i++)a+=dadosFreq[i];
+    let e=0;for(let i=0;i<dadosFreq.length;i++)e+=dadosFreq[i];
+    sinal.low   =lerp(sinal.low,   g/9/255,.4);
+    sinal.mid   =lerp(sinal.mid,   m/31/255,.4);
+    sinal.high  =lerp(sinal.high,  a/Math.max(1,topo-40)/255,.4);
+    sinal.energy=lerp(sinal.energy,e/dadosFreq.length/255,.4);
+  }else{
+    sinal.low*=.92;sinal.mid*=.92;sinal.high*=.92;sinal.energy*=.92;
+  }
+  sinal.playing=!!vivo;
+  sinal.positionMs=audioEl?(audioEl.currentTime||0)*1000:0;
+  sinal.durationMs=audioEl&&isFinite(audioEl.duration)?audioEl.duration*1000:0;
+  nivelGrave=sinal.low;nivelMedio=sinal.mid;   /* ganchos existentes */
 }
 
 /* ── mundos: um div de fundo por capa disponível ── */
@@ -1247,6 +1519,341 @@ function pintaSleeves(){
   });
 }
 
+/* ── THE RESONANCE ROSE — identidade viva (determinística, seed 528) ──
+   12 pétalas · 6 eixos cristalinos · espiral da memória · 2 campos orbitais
+   contrarrotantes · partículas humanas com pontes · núcleo quente em luz fria.
+   Monumento no céu do hero; emblema íntimo à frente da câmera no Listen e no
+   finale; recua nas seções de mídia para o material oficial respirar. */
+let rosa=null,rosaCam=null,rosaOrbA=null,rosaOrbB=null,rosaPontes=null,
+    rosaNucleo=null,rosaProem=1,rosaProemCam=0,rosaPosta=false;
+const ROSA_PROEM={0:1,4:.5,5:.95,10:1};
+function rndSemente(seed){let s=seed>>>0||528;
+  return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296}}
+function texBrilho(cor){
+  const cv=document.createElement("canvas");cv.width=cv.height=64;
+  const g=cv.getContext("2d"),gr=g.createRadialGradient(32,32,0,32,32,32);
+  gr.addColorStop(0,cor);gr.addColorStop(.45,cor+"66");gr.addColorStop(1,"#00000000");
+  g.fillStyle=gr;g.fillRect(0,0,64,64);
+  return new THREE.CanvasTexture(cv);
+}
+function geoPetalas(rnd){
+  /* 12 pétalas fundidas num único buffer — 1 draw call */
+  const base=new THREE.CircleGeometry(1,18);
+  base.scale(.34,1,1);base.translate(0,1.5,0);
+  const P=base.attributes.position,I=base.index;
+  const pos=[],idx=[],M=new THREE.Matrix4(),V=new THREE.Vector3();
+  for(let p=0;p<12;p++){
+    const off=pos.length/3;
+    M.makeRotationZ(p/12*Math.PI*2+(rnd()-.5)*.07);
+    for(let v=0;v<P.count;v++){
+      V.fromBufferAttribute(P,v).applyMatrix4(M);pos.push(V.x,V.y,V.z)}
+    for(let k=0;k<I.count;k++)idx.push(I.array[k]+off);
+  }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute("position",new THREE.Float32BufferAttribute(pos,3));
+  g.setIndex(idx);return g;
+}
+function matRosa(cor,op,audio){
+  const m=new THREE.MeshBasicMaterial({color:cor,transparent:true,opacity:op,
+    side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false,fog:false});
+  return m;
+}
+function montaRosaGrupo(rnd,lite){
+  const g=new THREE.Group();
+  const marca=(o,op,audio)=>{o.userData.opBase=op;o.userData.audio=!!audio;
+    o.material.opacity=op;g.add(o);return o};
+  marca(new THREE.Mesh(geoPetalas(rnd),matRosa(0x51d9e8,.14)),.14,true);
+  /* 6 eixos cristalinos */
+  const ax=[];for(let i=0;i<6;i++){const a=i/6*Math.PI;
+    ax.push(-Math.cos(a)*2.35,-Math.sin(a)*2.35,0,
+             Math.cos(a)*2.35, Math.sin(a)*2.35,0)}
+  const gAx=new THREE.BufferGeometry();
+  gAx.setAttribute("position",new THREE.Float32BufferAttribute(ax,3));
+  marca(new THREE.LineSegments(gAx,new THREE.LineBasicMaterial({color:0xf2eee7,
+    transparent:true,opacity:.16,blending:THREE.AdditiveBlending,fog:false})),.16);
+  /* espiral da memória (retorno para dentro) */
+  const esp=[];for(let i=0;i<=72;i++){const a=i/72*Math.PI*3.4,r=.1+i/72*1.9;
+    esp.push(Math.cos(a)*r,Math.sin(a)*r,.02)}
+  const gEsp=new THREE.BufferGeometry();
+  gEsp.setAttribute("position",new THREE.Float32BufferAttribute(esp,3));
+  marca(new THREE.Line(gEsp,new THREE.LineBasicMaterial({color:0xf4b65a,
+    transparent:true,opacity:.5,blending:THREE.AdditiveBlending,fog:false})),.5);
+  /* núcleo quente */
+  const nuc=new THREE.Sprite(new THREE.SpriteMaterial({map:texBrilho("#F4B65A"),
+    transparent:true,opacity:.9,blending:THREE.AdditiveBlending,
+    depthWrite:false,fog:false}));
+  nuc.scale.setScalar(1.15);marca(nuc,.9,true);
+  if(!lite){
+    /* 2 campos orbitais contrarrotantes */
+    const orb=(n,r,cor,tam)=>{
+      const a=[];for(let i=0;i<n;i++){const w=i/n*Math.PI*2;
+        a.push(Math.cos(w)*r,Math.sin(w)*r,(rnd()-.5)*.12)}
+      const ge=new THREE.BufferGeometry();
+      ge.setAttribute("position",new THREE.Float32BufferAttribute(a,3));
+      return new THREE.Points(ge,new THREE.PointsMaterial({color:cor,size:tam,
+        transparent:true,opacity:.6,blending:THREE.AdditiveBlending,
+        depthWrite:false,fog:false}));
+    };
+    rosaOrbA=marca(orb(26,2.08,0xf2eee7,.06),.6);
+    rosaOrbB=marca(orb(20,1.68,0x51d9e8,.05),.6);
+    /* partículas humanas + pontes entre vizinhas */
+    const hp=[];for(let i=0;i<24;i++){const a=rnd()*Math.PI*2,r=.6+rnd()*1.6;
+      hp.push([Math.cos(a)*r,Math.sin(a)*r,(rnd()-.5)*.1])}
+    const gp=new THREE.BufferGeometry();
+    gp.setAttribute("position",new THREE.Float32BufferAttribute(hp.flat(),3));
+    marca(new THREE.Points(gp,new THREE.PointsMaterial({color:0xf2eee7,size:.075,
+      transparent:true,opacity:.75,blending:THREE.AdditiveBlending,
+      depthWrite:false,fog:false})),.75);
+    const pt=[];for(let i=0;i<hp.length;i++)for(let j=i+1;j<hp.length;j++){
+      const dx=hp[i][0]-hp[j][0],dy=hp[i][1]-hp[j][1];
+      if(dx*dx+dy*dy<.72)pt.push(...hp[i],...hp[j])}
+    const gPt=new THREE.BufferGeometry();
+    gPt.setAttribute("position",new THREE.Float32BufferAttribute(pt,3));
+    rosaPontes=marca(new THREE.LineSegments(gPt,new THREE.LineBasicMaterial({
+      color:0x51d9e8,transparent:true,opacity:.3,
+      blending:THREE.AdditiveBlending,fog:false})),.3);
+    rosaNucleo=nuc;
+  }
+  return g;
+}
+function criaRosa(){
+  const rnd=rndSemente(528);
+  rosa=montaRosaGrupo(rnd,false);
+  rosa.position.set(0,64,-30);rosa.scale.setScalar(8); /* provisório: o 1º
+     quadro da jornada reenquadra a partir da pose real da câmera */
+  scene.add(rosa);
+  /* emblema íntimo: respira à frente da câmera no Listen e no finale */
+  rosaCam=montaRosaGrupo(rndSemente(528),true);
+  rosaCam.scale.setScalar(.55);rosaCam.position.set(0,.4,-6);
+  rosaCam.visible=false;
+  camera.add(rosaCam);
+}
+function rosaTick(t){
+  if(!rosa)return;
+  if(!rosaPosta&&MODO!=="vj"){
+    /* enquadra a rosa no céu do hero a partir da pose REAL da câmera:
+       72 à frente, 26 à direita, 14 acima — inteira no quadro, sempre */
+    const dir=camera.getWorldDirection(new THREE.Vector3());
+    const dre=new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion);
+    const cima=new THREE.Vector3(0,1,0).applyQuaternion(camera.quaternion);
+    rosa.position.copy(camera.position).addScaledVector(dir,72)
+      .addScaledVector(dre,26).addScaledVector(cima,14);
+    rosa.lookAt(camera.position);
+    rosaPosta=true;
+  }
+  const resp=.5+.5*Math.sin(t*2*Math.PI/5.28);       /* respiração: 5280 ms */
+  const alvoP=MODO==="vj"?(.35+.65*macro.connection)
+    :(ROSA_PROEM[faseVis]!==undefined?ROSA_PROEM[faseVis]:.26);
+  rosaProem=lerp(rosaProem,alvoP,.02);
+  const kEn=.55+sinal.energy*.85;
+  if(!reduz){
+    rosa.rotateZ(.0005+sinal.mid*.0022);
+    if(rosaOrbA)rosaOrbA.rotation.z+=.0011;
+    if(rosaOrbB)rosaOrbB.rotation.z-=.0008;
+  }
+  rosa.scale.setScalar(8*(.93+.07*(reduz?.5:resp)+sinal.low*.28));
+  rosa.traverse(o=>{if(o.material&&o.userData.opBase!==undefined)
+    o.material.opacity=o.userData.opBase*rosaProem*(o.userData.audio?kEn:1)});
+  const con=MODO==="vj"?macro.connection:clamp(sinal.energy*1.6+.18,0,1);
+  if(rosaPontes)rosaPontes.material.opacity=.55*con*rosaProem;
+  if(rosaNucleo)rosaNucleo.scale.setScalar(1.05+(reduz?.15:resp*.35)+sinal.low*.8);
+  if(rosaCam){
+    /* emblema íntimo: Listen/finale na jornada; CONNECTION na mesa */
+    const alvoC=MODO==="vj"?macro.connection*.9
+      :((faseVis===5||faseVis===10)?.85:0);
+    rosaProemCam=lerp(rosaProemCam,alvoC,.03);
+    rosaCam.visible=rosaProemCam>.02;
+    if(!reduz)rosaCam.rotation.z+=.0009;
+    rosaCam.traverse(o=>{if(o.material&&o.userData.opBase!==undefined)
+      o.material.opacity=o.userData.opBase*rosaProemCam});
+  }
+}
+
+/* ── RESONANCE SESSION — 30 s de conexão, determinístico, local ──
+   CALIBRATE 0–5 s · BUILD 5–18 s · HOLD 18–26 s · CAPTURE 26–30 s
+   unstable → listening → resonant → remembered. Sem game over, sem rede,
+   sem conta: o troféu é a captura (visual-only). */
+function sessaoReduz(st,ev){
+  const s=Object.assign({},st);
+  if(ev.type==="TICK"){
+    s.tMs=clamp(ev.tMs,0,30000);
+    s.janela=s.tMs<5000?"calibrate":s.tMs<18000?"build":
+             s.tMs<26000?"hold":"capture";
+    const r=clamp(ev.res||0,0,1);s.res=r;
+    if(s.janela==="hold"&&r>=.7)s.holdMs=(s.holdMs||0)+(ev.dtMs||0);
+    if(s.janela==="capture"&&(s.holdMs||0)>=3000)s.status="remembered";
+    else if(s.status!=="remembered"){
+      s.status=r>=.7?"resonant":r>=.35?"listening":"unstable";
+    }
+    s.fim=s.tMs>=30000;
+  }
+  return s;
+}
+const sessaoInicial=seed=>({seed,tMs:0,janela:"calibrate",res:0,
+  holdMs:0,status:"unstable",fim:false});
+window.__sessaoReduz=sessaoReduz;window.__sessaoInicial=sessaoInicial;
+
+let SES=null,sesGrav=null;
+const SES_ROTULO={unstable:"UNSTABLE — TUNE THE FIELD",listening:"LISTENING",
+  resonant:"RESONANT — HOLD",remembered:"REMEMBERED"};
+function sesCentros(){
+  const R=262-168*SES.shape;
+  return [0,1,2].map(k=>{const a=k/3*Math.PI*2-Math.PI/2;
+    return {x:480+Math.cos(a)*R,y:320+Math.sin(a)*R*.72}});
+}
+function montaSessao(){
+  const btn=$("b-sessao"),ov=$("sessao");if(!btn||!ov)return;
+  btn.addEventListener("click",abreSessao);
+  $("ses-x").addEventListener("click",fechaSessao);
+  $("ses-de-novo").addEventListener("click",()=>{fechaSessao();abreSessao()});
+  $("ses-img").addEventListener("click",salvaSesImagem);
+  $("ses-rec").addEventListener("click",salvaSesLoop);
+  const passo=(k,d)=>()=>{if(SES)SES[k]=clamp(SES[k]+d,0,1)};
+  $("ses-tune-mais").addEventListener("click",passo("tune",.07));
+  $("ses-tune-menos").addEventListener("click",passo("tune",-.07));
+  $("ses-shape-mais").addEventListener("click",passo("shape",.07));
+  $("ses-shape-menos").addEventListener("click",passo("shape",-.07));
+  ov.addEventListener("keydown",e=>{
+    if(e.key==="Escape"){fechaSessao();return}
+    const m={ArrowRight:["tune",.05],ArrowLeft:["tune",-.05],
+             ArrowUp:["shape",.05],ArrowDown:["shape",-.05]};
+    const p=m[e.key];if(!p||!SES)return;
+    SES[p[0]]=clamp(SES[p[0]]+p[1],0,1);e.preventDefault();
+  });
+  const tela=$("ses-tela");
+  const aponta=e=>{if(!SES)return;const r=tela.getBoundingClientRect();
+    SES.mira={x:(e.clientX-r.left)/r.width*960,y:(e.clientY-r.top)/r.height*640}};
+  tela.addEventListener("pointerdown",e=>{if(SES){SES.arrasta=true;aponta(e)}});
+  tela.addEventListener("pointermove",e=>{if(SES&&SES.arrasta)aponta(e)});
+  addEventListener("pointerup",()=>{if(SES){SES.arrasta=false;SES.mira=null}});
+  document.addEventListener("visibilitychange",()=>{
+    if(!SES)return;
+    if(document.hidden)SES.oculto=performance.now();
+    else if(SES.oculto){SES.t0+=performance.now()-SES.oculto;SES.oculto=0}
+  });
+}
+function abreSessao(){
+  const seed=(Date.now()%9973)||528,rnd=rndSemente(seed);
+  const alvoFreq=.25+rnd()*.5,parts=[];
+  for(let i=0;i<64;i++)parts.push({
+    x:80+rnd()*800,y:60+rnd()*520,vx:0,vy:0,cl:i%3,
+    freq:clamp(alvoFreq+(rnd()-.5)*.3,0,1)});
+  SES={est:sessaoInicial(seed),seed,t0:performance.now(),tPrev:0,
+       tune:.5,shape:.4,mira:null,arrasta:false,parts,rnd,oculto:0};
+  $("sessao").hidden=false;$("ses-fim").hidden=true;
+  $("sessao").setAttribute("tabindex","-1");$("sessao").focus();
+  sesQuadro();
+}
+function fechaSessao(){
+  if(sesGrav){try{sesGrav.stop()}catch(e){}sesGrav=null}
+  SES=null;$("sessao").hidden=true;
+}
+function sesQuadro(){
+  if(!SES)return;
+  requestAnimationFrame(sesQuadro);
+  if(document.hidden)return;
+  const ag=performance.now(),tMs=ag-SES.t0,
+        dtMs=clamp(tMs-SES.tPrev,0,64);SES.tPrev=tMs;
+  const vel=reduz?.35:1,fim=SES.est.fim;
+  const cent=sesCentros();
+  let soma=0;
+  SES.parts.forEach(p=>{
+    const al=clamp((1-Math.abs(SES.tune-p.freq)-.62)/.38,0,1);soma+=al;
+    const c=cent[p.cl];
+    let ax=(c.x-p.x)*.00010*(.35+SES.shape),
+        ay=(c.y-p.y)*.00010*(.35+SES.shape);
+    if(SES.mira){ax+=(SES.mira.x-p.x)*.00007;ay+=(SES.mira.y-p.y)*.00007}
+    const jit=(1-al)*(SES.est.janela==="calibrate"?1.5:1)*(fim?.2:1);
+    ax+=(SES.rnd()-.5)*jit*.012;ay+=(SES.rnd()-.5)*jit*.012;
+    p.vx=(p.vx+ax*dtMs)*.90;p.vy=(p.vy+ay*dtMs)*.90;
+    p.x=clamp(p.x+p.vx*dtMs*vel,10,950);p.y=clamp(p.y+p.vy*dtMs*vel,10,630);
+  });
+  const pontes=[];
+  for(let i=0;i<3;i++)for(let j=i+1;j<3;j++){
+    const dx=cent[i].x-cent[j].x,dy=cent[i].y-cent[j].y;
+    if(Math.hypot(dx,dy)<235)pontes.push([cent[i],cent[j]])}
+  const res=clamp((soma/64)*.62+pontes.length*.13,0,1);
+  if(!fim)SES.est=sessaoReduz(SES.est,{type:"TICK",tMs,dtMs,res});
+  sesPinta(cent,pontes,res);
+  if(SES.est.fim&&!SES.fimMostrado){
+    SES.fimMostrado=true;
+    $("ses-msg").textContent=SES.est.status==="remembered"
+      ?"THE ROOM REMEMBERS":"RETURN CHANGES THE SIGNAL";
+    $("ses-seed").textContent="LOVE IS THE SIGNAL · seed "+SES.seed+
+      " · "+SES.est.status.toUpperCase();
+    $("ses-rec").hidden=!(window.MediaRecorder&&$("ses-tela").captureStream);
+    $("ses-fim").hidden=false;
+  }
+  $("ses-estado").textContent=SES_ROTULO[SES.est.status]+
+    "  ·  "+SES.est.janela.toUpperCase();
+  $("ses-prog").style.width=(SES.est.tMs/300).toFixed(1)+"%";
+}
+function sesPinta(cent,pontes,res){
+  const cx=$("ses-tela").getContext("2d");
+  cx.fillStyle="#070709";cx.fillRect(0,0,960,640);
+  /* pontes entre grupos alinhados */
+  cx.strokeStyle="rgba(81,217,232,.55)";cx.lineWidth=2.5;
+  pontes.forEach(([a,b])=>{cx.beginPath();cx.moveTo(a.x,a.y);
+    cx.lineTo(b.x,b.y);cx.stroke()});
+  /* núcleos dos grupos — pulso quente */
+  cent.forEach(c=>{
+    const g=cx.createRadialGradient(c.x,c.y,0,c.x,c.y,46+res*26);
+    g.addColorStop(0,"rgba(244,182,90,"+(.28+res*.4)+")");
+    g.addColorStop(1,"rgba(244,182,90,0)");
+    cx.fillStyle=g;cx.beginPath();cx.arc(c.x,c.y,46+res*26,0,7);cx.fill()});
+  /* partículas humanas */
+  SES.parts.forEach(p=>{
+    const al=clamp((1-Math.abs(SES.tune-p.freq)-.62)/.38,0,1);
+    cx.fillStyle=al>.5?"rgba(242,238,231,.92)":"rgba(216,59,72,.6)";
+    cx.beginPath();cx.arc(p.x,p.y,al>.5?2.6:2,0,7);cx.fill()});
+  /* lembrada: a rosa aparece por cima do campo */
+  if(SES.est.status==="remembered"){
+    cx.save();cx.translate(480,320);cx.strokeStyle="rgba(81,217,232,.5)";
+    cx.lineWidth=2;
+    for(let i=0;i<12;i++){cx.save();cx.rotate(i*Math.PI/6);
+      cx.beginPath();cx.ellipse(0,-92,34,86,0,0,7);cx.stroke();cx.restore()}
+    cx.fillStyle="rgba(244,182,90,.9)";
+    cx.beginPath();cx.arc(0,0,15,0,7);cx.fill();cx.restore();
+  }
+  /* cartão do troféu */
+  cx.fillStyle="rgba(242,238,231,.85)";
+  cx.font="12px 'Space Grotesk',monospace";
+  cx.fillText("LOVE IS THE SIGNAL · seed "+SES.seed,18,620);
+}
+async function baixaArquivo(nome,blob){
+  /* no viewer de artifact o download nativo é bloqueado — lá vai pela
+     capability; fora dele (arquivo local, deploy), âncora normal */
+  const dl=(window.claude&&window.claude.use)
+    ?await window.claude.use("downloads").catch(()=>null):null;
+  if(dl){try{await dl.save({filename:nome,data:blob})}catch(e){}}
+  else{
+    const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download=nome;a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  }
+}
+function salvaSesImagem(){
+  if(!SES)return;
+  $("ses-tela").toBlob(b=>{if(b)baixaArquivo(
+    "ali-love-resonance-session-"+SES.seed+".png",b)});
+}
+function salvaSesLoop(){
+  /* troféu em movimento — visual-only por construção (canvas sem áudio) */
+  if(!SES||sesGrav)return;
+  const st=$("ses-tela").captureStream(30);let chunks=[];
+  try{sesGrav=new MediaRecorder(st,{mimeType:"video/webm;codecs=vp9"})}
+  catch(e){try{sesGrav=new MediaRecorder(st,{mimeType:"video/webm"})}
+  catch(e2){sesGrav=null;return}}
+  sesGrav.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+  sesGrav.onstop=()=>{
+    baixaArquivo("ali-love-resonance-session-"+(SES?SES.seed:"loop")+".webm",
+      new Blob(chunks,{type:"video/webm"}));
+    sesGrav=null;
+  };
+  sesGrav.start();
+  setTimeout(()=>{if(sesGrav)try{sesGrav.stop()}catch(e){}},4000);
+}
+
 /* ── laço ── */
 function quadro(){
   requestAnimationFrame(quadro);
@@ -1260,8 +1867,10 @@ function quadro(){
 
   medeAudio();
   if(MODO==="vj"){
-    /* página isolada: deriva automática pelo palco inteiro (~110s ida e volta) */
-    const alvoVj=(Math.sin(agora*.000057)+1)/2*.93;
+    /* deriva automática; um banco de cena ancora a deriva na sua região */
+    const alvoVj=cenaAtiva
+      ?clamp(cenaAtiva.alvo+Math.sin(agora*.00006)*.05,0,1)
+      :(Math.sin(agora*.000057)+1)/2*.93;
     scrollSuave=reduz?alvoVj:lerp(scrollSuave,alvoVj,.03);
   }else{
     const max=document.documentElement.scrollHeight-innerHeight;
@@ -1307,7 +1916,8 @@ function quadro(){
 
   /* equalizador procedural (pulse dobra a amplitude) */
   if(eqBarras){
-    const Mm=new THREE.Matrix4(),amp=(fx.pulse?2.4:1)+nivelGrave*2.8;
+    const gEn=MODO==="vj"?(.45+1.1*macro.energy):1;   /* macro ENERGY */
+    const Mm=new THREE.Matrix4(),amp=((fx.pulse?2.4:1)+nivelGrave*2.8)*gEn;
     for(let i=0;i<72;i++){
       const a=i/72*Math.PI*2;
       const h=(.6+Math.abs(Math.sin(t*2.1*calma+i*.42))*2.6*calma)*amp;
@@ -1322,11 +1932,18 @@ function quadro(){
     const k=(Math.sin(t*1.4)+1)/2;
     cogumelos.material.emissiveIntensity=.18+k*.22+(fx.pulse?.25:0)+nivelGrave*.4;
   }
-  if(vagalumes){vagalumes.rotation.y=t*.05}
+  if(vagalumes){vagalumes.rotation.y=t*.05;
+    if(MODO==="vj")vagalumes.material.opacity=.2+macro.energy*.4}
 
-  /* tintura viva: cada seção um mundo — e o hue do VJ soma por cima */
+  /* a Resonance Rose respira com o sinal e com a fase */
+  rosaTick(t);
+  /* macro MEMORY: persistência dos trails (só na mesa) */
+  if(MODO==="vj"&&fx.trails&&fadePlane)
+    fadePlane.material.opacity=lerp(.46,.08,macro.memory);
+
+  /* tintura viva: cada seção um mundo — cena do VJ ancora a sua própria */
   if(fx.hue)hueDeg=(hueDeg+dt*40)%360;
-  const fTint=FASES[faseVis<0?0:faseVis];
+  const fTint=(MODO==="vj"&&cenaAtiva)?cenaAtiva:FASES[faseVis<0?0:faseVis];
   matizAtual=lerp(matizAtual,fTint.matiz,.03);
   satAtual=lerp(satAtual,fTint.sat,.03);
   $("cena").style.filter=`saturate(${satAtual.toFixed(3)}) contrast(1.07) `+
@@ -1357,12 +1974,21 @@ function dimensiona(){
 }
 
 /* ── boot (nada de typeof em const na zona morta) ── */
+/* sempre — mesmo sem WebGL: emblema 2D acessível + gate de conteúdo */
+document.querySelectorAll("svg.rosa-2d").forEach(desenhaRosa2D);
+try{validaConteudoPublico(RELEASE,BIOGRAFIA,"preview")}
+catch(e){console.error("gate:",e)}
+/* alças de QA local (somente leitura) */
+window.__sinal=sinal;
+window.__gate=mem=>validaConteudoPublico(RELEASE,mem||BIOGRAFIA,"production");
+window.__macro=macro;
+
 if(!temGL()){document.body.classList.add("sem-gl")}
 else{
   try{
     document.body.classList.add("m-"+MODO);
     $("cena").style.filter=FILTRO_BASE;
-    montaTrilha();montaCena();
+    montaTrilha();montaCena();criaRosa();
 
     if(MODO==="vj"){
       /* página isolada: mesa aberta, teclado vivo, áudio na mesa */
@@ -1386,7 +2012,18 @@ else{
       inpV.addEventListener("change",()=>{
         if(inpV.files[0])ligaAudio($("vj-el"),inpV.files[0]).catch(()=>{});
       });
-      $("vj-mic").addEventListener("click",()=>ligaMic($("vj-mic")));
+      /* VJ 2.0: bancos de cena (teclas a–e) e macros presos a [0,1] */
+      document.querySelectorAll(".banco").forEach(b=>
+        b.addEventListener("click",()=>ligaCena(b.dataset.cena)));
+      addEventListener("keydown",e=>{
+        if(e.metaKey||e.ctrlKey||e.altKey)return;
+        const c=CENAS_VJ.find(x=>x.tecla===e.key.toLowerCase());
+        if(c)ligaCena(c.id);
+      });
+      ["energy","depth","memory","connection"].forEach(k=>{
+        const r=$("mc-"+k);if(!r)return;
+        r.addEventListener("input",()=>defineMacro(k,r.value/100));
+      });
     }else{
       /* portal com paralaxe de mouse */
       portalEl=$("portal-clone");
@@ -1404,7 +2041,8 @@ else{
         }));
       montaMundos();
       pintaSleeves();
-      $("p-mic").addEventListener("click",()=>ligaMic($("p-mic")));
+      montarPlayerSinal();
+      montaSessao();
       /* rotator do filme: os 11 clipes oficiais do site, um palco só */
       const FILMES=["title-card","nebula-spiral","spiral-mountain","orbital-rings",
         "cloak-wings","hooded-portal","crowd-ritual","ritual-figure","rings-title",
