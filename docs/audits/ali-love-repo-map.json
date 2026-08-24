@@ -1,0 +1,27 @@
+{
+  "canonicalRepo": "/home/user/obsidian-importer (github: princeandreofc/obsidian-importer)",
+  "branch": "claude/organizar-computador-26sev2",
+  "baseCommit": "023c6a60479fc4f089d2f3aaa357c2f2110e2d1c",
+  "packageManager": "none",
+  "framework": "static-single-file-html",
+  "note": "Sem framework, sem package.json, sem bundler. O produto é UM HTML autocontido (cinema5d-src.html) com Three.js r149 UMD embutido por placeholder; monta.py gera as duas builds (jornada e vj). O plano-template presumia Next/React/Vitest — Task 1 existe para descobrir isto; os caminhos abaixo são a realidade.",
+  "paths": {
+    "homeRouteSource": "produtos/alilove/cinema5d/cinema5d-src.html",
+    "spiralEntrySource": "produtos/alilove/cinema5d/cinema5d-src.html",
+    "vjRouteSource": "produtos/alilove/cinema5d/cinema5d-src.html",
+    "archiveSource": "produtos/alilove/cinema5d/cinema5d-src.html",
+    "globalStylesSource": "produtos/alilove/cinema5d/cinema5d-src.html",
+    "assetRoot": "produtos/alilove/cinema5d/capas",
+    "buildOutputs": [
+      "produtos/alilove/cinema5d/the-spiral.html",
+      "produtos/alilove/cinema5d/the-spiral-vj.html"
+    ]
+  },
+  "commands": {
+    "install": "nenhum (autocontido)",
+    "build": "python3 /tmp/claude-0/monta.py",
+    "unit": "node --check /tmp/claude-0/app-jor.js && node --check /tmp/claude-0/app-vj.js",
+    "e2e": "node /tmp/claude-0/teste-jornada.js && node /tmp/claude-0/teste-vj.js"
+  },
+  "productionSiteNote": "alilove.world (site oficial no ar) NÃO é publicado a partir deste repositório; nenhum candidato a repo de produção está acessível nesta sessão. Este repo contém o ESPELHO/preview (The Spiral). Nenhuma edição toca o site no ar."
+}
