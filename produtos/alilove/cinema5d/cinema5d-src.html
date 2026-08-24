@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Spiral</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,560;1,9..144,340&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,560;1,9..144,340&display=swap">
 <style>
 /* ═══════ THE SPIRAL — gêmea Cinema 5D · Ali Love (preview privado) ═══════
    Mundo único e comprometido. Copy verbatim do press kit aprovado 07/2026. */
@@ -12,7 +12,9 @@
   --osso:#efe6d5; --osso-2:#b3a898; --osso-3:#83786a;
   --ouro:#d4a24e; --ouro-vivo:#eebd6b;
   --neon:#69e6d2; --rosa:#e07a8f;
-  --serif:"Fraunces",Georgia,serif; --sans:"Archivo",system-ui,sans-serif;
+  /* tipografia oficial do alilove.world: Fraunces + Space Grotesk */
+  --serif:"Fraunces",Georgia,serif; --sans:"Space Grotesk",system-ui,sans-serif;
+  --font-mono:"Space Grotesk",ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--tinta);color:var(--osso);font-family:var(--sans)}
@@ -137,13 +139,19 @@ body.m-vj #mundos,body.sem-gl #mundos{display:none}
   text-transform:uppercase;color:var(--osso-2);cursor:pointer}
 .player input[type=file]{display:none}
 .player .nota{margin-top:8px;font-size:9px;color:var(--osso-3);letter-spacing:.08em}
-/* telas de mídia oficial do site (vídeo/pôster hot-link de alilove.world) */
-.tela{margin-top:14px;max-width:430px;aspect-ratio:16/9;border-radius:12px;overflow:hidden;
-  border:1px solid rgba(212,162,78,.3);background:#0a0812;position:relative}
+/* vídeo oficial do site em TELA CHEIA — o Ali é o fundo da seção */
+.tela{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;
+  transition:opacity 1.4s ease}
 .tela video{width:100%;height:100%;object-fit:cover;display:block}
-.tela.sem-midia{display:none}
-.tela .rotulo{position:absolute;left:10px;bottom:8px;font-size:8.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--osso-2);text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.tela::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(7,6,15,.72) 0%,rgba(7,6,15,.24) 46%,rgba(7,6,15,.5) 100%),
+             linear-gradient(0deg,rgba(7,6,15,.6) 0%,transparent 30%)}
+.tela.viva{opacity:.62}
+.tela.sem-midia{display:none!important}
+body.m-vj .tela,body.sem-gl .tela{display:none!important}
+.tela .rotulo{position:absolute;right:22px;bottom:86px;z-index:1;font-size:8.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--osso-2);
+  text-shadow:0 1px 8px rgba(0,0,0,.9)}
 .fitas{display:flex;gap:8px;margin-top:12px;max-width:430px}
 .fitas img{width:33.33%;min-width:0;aspect-ratio:1;object-fit:cover;display:block;
   border-radius:8px;border:1px solid rgba(212,162,78,.25)}
@@ -256,6 +264,25 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
 <canvas id="cena" aria-label="The Spiral — jornada tridimensional pela carreira de Ali Love"></canvas>
 <div class="veu" aria-hidden="true"></div>
 <div id="mundos" aria-hidden="true"></div>
+
+<!-- o Ali em tela cheia: clipes oficiais como fundo das seções Film e Live -->
+<div class="tela" id="tela-film" aria-hidden="true">
+  <video id="film-rot" muted loop playsinline autoplay preload="metadata"
+    poster="https://www.alilove.world/media/film/posters/title-card.jpg"
+    onerror="this.closest('.tela').classList.add('sem-midia')">
+    <source src="https://www.alilove.world/media/film/title-card.mp4" type="video/mp4">
+  </video>
+  <span class="rotulo" id="film-rotulo">COSMIC RAVE · 01/11</span>
+</div>
+<div class="tela" id="tela-live" aria-hidden="true">
+  <video id="live-rot" muted loop playsinline autoplay preload="metadata"
+    poster="https://www.alilove.world/media/live/posters/stage-1.jpg"
+    onerror="this.closest('.tela').classList.add('sem-midia')">
+    <source src="https://www.alilove.world/media/live/stage-1.mp4" type="video/mp4">
+  </video>
+  <span class="rotulo">ON STAGE · AO VIVO</span>
+</div>
+
 <div class="grade" aria-hidden="true"></div>
 <div class="crt" id="crt" aria-hidden="true"></div>
 
@@ -331,14 +358,6 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
   <p>Cosmic Rave — 8:08 of communion. Twenty years of UK dance music, one
      unmistakable voice: this is a portrait of Ali Love, told with love, by the
      family that built a world around it.</p>
-  <div class="tela" id="tela-film">
-    <video id="film-rot" muted loop playsinline autoplay preload="metadata"
-      poster="https://www.alilove.world/media/film/posters/title-card.jpg"
-      onerror="this.closest('.tela').classList.add('sem-midia')">
-      <source src="https://www.alilove.world/media/film/title-card.mp4" type="video/mp4">
-    </video>
-    <span class="rotulo" id="film-rotulo">COSMIC RAVE · 01/11</span>
-  </div>
   <div class="ctas">
     <a class="btn btn-ghost" href="https://www.alilove.world" target="_blank" rel="noopener">ASSISTIR NO SITE →</a>
   </div>
@@ -460,14 +479,6 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
      Presents Ibiza Classics — sixty-five musicians on stage. Two nights at The O2.
      Twenty-plus years in, hundreds of thousands listening every month, Ali Love is
      recording a new solo album. The voice is not done. It is just getting warmed up.</p>
-  <div class="tela" id="tela-live">
-    <video id="live-rot" muted loop playsinline autoplay preload="metadata"
-      poster="https://www.alilove.world/media/live/posters/stage-1.jpg"
-      onerror="this.closest('.tela').classList.add('sem-midia')">
-      <source src="https://www.alilove.world/media/live/stage-1.mp4" type="video/mp4">
-    </video>
-    <span class="rotulo">ON STAGE · AO VIVO</span>
-  </div>
   <div class="stats">
     <div><b>20+</b><span>years, one voice</span></div>
     <div><b>~690k</b><span>monthly listeners</span></div>
@@ -552,8 +563,14 @@ body.sem-gl .deck,body.sem-gl .voltar,body.sem-gl .dica{display:none}
 const MODO="@@MODO@@";
 /* capas reais (data URI ou caminho) por tema; vazio → arte gerativa própria.
    Mapa seção→tema: cada página do site vive dentro da sua capa. */
-const CAPAS=@@CAPAS@@;
-const MUNDO_POR_SECAO={1:"cosmic",2:"lagoon",3:"skyline",4:"gardens",5:"hidden",7:"tides"};
+const CAPAS=Object.assign({
+  /* fotos oficiais do Ali (hot-link do site; no sandbox ficam vazias) */
+  ritual:"https://www.alilove.world/media/film/posters/ritual-figure.jpg",
+  hooded:"https://www.alilove.world/media/film/posters/hooded-portal.jpg",
+},@@CAPAS@@);
+/* Film(1) e Live(8) têm VÍDEO em tela cheia; as demais, a sua capa/foto */
+const MUNDO_POR_SECAO={2:"lagoon",3:"skyline",4:"gardens",5:"hidden",
+                       6:"cosmic",7:"tides",9:"ritual",10:"hooded"};
 const $=id=>document.getElementById(id);
 const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -991,6 +1008,13 @@ function pintaFase(p){
   const temaVivo=MUNDO_POR_SECAO[idx];
   document.querySelectorAll("#mundos .mundo").forEach(m=>
     m.classList.toggle("viva",m.dataset.tema===temaVivo));
+  /* vídeo do Ali em tela cheia nas seções Film e Live */
+  [["tela-film",1],["tela-live",8]].forEach(([id,sec])=>{
+    const tela=$(id);if(!tela)return;
+    const on=idx===sec;tela.classList.toggle("viva",on);
+    const v=tela.querySelector("video");
+    if(v){if(on)v.play().catch(()=>{});else v.pause()}
+  });
 }
 
 /* ── VJ ── */
