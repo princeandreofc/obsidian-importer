@@ -114,6 +114,16 @@ curl -sI https://brenno.climbexglobal.com | head -3
 > pública sem o nome exato — conferir no painel Squarespace ao copiar a
 > zona (o documento consolidado fala em 8 registros; validar 1:1 lá).
 
+## 6b · Veredito dos erros Vercel (25/08 — diagnóstico fechado)
+
+Os projetos **andre-corporate** e **alilove** estão git-linkados ao
+`obsidian-importer` (repo de conteúdo) com framework Next/Preact — todo push
+falha com `NEXT_NO_VERSION` / build ausente. **Ambos `live:false`, sem
+domínio público** (andre-corporate serve só .vercel.app internos): a pilha
+de ERRORs no painel nunca derrubou nada. **Cura definitiva:** Settings →
+Git → Disconnect nos DOIS projetos (clique do dono). Nada no ar muda;
+os pushes param de gerar erro; o PR fica limpo.
+
 ## 7 · Contexto irmão
 
 O handoff do projeto Ali Love/The Spiral está em
