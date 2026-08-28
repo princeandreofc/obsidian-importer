@@ -1,0 +1,33 @@
+{
+  "campaign": "LOVE IS THE SIGNAL",
+  "instrument": "VJ STUDIO 2.0 — The Spiral",
+  "version": "2026-08-24",
+  "note": "Nomes idênticos no browser (cinema5d-src.html), no TouchDesigner e no pacote Resolume. Todos os valores normalizados [0,1], smoothing attack>decay no receptor. Nada aqui exige hardware no build web — MIDI/OSC são espelhos opcionais.",
+  "scenes": [
+    {"id": "orbit",      "key": "a", "grammar": "constelação noturna, fase e repetição",   "trace": "Do It Again / We Are the Night"},
+    {"id": "groove",     "key": "b", "grammar": "vinil, pulso 707/808, tinta e papel",     "trace": "produção solo / Infinity Ink"},
+    {"id": "garden",     "key": "c", "grammar": "membrana d'água, pétalas, núcleo quente", "trace": "amor como sinal vivo"},
+    {"id": "ritual",     "key": "d", "grammar": "anatomia de circuito, objeto monumental", "trace": "Hot Natured / Justice / palco comunal"},
+    {"id": "day-signal", "key": "e", "grammar": "explosões laranja/amarelas, painéis",     "trace": "energia 2025–2026"}
+  ],
+  "controls": [
+    {"id": "scene",      "type": "select", "values": ["orbit","groove","garden","ritual","day-signal"], "midiCC": 20, "osc": "/spiral/scene"},
+    {"id": "energy",     "type": "float",  "range": [0,1], "default": 0.5, "maps": "amplitude do EQ, emissão de vagalumes, pulso emissivo", "midiCC": 21, "osc": "/spiral/energy"},
+    {"id": "depth",      "type": "float",  "range": [0,1], "default": 0.5, "maps": "densidade da névoa, plano focal percebido",            "midiCC": 22, "osc": "/spiral/depth"},
+    {"id": "memory",     "type": "float",  "range": [0,1], "default": 0.5, "maps": "persistência dos trails, grão, retorno",               "midiCC": 23, "osc": "/spiral/memory"},
+    {"id": "connection", "type": "float",  "range": [0,1], "default": 0.5, "maps": "pontes da Resonance Rose, núcleo quente",              "midiCC": 24, "osc": "/spiral/connection"}
+  ],
+  "envelopes": [
+    {"id": "low",    "source": "AnalyserNode bins 0–8",    "range": [0,1], "osc": "/spiral/env/low"},
+    {"id": "mid",    "source": "AnalyserNode bins 9–39",   "range": [0,1], "osc": "/spiral/env/mid"},
+    {"id": "high",   "source": "AnalyserNode bins 40–99",  "range": [0,1], "osc": "/spiral/env/high"},
+    {"id": "energy", "source": "média de todos os bins",   "range": [0,1], "osc": "/spiral/env/energy"}
+  ],
+  "audioPolicy": {
+    "motionSource": "somente masters registrados no MusicAssetRights com status cleared-production + webPlayback + interactiveSync + visualizerUse, ou arquivo local do operador (jam)",
+    "spotify": "player oficial independente — nunca fonte de motion, nunca capturado",
+    "recording": "REC visual-only por construção; áudio no export apenas com downloadableCaptureAudio=true",
+    "microphone": "removido do build web; reintrodução exigiria consentimento explícito e enquadramento próprio"
+  },
+  "safety": {"strobe": "proibido — transições suaves apenas", "cameraFromHighs": "proibido — picos de agudos nunca dirigem a câmera"}
+}

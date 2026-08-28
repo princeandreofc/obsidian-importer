@@ -1,0 +1,11 @@
+peca,ratio,duracao_s,variantes,master,entrega,rightsOwner,status,checksum,aprovador
+hero-film,16:9,30,clean+texted,ProRes4444 4K,AV1/WebM+H264,pendente,concept,,
+hero-film,16:9,15,clean+texted,ProRes4444 4K,AV1/WebM+H264,pendente,concept,,
+reels-pulse,9:16,5.28,clean+texted,ProRes4444,AV1/WebM+H264,pendente,concept,,
+reels-pulse,9:16,15,clean+texted,ProRes4444,AV1/WebM+H264,pendente,concept,,
+feed-poster,4:5,10,clean+texted,PNG/EXR,JPG/PNG,pendente,concept,,
+release-tile,1:1,5.28,clean+texted+alpha,ProRes4444,AV1/WebM+H264,pendente,concept,,
+stage-banner,21:9,30,clean+alpha,ProRes4444,DXV3+HAP,pendente,concept,,
+rose-loop,1:1,10,alpha,ProRes4444,DXV3+WebM,pendente,concept,,
+rose-emblem-still,1:1,0,clean,EXR/PNG,PNG/SVG,pendente,approved-preview,,
+session-capture-template,16:9,30,texted,WebM (visual-only),WebM,visitante,concept,,

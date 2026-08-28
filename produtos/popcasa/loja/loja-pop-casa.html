@@ -1,0 +1,683 @@
+<title>Loja Pop Casa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,560&family=Archivo:wght@400;500;700&display=swap">
+<style>
+/* ══════════════ LOJA POP CASA · dark editorial, comprometido ══════════════
+   Tokens únicos — página de campanha com um só mundo visual; todo fundo e
+   toda cor pintados explicitamente. Acento = ocre, cor do próprio catálogo. */
+:root{
+  --ink:#12100e; --panel:#1b1815; --panel-2:#211d19; --linha:#2e2925;
+  --areia:#e8e0d2; --areia-2:#9c9184; --areia-3:#6d645a;
+  --ocre:#c98a3d; --ocre-vivo:#e0a355; --verde-ok:#7da06b; --vinho:#8b4049;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Archivo",system-ui,-apple-system,"Helvetica Neue",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--ink);color:var(--areia);font-family:var(--sans);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+/* grão analógico do padrão da casa */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;z-index:9;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");}
+a{color:var(--ocre-vivo)}
+::selection{background:var(--ocre);color:var(--ink)}
+button{font-family:var(--sans);cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--ocre);outline-offset:2px}
+
+/* ── casca ── */
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+
+/* ── hero: tese compacta ── */
+.hero{border-bottom:1px solid var(--linha);position:relative;overflow:hidden;background:var(--ink)}
+.hero .feixe{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(60% 120% at 85% -20%, rgba(201,138,61,.16), transparent 60%),
+    radial-gradient(50% 100% at 15% 130%, rgba(139,64,73,.10), transparent 55%);}
+.hero .wrap{padding-top:clamp(40px,7vw,84px);padding-bottom:clamp(28px,4vw,48px);position:relative}
+.eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--areia-2)}
+h1{font-family:var(--serif);font-weight:340;font-size:clamp(44px,7vw,88px);
+   line-height:.98;letter-spacing:-.01em;text-wrap:balance;margin:14px 0 12px}
+h1 em{font-style:italic;color:var(--ocre-vivo)}
+.tese{max-width:56ch;color:var(--areia-2);font-size:clamp(15px,1.6vw,17px)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:26px;align-items:center}
+.hero-meta .fato{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--areia-3)}
+.hero-meta .fato b{color:var(--areia);font-weight:500;letter-spacing:.02em}
+
+/* seletor de região */
+.regiao{display:inline-flex;border:1px solid var(--linha);border-radius:999px;overflow:hidden;background:var(--panel)}
+.regiao button{padding:8px 18px;background:transparent;border:0;color:var(--areia-2);
+  font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.regiao button[aria-pressed="true"]{background:var(--ocre);color:var(--ink);font-weight:700}
+
+/* faixa de honestidade */
+.honesta{background:var(--panel);border-bottom:1px solid var(--linha)}
+.honesta .wrap{padding:10px 0;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.honesta p{font-size:12.5px;color:var(--areia-2)}
+.honesta .selo{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ocre);
+  border:1px solid var(--ocre);border-radius:999px;padding:2px 10px;white-space:nowrap}
+
+/* ── mix de marcas ── */
+.mix{border-bottom:1px solid var(--linha);background:var(--ink)}
+.mix .wrap{padding:18px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.mix .rotulo{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--areia-3);margin-right:8px}
+.marca{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;
+  border:1px solid var(--linha);background:var(--panel);color:var(--areia-2);font-size:12.5px}
+.marca .pt{width:7px;height:7px;border-radius:50%;background:var(--areia-3);flex:none}
+.marca.ativa{border-color:var(--ocre);color:var(--areia)}
+.marca.ativa .pt{background:var(--verde-ok)}
+.marca.fora .pt{background:var(--vinho)}
+.marca small{color:var(--areia-3);font-size:10.5px;letter-spacing:.06em}
+
+/* ── barra de filtros ── */
+.filtros{position:sticky;top:0;z-index:5;background:var(--ink);border-bottom:1px solid var(--linha)}
+.filtros .wrap{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px 0}
+.filtros input[type="search"],.filtros select{
+  background:var(--panel);border:1px solid var(--linha);color:var(--areia);
+  border-radius:8px;padding:9px 12px;font-size:13.5px;font-family:var(--sans)}
+.filtros input[type="search"]{min-width:min(240px,60vw)}
+.chip{padding:7px 14px;border-radius:999px;border:1px solid var(--linha);
+  background:transparent;color:var(--areia-2);font-size:12.5px}
+.chip[aria-pressed="true"]{background:var(--areia);border-color:var(--areia);color:var(--ink);font-weight:500}
+.contagem{margin-left:auto;font-size:12px;color:var(--areia-3);font-variant-numeric:tabular-nums}
+
+/* ── seções de coleção ── */
+.colecao{padding:clamp(30px,4vw,52px) 0 6px}
+.colecao-h{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.colecao-h h2{font-family:var(--serif);font-weight:340;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.01em}
+.colecao-h .n{font-variant-numeric:tabular-nums;color:var(--areia-3);font-size:13px}
+.colecao-h blockquote{width:100%;max-width:64ch;color:var(--areia-2);font-size:13.5px;
+  border-left:2px solid var(--ocre);padding-left:12px;margin-top:4px;font-style:italic}
+
+/* ── grade e cards ── */
+.grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:14px;padding:14px 0 8px}
+.card{background:var(--panel);border:1px solid var(--linha);border-radius:12px;padding:16px 16px 14px;
+  display:flex;flex-direction:column;gap:10px;position:relative;
+  transition:transform .25s ease,border-color .25s ease}
+@media (hover:hover){.card:hover{transform:translateY(-3px);border-color:#4a4139}}
+.card .topo{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.card .cat{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--areia-3)}
+.badge{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;border-radius:4px;padding:2px 7px;white-space:nowrap}
+.badge.casacor{background:var(--ocre);color:var(--ink);font-weight:700}
+.badge.unica{background:var(--vinho);color:var(--areia)}
+.badge.parcial{border:1px solid var(--areia-3);color:var(--areia-2)}
+.card h3{font-family:var(--serif);font-weight:560;font-size:20px;line-height:1.15;text-wrap:balance}
+.card .mat{font-size:12.5px;color:var(--areia-2)}
+.card .dim{font-size:12px;color:var(--areia-3);font-variant-numeric:tabular-nums;letter-spacing:.03em}
+
+/* a assinatura: escala real × pessoa 1,70 m */
+.escala{display:flex;align-items:flex-end;gap:14px;height:96px;margin-top:2px;
+  border-bottom:1px solid var(--linha);padding-bottom:0}
+.escala .col{display:flex;flex-direction:column;align-items:center;gap:5px;justify-content:flex-end;height:100%}
+.escala .barra{width:22px;border-radius:3px 3px 0 0;
+  background:linear-gradient(180deg,rgba(224,163,85,.85),rgba(201,138,61,.35));}
+.escala .humano{width:3px;background:var(--areia-3);border-radius:2px 2px 0 0}
+.escala figcaption{font-size:10px;color:var(--areia-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.escala .medida{font-size:11px;color:var(--ocre-vivo);font-weight:700;font-variant-numeric:tabular-nums}
+
+/* cores reais do catálogo, com nome */
+.cores{display:flex;flex-wrap:wrap;gap:6px}
+.cor{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--linha);
+  border-radius:999px;padding:3px 9px 3px 4px;font-size:11px;color:var(--areia-2);
+  background:var(--panel-2)}
+.cor i{width:14px;height:14px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.35);flex:none}
+.cor.grad i{background:conic-gradient(#c98a3d,#5c7a5e,#8b4049,#c98a3d)}
+.cor.transp i{background:transparent;border:1px dashed var(--areia-3)}
+
+.card .acao{margin-top:auto;display:flex;gap:8px;align-items:center}
+.btn{border:0;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:700;letter-spacing:.02em}
+.btn-add{background:var(--ocre);color:var(--ink);flex:1;transition:background .2s}
+.btn-add:hover{background:var(--ocre-vivo)}
+.btn-add[disabled]{background:var(--panel-2);color:var(--areia-3);cursor:not-allowed;border:1px solid var(--linha)}
+.bloqueio{font-size:11px;color:var(--vinho);line-height:1.35}
+
+/* revelação por rolagem */
+.rev{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.rev.viu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}
+ .card{transition:none}}
+
+/* coleções ainda em extração */
+.pendentes{border:1px dashed var(--linha);border-radius:12px;padding:18px;margin:26px 0;
+  color:var(--areia-2);font-size:13px;background:var(--panel)}
+.pendentes b{color:var(--areia)}
+
+/* ── proposta (carrinho B2B) ── */
+.fab{position:fixed;right:18px;bottom:18px;z-index:20;display:flex;align-items:center;gap:10px;
+  background:var(--areia);color:var(--ink);border:0;border-radius:999px;padding:14px 22px;
+  font-weight:700;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.5)}
+.fab .badge-n{background:var(--ink);color:var(--areia);border-radius:999px;padding:2px 9px;
+  font-variant-numeric:tabular-nums;font-size:12px}
+.gaveta{position:fixed;inset:0 0 0 auto;width:min(430px,100vw);z-index:30;background:var(--panel);
+  border-left:1px solid var(--linha);transform:translateX(102%);transition:transform .3s ease;
+  display:flex;flex-direction:column}
+.gaveta.aberta{transform:none}
+@media (prefers-reduced-motion:reduce){.gaveta{transition:none}}
+.gaveta header{padding:18px 20px;border-bottom:1px solid var(--linha);display:flex;justify-content:space-between;align-items:center;background:var(--panel)}
+.gaveta header h2{font-family:var(--serif);font-weight:560;font-size:22px}
+.gaveta .fecha{background:transparent;border:1px solid var(--linha);color:var(--areia-2);border-radius:8px;padding:6px 12px}
+.linhas{flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:10px}
+.linha-p{border:1px solid var(--linha);border-radius:10px;padding:10px 12px;background:var(--panel-2)}
+.linha-p .nome{font-weight:500;font-size:13.5px}
+.linha-p .var{font-size:11.5px;color:var(--areia-2)}
+.linha-p .ops{display:flex;align-items:center;gap:8px;margin-top:8px}
+.step{display:inline-flex;border:1px solid var(--linha);border-radius:8px;overflow:hidden}
+.step button{width:30px;height:30px;background:var(--panel);border:0;color:var(--areia);font-size:16px}
+.step output{width:38px;display:grid;place-items:center;font-variant-numeric:tabular-nums;font-size:13px;background:var(--ink)}
+.tira{margin-left:auto;background:transparent;border:0;color:var(--vinho);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
+.gaveta .campos{padding:0 20px 8px;display:grid;gap:8px}
+.gaveta .campos input{background:var(--ink);border:1px solid var(--linha);color:var(--areia);
+  border-radius:8px;padding:10px 12px;font-size:13.5px;font-family:var(--sans)}
+.gaveta footer{padding:14px 20px 18px;border-top:1px solid var(--linha);display:grid;gap:8px;background:var(--panel)}
+.btn-folha{background:var(--ocre);color:var(--ink)}
+.btn-ghost{background:transparent;border:1px solid var(--linha);color:var(--areia-2)}
+.gaveta .nota{font-size:11px;color:var(--areia-3);text-align:center}
+.vazia{color:var(--areia-3);font-size:13px;text-align:center;padding:30px 10px}
+
+/* ── rodapé: fontes e créditos ── */
+.rodape{border-top:1px solid var(--linha);margin-top:56px;background:var(--ink)}
+.rodape .wrap{padding:34px 0 46px;display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.rodape h4{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--areia-3);margin-bottom:10px}
+.rodape p,.rodape li{font-size:12.5px;color:var(--areia-2);line-height:1.7}
+.rodape ul{list-style:none}
+
+/* ── folha de proposta (só impressão) ── */
+#folha{display:none}
+@media print{
+  body{background:#fff;color:#111}
+  body::after{display:none}
+  body>*:not(#folha){display:none!important}
+  #folha{display:block;font-family:var(--sans);color:#111;padding:8mm 2mm}
+  #folha .cab{display:flex;justify-content:space-between;align-items:baseline;
+    border-bottom:2px solid #111;padding-bottom:8px;margin-bottom:14px}
+  #folha .cab h1{font-family:var(--serif);font-size:26px;font-weight:560;letter-spacing:0;line-height:1;margin:0}
+  #folha .cab .data{font-size:11px;color:#555}
+  #folha .meta{display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;font-size:12px;margin-bottom:14px}
+  #folha table{width:100%;border-collapse:collapse;font-size:11.5px}
+  #folha th{text-align:left;border-bottom:1.5px solid #111;padding:6px 8px;font-size:10px;
+    letter-spacing:.12em;text-transform:uppercase}
+  #folha td{border-bottom:1px solid #ccc;padding:7px 8px;vertical-align:top}
+  #folha td.q{text-align:center;font-variant-numeric:tabular-nums;width:44px}
+  #folha .obs{margin-top:14px;font-size:10.5px;color:#444;line-height:1.6}
+  #folha .ass{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  #folha .ass div{border-top:1px solid #111;padding-top:6px;font-size:11px;text-align:center}
+}
+@media (max-width:640px){
+  .grade{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .escala{height:80px}
+  .fab{right:12px;bottom:12px;padding:12px 18px}
+}
+</style>
+
+<!-- ══════════════ HERO ══════════════ -->
+<header class="hero">
+  <div class="feixe" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow">Camargo &amp; Pinheiro · mix 2026 · atacado para lojistas</p>
+    <h1>Loja <em>Pop Casa</em></h1>
+    <p class="tese">O catálogo vivo do mix. Cada ficha abaixo é a do catálogo oficial —
+       medida, material e cor, palavra por palavra. A escala de cada peça está desenhada
+       ao lado de uma pessoa de 1,70&nbsp;m, porque tamanho não se lê em número: se vê.</p>
+    <div class="hero-meta">
+      <div class="regiao" role="group" aria-label="Região do lojista">
+        <button id="r-sc" aria-pressed="true" type="button">Santa Catarina</button>
+        <button id="r-rj" aria-pressed="false" type="button">Rio de Janeiro</button>
+      </div>
+      <span class="fato">Marcas no mix <b>8</b></span>
+      <span class="fato">Fichas publicadas <b id="f-total">0</b></span>
+      <span class="fato">Preço <b>por proposta</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="honesta">
+  <div class="wrap">
+    <span class="selo">Ficha verbatim</span>
+    <p>Nenhuma imagem de produto foi gerada ou simulada — as fotos oficiais entram na
+       próxima rodada. Até lá, a ficha técnica é a verdade, e é a do catálogo 2026.</p>
+  </div>
+</div>
+
+<!-- ══════════════ MIX DE MARCAS ══════════════ -->
+<nav class="mix" aria-label="Marcas do mix">
+  <div class="wrap" id="mix-rail">
+    <span class="rotulo">O mix</span>
+    <!-- preenchido por JS -->
+  </div>
+</nav>
+
+<!-- ══════════════ FILTROS ══════════════ -->
+<div class="filtros">
+  <div class="wrap">
+    <input type="search" id="busca" placeholder="Buscar peça, material, cor…" aria-label="Buscar no catálogo">
+    <select id="f-colecao" aria-label="Filtrar por coleção"><option value="">Todas as coleções</option></select>
+    <button class="chip" data-tipo="escultura" aria-pressed="false" type="button">Esculturas</button>
+    <button class="chip" data-tipo="colar" aria-pressed="false" type="button">Colares</button>
+    <button class="chip" data-tipo="luminaria" aria-pressed="false" type="button">Luminárias</button>
+    <button class="chip" data-tipo="mesa" aria-pressed="false" type="button">Bandejas &amp; caixas</button>
+    <button class="chip" data-tipo="letreiro" aria-pressed="false" type="button">Letreiros</button>
+    <span class="contagem" id="contagem"></span>
+  </div>
+</div>
+
+<!-- ══════════════ CATÁLOGO ══════════════ -->
+<main class="wrap" id="catalogo"></main>
+
+<div class="wrap">
+  <div class="pendentes" id="pendentes">
+    <b>Ainda no forno:</b> as coleções <b>Vértebras, Discos, Contas e Suportes</b> da Studio&nbsp;L
+    estão no catálogo oficial mas as fichas ainda estão em extração — entram sem mudar nada nesta página.
+    O mesmo vale para <b>mART, Vertí, VIA AROMA, fullfit, ST.&nbsp;JAMES, DINATALE e buba</b>:
+    o motor desta loja já recebe os catálogos delas assim que a extração chegar.
+  </div>
+</div>
+
+<!-- ══════════════ RODAPÉ ══════════════ -->
+<footer class="rodape">
+  <div class="wrap">
+    <div>
+      <h4>A loja</h4>
+      <p>Pop Casa é a vitrine de ambientação do mix Camargo &amp; Pinheiro — representação
+         comercial de decoração desde 2012, atendendo lojistas no RJ e em SC.
+         Sem preço público e sem checkout: aqui o carrinho vira <b>proposta</b>,
+         e negócio B2B se fecha por escopo.</p>
+    </div>
+    <div>
+      <h4>Fontes</h4>
+      <ul>
+        <li>Catálogo Studio&nbsp;L 2026 — fichas transcritas verbatim</li>
+        <li>Mix de marcas: páginas regionais oficiais Camargo &amp; Pinheiro</li>
+        <li>Studio&nbsp;L: duo Thiago Limfer &amp; Tarcis Fernandeli, Bahia, desde 2016 · CASACOR SC 2025 e BA 2024</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato do representante</h4>
+      <p>Camargo &amp; Pinheiro · 48&nbsp;99988-2213<br>suporte@camargoepinheiro.com.br</p>
+      <p style="margin-top:10px;color:var(--areia-3);font-size:11.5px">
+        Peça montada por AB&nbsp;Motion · nenhuma imagem de produto gerada por IA.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="fab" id="abre-proposta" type="button" aria-haspopup="dialog">
+  Proposta <span class="badge-n" id="fab-n">0</span>
+</button>
+
+<!-- ══════════════ GAVETA DE PROPOSTA ══════════════ -->
+<aside class="gaveta" id="gaveta" role="dialog" aria-label="Proposta" aria-modal="false">
+  <header>
+    <h2>Proposta</h2>
+    <button class="fecha" id="fecha-proposta" type="button">Fechar</button>
+  </header>
+  <div class="linhas" id="linhas"></div>
+  <div class="campos">
+    <input id="c-loja" placeholder="Loja / razão social" autocomplete="organization">
+    <input id="c-cidade" placeholder="Cidade / UF">
+    <input id="c-contato" placeholder="Responsável e contato">
+  </div>
+  <footer>
+    <button class="btn btn-folha" id="gera-folha" type="button">Gerar folha de proposta</button>
+    <button class="btn btn-ghost" id="copia-texto" type="button">Copiar como texto</button>
+    <button class="btn btn-ghost" id="limpa" type="button">Limpar</button>
+    <p class="nota">Sem preço público · valores por escopo, na proposta fechada</p>
+  </footer>
+</aside>
+
+<!-- folha impressa -->
+<section id="folha" aria-hidden="true"></section>
+
+<script>
+"use strict";
+/* ═══════════ DADOS — verbatim do Catálogo Studio L 2026 ═══════════
+   h = maior dimensão em cm, só para a barra de escala. */
+const CORES = {
+  branco:"#f5f2ec", ocre:"#c98a3d", verde:"#5c7a5e", musgo:"#6b7d4f",
+  marsala:"#8b4049", terracota:"#bd5f3f", fendi:"#b5aa9b", "âmbar":"#d9a441",
+  preto:"#1c1a18", "fumê":"#6e6a66", "chá":"#c9b291", "doce de leite":"#d3a06e",
+  dourado:"#c9a44a", "ébano":"#3a2f28", sucupira:"#6f5138", caxeta:"#cbb391",
+  caramelo:"#a96f3c", cinza:"#8d8a86", "quartzo verde":"#9db8a1",
+  "quartzo branco":"#e9e6df", "mix terra":"#a3703f", colorido:"GRAD",
+  mesclado:"GRAD", mix:"GRAD", transparente:"TRANSP"
+};
+const C6=["branco","ocre","verde","musgo","marsala","terracota"];
+const C7=["branco","dourado","ocre","verde","musgo","marsala","terracota"];
+
+const QUOTES = {
+ "Cosmos":"Esculturas de parede… transparências, brilhos e camadas criam profundidade e mistério.",
+ "Gravidade em Pausa":"A transparência da luz encontra a solidez da madeira.",
+ "Mares e Ventos":"Esculturas de parede que capturam o movimento fluido da natureza.",
+ "Origami":"Dobras precisas… cada peça muda com a luz, o ângulo e o olhar.",
+ "Refletir":"Une o brilho do espelho à leveza do acrílico.",
+ "Lâminas":"Finas lâminas de pedras brasileiras — a força da rocha, a leveza do acrílico.",
+ "Enredo":"O Carnaval como linguagem: fios, cor, ritmo e diversidade.",
+ "Sertões":"O couro como protagonista — tributo à beleza bruta do nordeste.",
+ "Fios":"Peças escultóricas que entrelaçam matéria e afeto.",
+ "Tecelar":"Cordas enroladas fio a fio — o valor do feito à mão.",
+ "Telas":"O encontro entre leveza e matéria."
+};
+
+const ITENS = [
+/* Cosmos */
+{n:"Luminária Cosmos",c:"Cosmos",t:"luminaria",m:"Policarbonato",d:"1 m Ø × 50 cm",h:100,cores:["branco","ocre"]},
+{n:"Escultura Titã",c:"Cosmos",t:"escultura",m:"Policarbonato e madeira",d:"1 m Ø × 30 cm",h:100,cores:["branco","ocre","verde","musgo","marsala"]},
+{n:"Apoiador Cora",c:"Cosmos",t:"mesa",m:"Acrílico e madeira",d:"G 40×35×35 · P 35×25×25 cm",h:40,cores:["branco","âmbar","preto"]},
+{n:"Escultura Anéis de Saturno",c:"Cosmos",t:"escultura",m:"Policarbonato e madeira",d:"3 peças · 50 cm Ø",h:50,cores:C6},
+{n:"Escultura Ágata",c:"Cosmos",t:"escultura",m:"Policarbonato e ágata",d:"G 1 m Ø × 30 · P 50×20 cm",h:100,cores:[]},
+{n:"Escultura Orbital",c:"Cosmos",t:"escultura",m:"Acrílico ou policarbonato, madeira e metal",d:"45×45×25 cm",h:45,cores:["fendi","âmbar","branco","verde","fumê"]},
+{n:"Giratória",c:"Cosmos",t:"escultura",m:"Policarbonato e metal",d:"35×35×13 cm",h:35,cores:C6},
+{n:"Escultura Vai e Vem",c:"Cosmos",t:"escultura",m:"Madeira · madeira e latão",d:"16×16×15 cm · com ou sem anel de latão",h:16,cores:["ébano","sucupira","caxeta"]},
+{n:"Caixa Faz Sentido",c:"Cosmos",t:"mesa",m:"Acrílico, latão banhado a ouro, madeira e areia",d:"30×18×11 cm",h:30,cores:["branco","preto"]},
+/* Gravidade em Pausa */
+{n:"Escultura Pouso",c:"Gravidade em Pausa",t:"escultura",m:"Policarbonato e madeira",d:"1,8 m × 60 × 15 cm",h:180,cores:["branco","ocre"]},
+{n:"Escultura Descanso",c:"Gravidade em Pausa",t:"escultura",m:"Policarbonato e madeira",d:"1,1 m × 50 × 16 cm",h:110,cores:C6},
+{n:"Escultura Apoio",c:"Gravidade em Pausa",t:"escultura",m:"Policarbonato e corda",d:"1 m × 55 × 13 cm",h:100,cores:["branco","ocre"]},
+/* Mares e Ventos */
+{n:"Escultura Maresia",c:"Mares e Ventos",t:"escultura",m:"Policarbonato texturizado",d:"2 m × 40 × 15 cm",h:200,cores:["branco","ocre","verde","musgo","marsala"]},
+{n:"Escultura Par Folhas",c:"Mares e Ventos",t:"escultura",m:"Policarbonato e madeira",d:"1 m × 70 × 10 cm (cada)",h:100,cores:[]},
+{n:"Escultura Brisa 50",c:"Mares e Ventos",t:"escultura",m:"Acrílico",d:"1,4 m × 50 × 22 cm",h:140,cores:["fendi","preto","chá","doce de leite"]},
+{n:"Escultura Brisa 30",c:"Mares e Ventos",t:"escultura",m:"Acrílico",d:"1,5 m × 30 × 16 cm",h:150,cores:["fendi","preto","chá","doce de leite"]},
+{n:"Escultura Mavericks Frag",c:"Mares e Ventos",t:"escultura",m:"Policarbonato texturizado",d:"1,5 m × 30 cm",h:150,cores:C6},
+{n:"Escultura Mavericks",c:"Mares e Ventos",t:"escultura",m:"Policarbonato",d:"1,5 m × 40 × 20 cm",h:150,cores:C6},
+{n:"Escultura Segmentos",c:"Mares e Ventos",t:"escultura",m:"Policarbonato",d:"2,1 m × 45 × 20 cm",h:210,cores:C6},
+{n:"Escultura Fita 20",c:"Mares e Ventos",t:"escultura",m:"Policarbonato com textura",d:"1,4 m × 25 × 15 cm",h:140,cores:C7},
+{n:"Escultura Tríade",c:"Mares e Ventos",t:"escultura",m:"Policarbonato e madeira",d:"3 peças · 50 cm Ø",h:50,cores:C6,badge:"casacor",badgeTxt:"CASACOR SC 2025"},
+{n:"Escultura Mono",c:"Mares e Ventos",t:"escultura",m:"Policarbonato",d:"90 × 15 cm",h:90,cores:C6},
+{n:"Escultura Aura",c:"Mares e Ventos",t:"escultura",m:"Policarbonato, metal e madeira",d:"1 m × 70 × 30 cm",h:100,cores:C6},
+{n:"Escultura Arraia",c:"Mares e Ventos",t:"escultura",m:"Acrílico e madeira",d:"1 m × 60 cm",h:100,cores:["âmbar","verde","fendi"]},
+{n:"Escultura Ondina",c:"Mares e Ventos",t:"escultura",m:"Policarbonato",d:"60 × 18 × 10 cm",h:60,cores:["branco","fendi","âmbar","preto","marsala"]},
+/* Origami */
+{n:"Apoiador Velari",c:"Origami",t:"mesa",m:"Policarbonato e madeira",d:"G 35×32×25 · P 25×20×20 cm",h:35,cores:["branco","âmbar","preto"]},
+{n:"Escultura Faces",c:"Origami",t:"escultura",m:"Policarbonato",d:"1,7 m × 40 cm",h:170,cores:C7},
+{n:"Escultura Nordis",c:"Origami",t:"escultura",m:"Policarbonato",d:"2 m × 45 × 15 cm",h:200,cores:C7},
+{n:"Caixa Balanço",c:"Origami",t:"mesa",m:"Poliestireno e pedra banhada a ouro",d:"25×16×9 cm",h:25,cores:["branco","preto"]},
+/* Refletir */
+{n:"Letreiro Refletir",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"42×40×10 cm",h:42,cores:[]},
+{n:"Letreiro Caminhos",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"42×40×10 cm",h:42,cores:[]},
+{n:"Letreiro Tempo",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"30×16×8 cm",h:30,cores:[]},
+{n:"Letreiro Recomeçar",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"30×16×8 cm",h:30,cores:[]},
+{n:"Letreiro É Possível",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"16×13×13 cm",h:16,cores:[]},
+{n:"Letreiro Arrisque-se",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"16×13×13 cm",h:16,cores:[]},
+{n:"Letreiro Permita",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"16×13×13 cm",h:16,cores:[]},
+{n:"Letreiro Carta",c:"Refletir",t:"letreiro",m:"Acrílico e espelho",d:"24×15×3 cm",h:24,cores:[]},
+{n:"Espelho Furos",c:"Refletir",t:"escultura",m:"Policarbonato e espelho",d:"96×92×10 cm",h:96,cores:["branco","ocre"]},
+/* Lâminas */
+{n:"Letreiro Cativeiro",c:"Lâminas",t:"letreiro",m:"Acrílico e pedra",d:"41×41×7 cm",h:41,cores:[]},
+{n:"Letreiro Pássaro",c:"Lâminas",t:"letreiro",m:"Acrílico e pedra",d:"16×13×6 cm",h:16,cores:[]},
+{n:"Letreiro Lapida",c:"Lâminas",t:"letreiro",m:"Acrílico e pedra",d:"30×16×8 cm",h:30,cores:[]},
+{n:"Bandeja Catavento",c:"Lâminas",t:"mesa",m:"Madeira e pedra",d:"44×44×6 cm",h:44,cores:[]},
+{n:"Bandeja Ardósia",c:"Lâminas",t:"mesa",m:"Acrílico e pedra",d:"47×32×7 cm",h:47,cores:["fumê","transparente"]},
+{n:"Bandeja Ouro Branco",c:"Lâminas",t:"mesa",m:"Acrílico e pedra",d:"42×22×5 cm",h:42,cores:[]},
+{n:"Bandeja Cariri",c:"Lâminas",t:"mesa",m:"Acrílico e pedra",d:"— ficha parcial",h:40,cores:[],badge:"parcial",badgeTxt:"ficha parcial"},
+{n:"Bandeja Muxarabi",c:"Lâminas",t:"mesa",m:"Acrílico",d:"G 57×41×9 · M 47×32×9 cm",h:57,cores:[]},
+/* Enredo */
+{n:"Escultura Abre Alas",c:"Enredo",t:"escultura",m:"Coleção Enredo",d:"3,8 m",h:380,cores:[],badge:"unica",badgeTxt:"obra única · valor a consultar"},
+{n:"Escultura Alegórica",c:"Enredo",t:"escultura",m:"Mix de fios, madeira e metal",d:"4 m · também em 1,6 m",h:400,cores:["fendi","verde","mix"]},
+{n:"Colar Bloquinho",c:"Enredo",t:"colar",m:"Mix de fios, madeira e metal",d:"G 1,1 m",h:110,cores:["fendi","verde","mix"]},
+{n:"Colar Carnavalesco",c:"Enredo",t:"colar",m:"Mix de fios, madeira e metal",d:"G 1,1 m · P 65 cm",h:110,cores:["fendi","verde","mix"]},
+{n:"Caixa Serpentina",c:"Enredo",t:"mesa",m:"Mix de fios, acrílico e madeira",d:"P 19 · M 22 · G 27 ×13×13 cm",h:27,cores:["fendi","verde","mix"]},
+/* Sertões */
+{n:"Luminária Sertão",c:"Sertões",t:"luminaria",m:"Couro e policarbonato",d:"32 cm Ø × 76 cm",h:76,cores:[]},
+{n:"Mesinha Sertão",c:"Sertões",t:"mesa",m:"Couro e pedra",d:"50 × 65 cm",h:65,cores:[]},
+{n:"Colar Sertão",c:"Sertões",t:"colar",m:"Couro e madeira",d:"1,9 m",h:190,cores:["preto","caramelo"]},
+{n:"Colar Magnético",c:"Sertões",t:"colar",m:"Couro, madeira e metal",d:"1,6 m · fecho magnético invisível",h:160,cores:["preto","caramelo"]},
+{n:"Colar Retalhos",c:"Sertões",t:"colar",m:"Couro, madeira e quartzo",d:"P 1 m · G 1,6 m",h:160,cores:["quartzo verde","quartzo branco"]},
+{n:"Escultura Sertão",c:"Sertões",t:"escultura",m:"Couro, acrílico e madeira",d:"35×55 horizontal · 55×35 vertical",h:55,cores:[]},
+{n:"Caixa Sertão",c:"Sertões",t:"mesa",m:"Couro, acrílico e madeira",d:"P 13 · M 20 · G 27 ×13×13 cm",h:27,cores:[]},
+/* Fios */
+{n:"Colar Côncavo",c:"Fios",t:"colar",m:"Cordão, madeira e metal",d:"1,6 m",h:160,cores:["fendi","verde","preto"]},
+{n:"Colar Ponte Aguda",c:"Fios",t:"colar",m:"Cordão, madeira e metal",d:"1,5 m",h:150,cores:["fendi","verde","preto"]},
+{n:"Luminária Carretel",c:"Fios",t:"luminaria",m:"Madeira e metal",d:"26×25×25 cm",h:26,cores:[]},
+{n:"Colar Ornato",c:"Fios",t:"colar",m:"Fios de veludo, pedra e metal",d:"2,2 m",h:220,cores:["preto","ocre","cinza"]},
+{n:"Colar Gruta",c:"Fios",t:"colar",m:"Veludo, pedra e metal",d:"1,4 m",h:140,cores:["verde","preto","ocre"]},
+{n:"Colar Seda",c:"Fios",t:"colar",m:"Fio de seda, pedra e metal",d:"1,2 m",h:120,cores:["fendi","preto","dourado"]},
+{n:"Colar Assimétrico",c:"Fios",t:"colar",m:"Cordão, madeira e metal",d:"— ficha parcial",h:120,cores:[],badge:"parcial",badgeTxt:"ficha parcial"},
+{n:"Colar Conexão",c:"Fios",t:"colar",m:"Cordão, madeira e metal",d:"— ficha parcial",h:120,cores:[],badge:"parcial",badgeTxt:"ficha parcial"},
+{n:"Colar Fragmentado",c:"Fios",t:"colar",m:"Cordão, madeira e metal",d:"90 cm",h:90,cores:[],badge:"parcial",badgeTxt:"ficha parcial"},
+/* Tecelar */
+{n:"Escultura Pelourinho",c:"Tecelar",t:"escultura",m:"Corda em tecelagem manual e madeira",d:"1,3 m × 25 cm",h:130,cores:[]},
+{n:"Colar Flecha G",c:"Tecelar",t:"colar",m:"Corda, madeira e metal",d:"1,9 m",h:190,cores:["caramelo","preto","colorido","mesclado"]},
+{n:"Colar Flecha P",c:"Tecelar",t:"colar",m:"Corda, madeira e metal",d:"1,7 m",h:170,cores:["caramelo","preto","colorido","mesclado"]},
+{n:"Colar Colomi",c:"Tecelar",t:"colar",m:"Corda, pedra e metal",d:"1,3 m",h:130,cores:["caramelo","preto","cinza"]},
+{n:"Escultura Leme",c:"Tecelar",t:"escultura",m:"Corda e madeira",d:"1,8 m × 25 cm",h:180,cores:["mix terra","verde","preto","caramelo","cinza"],badge:"casacor",badgeTxt:"CASACOR BA 2024"},
+/* Telas (parcial) */
+{n:"Escultura Basalto",c:"Telas",t:"escultura",m:"Tela de poliéster, metal e contas",d:"3 m",h:300,cores:["caramelo","preto"],badge:"parcial",badgeTxt:"ficha parcial"}
+];
+ITENS.forEach((x,i)=>x.id="sl-"+i);
+
+const MARCAS=[
+ {n:"Studio L",cat:"Arte e design autoral",rj:false,sc:true,ativa:true},
+ {n:"mART",cat:"Home decor",rj:true,sc:true},
+ {n:"Vertí",cat:"Plantas permanentes",rj:true,sc:true},
+ {n:"VIA AROMA",cat:"Aromatização",rj:true,sc:true},
+ {n:"fullfit",cat:"Utilidades",rj:true,sc:true},
+ {n:"ST. JAMES",cat:"Utilidades",rj:true,sc:true},
+ {n:"DINATALE",cat:"Natal e Páscoa",rj:true,sc:true},
+ {n:"buba",cat:"Infantil",rj:false,sc:true}
+];
+
+/* ═══════════ ESTADO ═══════════ */
+let regiao="sc";
+let fTipo=null, fColecao="", fBusca="";
+const carrinho=new Map();   // id -> {qtd, cor}
+
+/* rascunho local — conveniência, nunca requisito */
+function salvaRascunho(){try{
+  localStorage.setItem("popcasa-proposta",JSON.stringify({
+    itens:[...carrinho.entries()],
+    loja:el("c-loja").value,cidade:el("c-cidade").value,contato:el("c-contato").value}));
+}catch(e){}}
+function lêRascunho(){try{
+  const r=JSON.parse(localStorage.getItem("popcasa-proposta")||"null");
+  if(!r)return;
+  (r.itens||[]).forEach(([id,v])=>{if(ITENS.some(x=>x.id===id))carrinho.set(id,v)});
+  el("c-loja").value=r.loja||"";el("c-cidade").value=r.cidade||"";el("c-contato").value=r.contato||"";
+}catch(e){}}
+
+const el=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ═══════════ RENDER: mix ═══════════ */
+function renderMix(){
+  const rail=el("mix-rail");
+  rail.querySelectorAll(".marca").forEach(x=>x.remove());
+  MARCAS.forEach(m=>{
+    const disp=regiao==="sc"?m.sc:m.rj;
+    const s=document.createElement("span");
+    s.className="marca "+(m.ativa&&disp?"ativa":(!disp?"fora":""));
+    s.innerHTML=`<i class="pt"></i>${esc(m.n)} <small>· ${esc(m.cat)}${
+      !disp?" · fora do mix "+(regiao==="sc"?"SC":"RJ"):(m.ativa?"":" · fichas em extração")}</small>`;
+    rail.appendChild(s);
+  });
+}
+
+/* ═══════════ RENDER: catálogo ═══════════ */
+function cores_html(it){
+  if(!it.cores.length)return `<div class="cores"><span class="cor"><i style="background:#4a4139"></i>ver acabamentos no catálogo</span></div>`;
+  return `<div class="cores">`+it.cores.map(c=>{
+    const v=CORES[c]||"#4a4139";
+    if(v==="GRAD")return `<span class="cor grad"><i></i>${esc(c)}</span>`;
+    if(v==="TRANSP")return `<span class="cor transp"><i></i>${esc(c)}</span>`;
+    return `<span class="cor"><i style="background:${v}"></i>${esc(c)}</span>`;
+  }).join("")+`</div>`;
+}
+function escala_html(it){
+  const MAX=400, ALT=88;
+  const hp=Math.max(8,Math.round(Math.min(it.h,MAX)/MAX*ALT));
+  const hh=Math.round(170/MAX*ALT);
+  const rot=it.t==="colar"?"comprimento":"maior medida";
+  return `<figure class="escala" aria-label="Escala: ${esc(it.d)}">
+    <div class="col"><span class="medida">${it.h>=100?(it.h/100).toLocaleString("pt-BR",{maximumFractionDigits:1})+" m":it.h+" cm"}</span>
+      <div class="barra" style="height:${hp}px"></div><figcaption>${rot}</figcaption></div>
+    <div class="col"><div class="humano" style="height:${hh}px"></div><figcaption>1,70 m</figcaption></div>
+  </figure>`;
+}
+function card_html(it,bloqueada){
+  const badge=it.badge?`<span class="badge ${it.badge}">${esc(it.badgeTxt)}</span>`:"";
+  const acao=bloqueada
+    ?`<div class="acao"><p class="bloqueio">Studio L é exclusiva de Santa Catarina no mix — indisponível para lojista RJ.</p></div>`
+    :`<div class="acao"><button class="btn btn-add" data-add="${it.id}" type="button">Adicionar à proposta</button></div>`;
+  return `<article class="card rev" data-id="${it.id}">
+    <div class="topo"><span class="cat">${esc(it.c)} · Studio L</span>${badge}</div>
+    <h3>${esc(it.n)}</h3>
+    <p class="mat">${esc(it.m)}</p>
+    <p class="dim">${esc(it.d)}</p>
+    ${escala_html(it)}
+    ${cores_html(it)}
+    ${acao}
+  </article>`;
+}
+function passa(it){
+  if(fTipo&&it.t!==fTipo)return false;
+  if(fColecao&&it.c!==fColecao)return false;
+  if(fBusca){
+    const alvo=(it.n+" "+it.c+" "+it.m+" "+it.cores.join(" ")).toLowerCase();
+    if(!alvo.includes(fBusca))return false;
+  }
+  return true;
+}
+function renderCatalogo(){
+  const bloqueada=(regiao==="rj"); // Studio L: só SC
+  const porCol=new Map();
+  ITENS.filter(passa).forEach(it=>{
+    if(!porCol.has(it.c))porCol.set(it.c,[]);
+    porCol.get(it.c).push(it);
+  });
+  let html="",total=0;
+  for(const [col,itens] of porCol){
+    total+=itens.length;
+    const q=QUOTES[col]?`<blockquote>“${esc(QUOTES[col])}”</blockquote>`:"";
+    html+=`<section class="colecao"><div class="colecao-h">
+      <h2>${esc(col)}</h2><span class="n">${itens.length} ${itens.length===1?"peça":"peças"}</span>${q}</div>
+      <div class="grade">${itens.map(it=>card_html(it,bloqueada)).join("")}</div></section>`;
+  }
+  el("catalogo").innerHTML=html||`<p style="padding:60px 0;color:var(--areia-3)">Nenhuma peça bate com esse filtro.</p>`;
+  el("contagem").textContent=total+" de "+ITENS.length+" fichas";
+  el("f-total").textContent=ITENS.length;
+  observa();
+}
+
+/* revelação por rolagem, respeitando reduced-motion */
+let io=null;
+function observa(){
+  const reduz=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll(".rev").forEach(n=>{
+    if(reduz){n.classList.add("viu");return}
+    if(!io)io=new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add("viu");io.unobserve(e.target)}
+    }),{threshold:.08});
+    io.observe(n);
+  });
+}
+
+/* ═══════════ PROPOSTA ═══════════ */
+function renderProposta(){
+  const cont=el("linhas");let n=0;
+  if(!carrinho.size){cont.innerHTML=`<p class="vazia">A proposta está vazia.<br>Escolha peças no catálogo — sem preço público, o valor sai por escopo.</p>`}
+  else{
+    cont.innerHTML=[...carrinho.entries()].map(([id,v])=>{
+      const it=ITENS.find(x=>x.id===id);n+=v.qtd;
+      return `<div class="linha-p"><div class="nome">${esc(it.n)}</div>
+        <div class="var">${esc(it.c)} · ${esc(it.d)}${v.cor?" · cor: "+esc(v.cor):""}</div>
+        <div class="ops"><span class="step">
+          <button data-menos="${id}" type="button" aria-label="Diminuir">−</button>
+          <output>${v.qtd}</output>
+          <button data-mais="${id}" type="button" aria-label="Aumentar">+</button></span>
+          <button class="tira" data-tira="${id}" type="button">tirar</button></div></div>`;
+    }).join("");
+  }
+  el("fab-n").textContent=n;
+  salvaRascunho();
+}
+function adiciona(id){
+  const it=ITENS.find(x=>x.id===id);if(!it)return;
+  const atual=carrinho.get(id);
+  if(atual)atual.qtd++;
+  else carrinho.set(id,{qtd:1,cor:it.cores[0]||""});
+  renderProposta();
+  el("gaveta").classList.add("aberta");
+}
+
+/* folha de impressão — o leave-behind */
+function geraFolha(){
+  if(!carrinho.size){alert("A proposta está vazia — escolha ao menos uma peça.");return}
+  const hoje=new Date().toLocaleDateString("pt-BR",{day:"2-digit",month:"long",year:"numeric"});
+  const linhas=[...carrinho.entries()].map(([id,v],i)=>{
+    const it=ITENS.find(x=>x.id===id);
+    return `<tr><td class="q">${i+1}</td><td><b>${esc(it.n)}</b><br>
+      <span style="color:#555">${esc(it.c)} · Studio L · ${esc(it.m)}</span></td>
+      <td>${esc(it.d)}</td><td>${esc(v.cor||"—")}</td><td class="q">${v.qtd}</td></tr>`;
+  }).join("");
+  el("folha").innerHTML=`
+    <div class="cab"><h1>Pop Casa · Proposta</h1><span class="data">${esc(hoje)} · mix Camargo &amp; Pinheiro</span></div>
+    <div class="meta">
+      <span><b>Loja:</b> ${esc(el("c-loja").value||"________________")}</span>
+      <span><b>Cidade/UF:</b> ${esc(el("c-cidade").value||"____________")}</span>
+      <span><b>Responsável:</b> ${esc(el("c-contato").value||"________________")}</span>
+      <span><b>Região do mix:</b> ${regiao==="sc"?"Santa Catarina":"Rio de Janeiro"}</span>
+    </div>
+    <table><thead><tr><th>#</th><th>Peça</th><th>Dimensões</th><th>Cor</th><th>Qtd</th></tr></thead>
+    <tbody>${linhas}</tbody></table>
+    <p class="obs">Fichas transcritas do catálogo oficial Studio&nbsp;L 2026. Documento de intenção de pedido —
+      preços e condições seguem em proposta fechada da Camargo &amp; Pinheiro
+      (48&nbsp;99988-2213 · suporte@camargoepinheiro.com.br). Studio&nbsp;L: disponibilidade exclusiva de Santa Catarina.</p>
+    <div class="ass"><div>Lojista</div><div>Representante Camargo &amp; Pinheiro</div></div>`;
+  window.print();
+}
+function copiaTexto(){
+  if(!carrinho.size){alert("A proposta está vazia.");return}
+  let t="POP CASA · PROPOSTA — mix Camargo & Pinheiro\n";
+  t+="Loja: "+(el("c-loja").value||"—")+" · "+(el("c-cidade").value||"—")+"\n";
+  t+="Responsável: "+(el("c-contato").value||"—")+"\n\n";
+  [...carrinho.entries()].forEach(([id,v])=>{
+    const it=ITENS.find(x=>x.id===id);
+    t+=`• ${v.qtd}× ${it.n} — ${it.c}, Studio L · ${it.d}${v.cor?" · cor "+v.cor:""}\n`;
+  });
+  t+="\nSem preço público — valores por escopo na proposta fechada.";
+  navigator.clipboard?.writeText(t).then(
+    ()=>{el("copia-texto").textContent="Copiado ✓";setTimeout(()=>el("copia-texto").textContent="Copiar como texto",1600)},
+    ()=>alert(t));
+}
+
+/* ═══════════ LIGAÇÕES ═══════════ */
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.add)adiciona(b.dataset.add);
+  else if(b.dataset.mais){carrinho.get(b.dataset.mais).qtd++;renderProposta()}
+  else if(b.dataset.menos){const v=carrinho.get(b.dataset.menos);
+    if(--v.qtd<1)carrinho.delete(b.dataset.menos);renderProposta()}
+  else if(b.dataset.tira){carrinho.delete(b.dataset.tira);renderProposta()}
+  else if(b.classList.contains("chip")){
+    const t=b.dataset.tipo;
+    fTipo=(fTipo===t)?null:t;
+    document.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",String(c.dataset.tipo===fTipo)));
+    renderCatalogo();
+  }
+});
+el("r-sc").addEventListener("click",()=>{regiao="sc";sincRegiao()});
+el("r-rj").addEventListener("click",()=>{regiao="rj";sincRegiao()});
+function sincRegiao(){
+  el("r-sc").setAttribute("aria-pressed",String(regiao==="sc"));
+  el("r-rj").setAttribute("aria-pressed",String(regiao==="rj"));
+  renderMix();renderCatalogo();
+}
+el("busca").addEventListener("input",e=>{fBusca=e.target.value.trim().toLowerCase();renderCatalogo()});
+el("f-colecao").addEventListener("change",e=>{fColecao=e.target.value;renderCatalogo()});
+el("abre-proposta").addEventListener("click",()=>el("gaveta").classList.add("aberta"));
+el("fecha-proposta").addEventListener("click",()=>el("gaveta").classList.remove("aberta"));
+el("gera-folha").addEventListener("click",geraFolha);
+el("copia-texto").addEventListener("click",copiaTexto);
+el("limpa").addEventListener("click",()=>{carrinho.clear();renderProposta()});
+["c-loja","c-cidade","c-contato"].forEach(id=>el(id).addEventListener("input",salvaRascunho));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")el("gaveta").classList.remove("aberta")});
+
+/* boot */
+[...new Set(ITENS.map(x=>x.c))].forEach(c=>{
+  const o=document.createElement("option");o.value=c;o.textContent=c;el("f-colecao").appendChild(o);
+});
+lêRascunho();
+renderMix();
+renderCatalogo();
+renderProposta();
+</script>
