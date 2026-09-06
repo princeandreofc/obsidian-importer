@@ -118,5 +118,10 @@ r149 legacy lighting (π) · emissive em InstancedMesh precisa patch
 além de ~40 (materiais de céu `fog:false`) · elementos fixed têm
 `offsetParent null` (usar getComputedStyle) · `let` top-level acessível no
 evaluate · nome de arquivo NFD→NFC · downloads em artifact viewer via
-capability `downloads` (fallback âncora) · classifier: comandos compostos
-com push/curl+grep podem bloquear — separar e tentar de novo.
+capability `downloads` (fallback âncora).
+
+Bloqueio de ferramenta ou permissão: interromper a ação recusada, informar
+o erro exato sem expor segredos e indicar o caminho autorizado. Não
+dividir, reformular ou repetir comandos para contornar a recusa. Problemas
+comuns de sintaxe podem ser corrigidos quando não houver bloqueio de
+permissão ou segurança.
