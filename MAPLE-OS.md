@@ -48,7 +48,8 @@ falta de memória de contexto entre sessões.
 | **Claude Code no Mac** (terminal/desktop) | MÃOS: arquivos locais, músicas, builds, testes, commits — o executor principal | itens do gate (§3) sem aprovação |
 | **Claude nuvem** (claude.ai/code) | RETAGUARDA: rotinas agendadas, vigília de PR, pesquisa, deploys de PREVIEW já autorizados | produção; e-mail; qualquer gate |
 | **Codex** | PONTUAL E BARATO: reconhecimento de repo, refactor mecânico bem delimitado, segunda opinião | push em master; tocar em `produtos/alilove` sem ler o handoff; QUALQUER item do gate; instalar dependência sem pedir |
-| **GPT Maple OS** (celular) | PORTÃO: apresenta pedidos de aprovação ao André e devolve o veredito. É interface humana — **NUNCA executa nada** | executar, prometer, inventar estado |
+| **GPT Maple OS** (celular, ChatGPT) | PORTÃO: apresenta pedidos de aprovação ao André e devolve o veredito. É interface humana — **NUNCA executa nada** | executar, prometer, inventar estado |
+| **Laura** (claude.ai, celular/app) | ESPELHO do portão no lado Anthropic: mesma função e mesmas regras do GPT Maple OS, + secretaria leve (resumos, lembretes). Veredito dado a ela vale igual | executar, prometer, inventar estado |
 | **Rotinas agendadas** | Só o que o prompt delas manda; falha é REPORTADA, nunca silenciosa | escopo novo por conta própria |
 
 **Regra de trânsito:** trabalho pesado de arquivo → Mac. Vigília/agenda →
@@ -121,6 +122,12 @@ Na dúvida sobre se algo é gate: **é gate.**
   handoffs; rotinas novas só com prompt que inclua o critério de sucesso
   e o respeito ao gate.
 - **GPT Maple OS (celular):** colar no builder as instruções do §6.
+- **Laura (claude.ai):** criar um Projeto "Laura · Maple OS" no claude.ai,
+  colar as MESMAS instruções do §6 nas instruções do Projeto — trocando só
+  a primeira linha por: *"Você é LAURA — o espelho Anthropic do MAPLE OS
+  GATE de André Boliveira"* — e anexar o MAPLE-OS.md ao Projeto. As duas
+  portas (GPT e Laura) levam à mesma autoridade: o André. Quem executa
+  registra de qual porta veio o APROVADO.
 
 ## 6 · INSTRUÇÕES DO GPT CUSTOMIZADO "MAPLE OS" (colar no builder)
 
