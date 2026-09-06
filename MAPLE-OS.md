@@ -35,6 +35,11 @@ falta de memória de contexto entre sessões.
 - **Checklist de fim de sessão (obrigatório):** ① commit+push;
   ② se o mapa acima mudou, atualizar o handoff correspondente;
   ③ dizer ao André em UMA linha o hash empurrado — ou o erro exato.
+- **Sincronização NÃO é automática.** Commit+push apenas PUBLICA no
+  GitHub; cada cópia (Mac, Seagate, nuvem) só atualiza com `git pull`,
+  e cada agente só entra no contrato quando LÊ este arquivo. Regra:
+  toda sessão começa com `git pull` e leitura; toda sessão termina
+  com push. Cópia sem pull = cópia desatualizada, sem exceção.
 
 ## 2 · PAPÉIS — quem faz o quê (fim da bagunça nuvem×local)
 
@@ -148,8 +153,10 @@ Climbex se chama apenas "stack Climbex".
 - PR #4 mergeado em 28/08 → tudo da campanha está no master.
 - Preview do Spiral no ar: `the-spiral-preview-1ff7ito25-…vercel.app` (+ `/vj/`).
 - E-mail do Ali: RASCUNHO no Gmail do André (alilove2000@gmail.com) —
-  aguarda revisão da Ethel (inglês) + anexos (PDF + músicas) + envio DELE.
-- Ethel = porta-voz/secretária/vendas; primeira missão: revisar o inglês.
+  **frente Ali Love é EXCLUSIVA do André**: revisão do inglês, anexos
+  (PDF + músicas) e envio manual são dele; Ethel não participa dela.
+- Ethel = porta-voz/secretária/vendas nas frentes COMERCIAIS
+  (Climbex, Pop Casa, produtos) — nunca na frente Ali Love.
 - Domínio recomendado à espera de resgate: `princeandre.world` ($3,99/1º ano).
 - Rotinas ativas: briefing matinal (07:00, ÚLTIMA RUN FALHOU 04/09 — investigar),
   pesquisa diária (curada, verde), posts de segunda (verde), Briefing do
