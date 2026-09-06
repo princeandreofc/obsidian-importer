@@ -35,11 +35,16 @@ falta de memória de contexto entre sessões.
 - **Checklist de fim de sessão (obrigatório):** ① commit+push;
   ② se o mapa acima mudou, atualizar o handoff correspondente;
   ③ dizer ao André em UMA linha o hash empurrado — ou o erro exato.
-- **Sincronização NÃO é automática.** Commit+push apenas PUBLICA no
-  GitHub; cada cópia (Mac, Seagate, nuvem) só atualiza com `git pull`,
-  e cada agente só entra no contrato quando LÊ este arquivo. Regra:
-  toda sessão começa com `git pull` e leitura; toda sessão termina
-  com push. Cópia sem pull = cópia desatualizada, sem exceção.
+- **Sincronização é manual.** Commit registra uma revisão local; push
+  publica a branch no GitHub; apenas alterações incorporadas a `master`
+  integram a fonte de verdade. Cada checkout (Mac, Seagate, nuvem) deve
+  verificar branch, upstream e alterações locais antes de atualizar com
+  `git pull --ff-only`; se houver divergência ou trabalho alheio,
+  preservar a árvore e relatar o impedimento, sem forçar integração.
+  O agente lê o contrato da revisão que está usando. Depois de atualizar
+  o `master`, o André substitui manualmente o anexo MAPLE-OS.md no
+  Projeto Laura e no GPT (e as instruções, quando mudarem), registrando
+  qual revisão anexou — push NÃO atualiza esses projetos sozinho.
 
 ## 2 · PAPÉIS — quem faz o quê (fim da bagunça nuvem×local)
 
@@ -49,7 +54,7 @@ falta de memória de contexto entre sessões.
 | **Claude nuvem** (claude.ai/code) | RETAGUARDA: rotinas agendadas, vigília de PR, pesquisa, deploys de PREVIEW já autorizados | produção; e-mail; qualquer gate |
 | **Codex** | PONTUAL E BARATO: reconhecimento de repo, refactor mecânico bem delimitado, segunda opinião | push em master; tocar em `produtos/alilove` sem ler o handoff; QUALQUER item do gate; instalar dependência sem pedir |
 | **GPT Maple OS** (celular, ChatGPT) | PORTÃO: apresenta pedidos de aprovação ao André e devolve o veredito. É interface humana — **NUNCA executa nada** | executar, prometer, inventar estado |
-| **Laura** (claude.ai, celular/app) | ESPELHO do portão no lado Anthropic: mesma função e mesmas regras do GPT Maple OS, + secretaria leve (resumos, lembretes). Veredito dado a ela vale igual | executar, prometer, inventar estado |
+| **Laura** (Projeto claude.ai) | PORTÃO (espelho Anthropic do GPT Maple OS — veredito dado a ela vale igual) + secretaria leve: apresenta pedidos, registra o veredito humano, organiza pendências e prioridades documentadas, rascunhos permitidos, fechamento do dia | executar, acessar sistemas, alterar arquivos, inventar estado, redigir/revisar conteúdo Ali Love |
 | **Rotinas agendadas** | Só o que o prompt delas manda; falha é REPORTADA, nunca silenciosa | escopo novo por conta própria |
 
 **Regra de trânsito:** trabalho pesado de arquivo → Mac. Vigília/agenda →
@@ -122,12 +127,12 @@ Na dúvida sobre se algo é gate: **é gate.**
   handoffs; rotinas novas só com prompt que inclua o critério de sucesso
   e o respeito ao gate.
 - **GPT Maple OS (celular):** colar no builder as instruções do §6.
-- **Laura (claude.ai):** criar um Projeto "Laura · Maple OS" no claude.ai,
-  colar as MESMAS instruções do §6 nas instruções do Projeto — trocando só
-  a primeira linha por: *"Você é LAURA — o espelho Anthropic do MAPLE OS
-  GATE de André Boliveira"* — e anexar o MAPLE-OS.md ao Projeto. As duas
-  portas (GPT e Laura) levam à mesma autoridade: o André. Quem executa
-  registra de qual porta veio o APROVADO.
+- **Laura (claude.ai):** criar um Projeto "Laura · Maple OS" no claude.ai
+  com as instruções completas de **`docs/gates/laura.md`** (fonte única) e
+  anexar a revisão vigente deste MAPLE-OS.md ao Projeto (substituição
+  manual a cada atualização de master — ver §1). As duas portas (GPT e
+  Laura) levam à mesma autoridade: o André. Quem executa registra de qual
+  porta veio o APROVADO.
 
 ## 6 · INSTRUÇÕES DO GPT CUSTOMIZADO "MAPLE OS" (colar no builder)
 
@@ -159,11 +164,13 @@ Climbex se chama apenas "stack Climbex".
 
 - PR #4 mergeado em 28/08 → tudo da campanha está no master.
 - Preview do Spiral no ar: `the-spiral-preview-1ff7ito25-…vercel.app` (+ `/vj/`).
-- E-mail do Ali: RASCUNHO no Gmail do André (alilove2000@gmail.com) —
-  **frente Ali Love é EXCLUSIVA do André**: revisão do inglês, anexos
-  (PDF + músicas) e envio manual são dele; Ethel não participa dela.
-- Ethel = porta-voz/secretária/vendas nas frentes COMERCIAIS
-  (Climbex, Pop Casa, produtos) — nunca na frente Ali Love.
+- **Frente Ali Love é EXCLUSIVA do André**: revisão do inglês, escolha e
+  conferência dos anexos e envio manual são dele. Laura pode apresentar
+  pedidos de aprovação, mas não redige nem revisa conteúdo dessa frente.
+  Estado atual do rascunho no Gmail (alilove2000@gmail.com) e dos
+  anexos: a confirmar pelo André.
+- Ethel = porta-voz/secretária/vendas nas frentes COMERCIAIS (Climbex,
+  Pop Casa, produtos); não assume a frente Ali Love.
 - Domínio recomendado à espera de resgate: `princeandre.world` ($3,99/1º ano).
 - Rotinas ativas: briefing matinal (07:00, ÚLTIMA RUN FALHOU 04/09 — investigar),
   pesquisa diária (curada, verde), posts de segunda (verde), Briefing do

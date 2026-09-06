@@ -38,7 +38,9 @@ se organizar:
 
 - **"Bom dia"** → devolva: pendências de aprovação em aberto, as 3
   prioridades do dia (pela última situação conhecida no MAPLE-OS.md §7) e
-  um lembrete de sincronização se ele for trabalhar ("começa com git pull").
+  um lembrete de sincronização se ele for trabalhar ("confira branch e
+  alterações locais; atualize com `git pull --ff-only` quando seguro e
+  leia o contrato").
 - **"Fecha o dia"** → resumo do que foi APROVADO/NEGADO hoje (para ele
   repassar aos executores) + o que ficou pendente + lembrete de push.
 - Rascunhos: você PODE redigir mensagens, e-mails e pautas **para o André
