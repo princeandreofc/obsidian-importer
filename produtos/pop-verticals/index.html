@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="POP Verticals: curadoria Fashion, Jewelry & Watches e Beauty para consultas B2C e briefings B2B, sem checkout." />
+  <title>POP Verticals | Selection Room</title>
+  <style>
+    :root{--paper:#f7f7f3;--ink:#151515;--muted:#686864;--mist:#d7d8d4;--metal:#a6a7a2;--red:#d9324b;--line:rgba(21,21,21,.17)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}button,input,textarea{font:inherit}button,a{touch-action:manipulation}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+    .topbar{position:fixed;inset:0 0 auto 0;z-index:50;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 3.2vw;background:rgba(247,247,243,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .brand{color:var(--ink);text-decoration:none;font-weight:900;letter-spacing:-.05em}.brand small{font-weight:500;letter-spacing:.13em;font-size:.62rem;margin-left:.35rem}.topbar nav{display:flex;align-items:center;gap:1.2rem}.topbar button{border:0;background:transparent;color:var(--ink);cursor:pointer}.selection-trigger b{display:inline-grid;place-items:center;min-width:1.55rem;height:1.55rem;border-radius:999px;background:var(--red);color:white;margin-left:.35rem}
+    .hero{position:relative;height:320vh;background:#ecece7}.hero-sticky{position:sticky;top:68px;height:calc(100vh - 68px);overflow:hidden}.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(247,247,243,.76),rgba(247,247,243,.16) 50%,rgba(247,247,243,.04));pointer-events:none}.hero-copy{position:absolute;z-index:3;left:4vw;top:50%;transform:translateY(-50%);width:min(640px,83vw)}.eyebrow{font:700 .72rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.hero h1{font-size:clamp(3.2rem,8.5vw,8rem);line-height:.84;letter-spacing:-.075em;margin:.65rem 0 1.2rem;max-width:8ch}.hero-copy>p{max-width:52ch;font-size:clamp(1rem,1.35vw,1.15rem);line-height:1.5}.hero-actions{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap}.hero-actions button{min-height:48px;padding:.9rem 1.2rem;cursor:pointer}.b2c-entry{background:var(--red);color:#fff;border:1px solid var(--red)}.b2b-entry{background:rgba(247,247,243,.88);color:var(--ink);border:1px solid var(--ink)}
+    section.content{padding:7rem 4vw}.section-lead{max-width:780px}.section-lead h2{font-size:clamp(2.8rem,6.2vw,6.5rem);line-height:.9;letter-spacing:-.065em;margin:.45rem 0 1.35rem}.section-lead p:last-child{max-width:62ch;color:var(--muted);line-height:1.55}
+    .case-rail{display:flex;overflow-x:auto;border-top:1px solid var(--ink);margin-top:4rem;scroll-snap-type:x proximity}.case{min-width:220px;flex:1;padding:1.25rem;border-right:1px solid var(--line);scroll-snap-align:start}.case strong{display:block;font-size:1.15rem;margin-bottom:2.4rem}.case span{font-size:.86rem;color:var(--muted);line-height:1.4}
+    .catalog{background-image:linear-gradient(rgba(247,247,243,.95),rgba(247,247,243,.95)),url('https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133813_ab296e56-ac18-4a2e-a3cb-f7ba0f17db7a.png');background-size:cover}.catalog-head{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:end}.mode-switch{display:flex;border:1px solid var(--ink)}.mode-switch button{border:0;background:transparent;padding:.85rem 1.05rem;cursor:pointer}.mode-switch button.active{background:var(--ink);color:var(--paper)}.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:3rem 0}.filters button{padding:.72rem 1rem;border:1px solid var(--line);background:transparent;cursor:pointer}.filters button.active{border-color:var(--red);color:var(--red)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.2rem}.product{grid-column:span 4;border-top:1px solid var(--ink);padding-top:.75rem}.product.wide{grid-column:span 5}.product.narrow{grid-column:span 3}.product img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:var(--mist)}.product-body{padding:.9rem 0 2rem}.product-meta{display:flex;justify-content:space-between;gap:1rem;font:700 .66rem/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase;color:var(--muted)}.product h3{font-size:1.7rem;letter-spacing:-.04em;margin:1.15rem 0 .15rem}.product h4{font-size:1rem;font-weight:500;margin:0 0 .8rem}.product p{color:var(--muted);line-height:1.5;min-height:3em}.select{padding:.7rem 0;border:0;border-bottom:1px solid var(--ink);background:transparent;cursor:pointer}.select.selected{color:var(--red);border-color:var(--red)}
+    .b2b{background-image:linear-gradient(rgba(247,247,243,.9),rgba(247,247,243,.9)),url('https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133812_3a29b536-9f91-429f-8552-3fd4b687f42e.png');background-size:cover;display:grid;grid-template-columns:minmax(300px,.8fr) 1.2fr;gap:6vw}.services{border-top:1px solid var(--ink)}.service{display:grid;grid-template-columns:50px 1fr auto;gap:1rem;align-items:center;padding:1.45rem 0;border-bottom:1px solid var(--line)}.service span{font:700 .72rem ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}.service strong{font-size:1.12rem}.service button{border:0;background:transparent;border-bottom:1px solid var(--ink);padding:.35rem 0;cursor:pointer}
+    .inquiry{background:var(--ink);color:var(--paper);display:grid;grid-template-columns:.82fr 1.18fr;gap:7vw}.inquiry .eyebrow{color:#b6b6b0}.inquiry h2{color:var(--paper)}.selection-preview{display:flex;flex-direction:column;gap:.45rem;margin-top:2rem;color:#d3d3cc;font-size:.85rem}.inquiry form{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}.inquiry label{display:flex;flex-direction:column;gap:.45rem;font-size:.82rem}.inquiry label.full{grid-column:1/-1}.inquiry small{color:#aaa}.inquiry input,.inquiry textarea{background:transparent;color:var(--paper);border:0;border-bottom:1px solid #656560;padding:.8rem .1rem;outline:none}.inquiry textarea{border:1px solid #656560;padding:1rem;resize:vertical}.inquiry input:focus,.inquiry textarea:focus{border-color:var(--red)}.form-actions{grid-column:1/-1;display:flex;gap:.7rem;flex-wrap:wrap}.send{background:var(--paper);color:var(--ink);border:0;padding:1rem 1.15rem;cursor:pointer}.copy{background:transparent;color:var(--paper);border:1px solid #8a8a84;padding:1rem 1.15rem;cursor:pointer}.form-note{grid-column:1/-1;color:#c3c3bd;line-height:1.5;font-size:.82rem}
+    footer{padding:5rem 4vw 3rem;display:grid;grid-template-columns:1fr auto;gap:3rem;border-top:1px solid var(--line)}footer strong{font-size:1.25rem}footer p{max-width:55ch;color:var(--muted);line-height:1.5}footer a{color:var(--ink);text-underline-offset:6px}.legal{grid-column:1/-1;border-top:1px solid var(--line);padding-top:1.2rem;font-size:.77rem;max-width:none!important}
+    .drawer-backdrop{position:fixed;inset:0;z-index:79;background:rgba(0,0,0,.22);display:none}.drawer-backdrop.open{display:block}.drawer{position:fixed;z-index:80;top:0;right:0;bottom:0;width:min(490px,100vw);background:var(--paper);box-shadow:-24px 0 75px rgba(0,0,0,.23);padding:2rem;overflow:auto;transform:translateX(105%);transition:transform .25s ease}.drawer.open{transform:translateX(0)}.drawer-close{float:right;border:0;background:transparent;border-bottom:1px solid var(--ink);cursor:pointer}.drawer h2{font-size:3rem;letter-spacing:-.055em;margin:4rem 0 .5rem}.drawer-list{border-top:1px solid var(--ink);margin:2rem 0}.drawer-item{display:grid;grid-template-columns:68px 1fr auto;align-items:center;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--line)}.drawer-item img{width:68px;height:78px;object-fit:cover}.drawer-item span{display:flex;flex-direction:column;font-size:.8rem;gap:.2rem}.drawer-item button{border:0;background:transparent;cursor:pointer;font-size:.75rem}.convert{width:100%;padding:1rem;border:0;background:var(--ink);color:var(--paper);cursor:pointer}
+    @media(max-width:900px){.topbar{padding:0 1rem}.topbar nav button:not(.selection-trigger){display:none}.hero-copy{left:1rem}.catalog-head,.b2b,.inquiry{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.product,.product.wide,.product.narrow{grid-column:span 1}.service{grid-template-columns:42px 1fr}.service button{grid-column:2;justify-self:start}.inquiry form{grid-template-columns:1fr}.inquiry label,.inquiry label.full,.form-actions,.form-note{grid-column:1}section.content{padding-left:1rem;padding-right:1rem}footer{grid-template-columns:1fr;padding-left:1rem;padding-right:1rem}}
+    @media(max-width:560px){.grid{grid-template-columns:1fr}.hero-actions{flex-direction:column;align-items:stretch}.hero-actions button{width:100%}.hero h1{font-size:3.6rem}.section-lead h2{font-size:3.15rem}.case{min-width:175px}.product p{min-height:0}.drawer{padding:1.25rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.drawer{transition:none}.hero{height:auto}.hero-sticky{position:relative;top:68px;height:72vh;margin-bottom:68px}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="POP Verticals">POP <small>VERTICALS</small></a>
+    <nav aria-label="Principal">
+      <button data-jump="catalogo">Catálogo</button>
+      <button data-jump="b2b">B2B</button>
+      <button class="selection-trigger" id="selectionTrigger">Seleção <b id="selectionCount">0</b></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top" aria-label="POP Verticals Selection Room">
+      <div class="hero-sticky">
+        <video id="heroVideo" muted playsinline preload="metadata" poster="https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133603_f3e47059-60fe-49cf-a7a4-9e5065db5d0e.png">
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133829_c1b13703-a4ae-4498-b690-48f006244e07.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-copy">
+          <p class="eyebrow">Selection Room</p>
+          <h1>Curadoria que vira ação.</h1>
+          <p>Fashion, Jewelry & Watches e Beauty em uma experiência comercial para consumidor, styling e campanhas.</p>
+          <div class="hero-actions">
+            <button class="b2c-entry" data-mode="B2C" data-jump="catalogo">Explorar B2C</button>
+            <button class="b2b-entry" data-mode="B2B" data-jump="b2b">Explorar B2B</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content" id="trabalhos">
+      <div class="section-lead">
+        <p class="eyebrow">Trabalhos e contas documentadas</p>
+        <h2>Marcas que dão contexto à seleção.</h2>
+        <p>Os nomes abaixo entram como referência de trabalho e relacionamento da POP. O catálogo não afirma estoque, preço ou revenda direta.</p>
+      </div>
+      <div class="case-rail">
+        <article class="case"><strong>Schutz</strong><span>Collab Lalá Rudge e Schutz, com atuação ligada a influenciadoras.</span></article>
+        <article class="case"><strong>Carol Bassi</strong><span>Collab Carol Bassi e Maria Rudge, documentada nos cases POP.</span></article>
+        <article class="case"><strong>Calvin Klein</strong><span>Produção de moda em case publicado pela POP.</span></article>
+        <article class="case"><strong>D-Gaia</strong><span>Campanha e direção criativa em case POP.</span></article>
+        <article class="case"><strong>Dior Beauty</strong><span>Case Malu Borges para Dior Beauty, na frente de marketing.</span></article>
+        <article class="case"><strong>Pandora</strong><span>Conta anunciada em 2026 para marketing, assessoria de imprensa e produção de moda.</span></article>
+        <article class="case"><strong>Casio</strong><span>Conta anunciada em agosto de 2026, incluindo produção de moda para CASIO Vintage e G-SHOCK.</span></article>
+      </div>
+    </section>
+
+    <section class="content catalog" id="catalogo">
+      <div class="catalog-head">
+        <div class="section-lead">
+          <p class="eyebrow">Catálogo editorial</p>
+          <h2>Escolha por vertical.</h2>
+          <p>As imagens representam categorias e direção editorial. Produtos exatos, disponibilidade e condições são confirmados pela equipe POP.</p>
+        </div>
+        <div class="mode-switch" role="group" aria-label="Modo comercial">
+          <button class="active" data-mode="B2C">B2C</button>
+          <button data-mode="B2B">B2B</button>
+        </div>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="productGrid"></div>
+    </section>
+
+    <section class="content b2b" id="b2b">
+      <div class="section-lead">
+        <p class="eyebrow">B2B</p>
+        <h2>Da seleção à campanha.</h2>
+        <p>O mesmo recorte de marcas pode virar planejamento, imprensa, produção, conteúdo, creators e performance.</p>
+      </div>
+      <div class="services" id="serviceList"></div>
+    </section>
+
+    <section class="content inquiry" id="consulta">
+      <div class="section-lead">
+        <p class="eyebrow" id="inquiryMode">B2C</p>
+        <h2 id="inquiryTitle">Consultar seleção.</h2>
+        <p id="inquiryIntro">Monte sua seleção e envie um pedido de disponibilidade ou curadoria.</p>
+        <div class="selection-preview" id="selectionPreview"></div>
+      </div>
+      <form id="inquiryForm">
+        <label>Nome<input name="name" autocomplete="name" required minlength="2" /></label>
+        <label>E-mail<input name="email" autocomplete="email" type="email" required /></label>
+        <label>Empresa <small>opcional no B2C</small><input name="company" autocomplete="organization" /></label>
+        <label>Telefone <small>opcional</small><input name="phone" autocomplete="tel" /></label>
+        <label class="full">Briefing<textarea name="brief" rows="6" required minlength="10" placeholder="Conte objetivo, ocasião, prazo, mercado ou entregáveis."></textarea></label>
+        <div class="form-actions">
+          <button class="send" type="submit" id="sendButton">Consultar seleção</button>
+          <button class="copy" type="button" id="copyButton">Copiar briefing</button>
+        </div>
+        <p class="form-note" id="formNote">O envio abre seu aplicativo de e-mail com o briefing pronto para contato@popcommunication.com.br. Nenhum dado de pagamento é coletado.</p>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>POP COMMUNICATION</strong><p>Marketing, assessoria de imprensa, produção de moda e acervo, social media, shootings, influenciadores e performance.</p></div>
+    <div><a href="mailto:contato@popcommunication.com.br">contato@popcommunication.com.br</a><br><br><a href="tel:+551130885353">+55 11 3088.5353</a></div>
+    <p class="legal">Catálogo editorial e comercial. Imagens geradas para representar categorias, não SKUs oficiais. Marcas aparecem como cases, clientes ou contas documentadas da POP. Disponibilidade, produto exato, preço e condições comerciais dependem de confirmação da equipe responsável.</p>
+  </footer>
+
+  <div class="drawer-backdrop" id="backdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="Sua seleção" aria-hidden="true">
+    <button class="drawer-close" id="drawerClose">Fechar</button>
+    <h2>Sua seleção</h2>
+    <p id="drawerSummary">Nenhum item selecionado.</p>
+    <div class="drawer-list" id="drawerList"></div>
+    <button class="convert" id="convertButton">Consultar seleção</button>
+  </aside>
+
+  <script>
+    const ASSET={
+      fashionAccessories:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133757_1603f231-79c9-4085-9966-9b5e9bcbadda.png',
+      fashionDenim:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133757_30d0899f-6252-4919-9cef-5a2b62719501.png',
+      fashionEvening:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133812_a1b8b112-fcfb-4177-94a3-a4a1dcaf6e26.png',
+      jewelry:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133757_9d2c842e-41a3-41b6-bff0-c25530c33773.png',
+      watches:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133757_6d9992de-b67c-4c8c-9901-28ea1c199252.png',
+      beautyMix:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133757_2d0afc4a-1be7-4b3e-bc5d-46c573cdefaa.png',
+      skincare:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133812_6476a096-e30b-4a58-85bc-e9f2fa8aa961.png',
+      luxuryBeauty:'https://d8j0ntlcm91z4.cloudfront.net/user_3JDIULlNLdAw2h35k1LNT0dRM1C/hf_20260912_133812_a8978702-b924-47d1-b95d-3099869c635b.png'
+    };
+    const products=[
+      {id:'schutz-footwear',vertical:'Fashion',brand:'Schutz',title:'Seleção de calçados',category:'Calçados',image:ASSET.fashionAccessories,relation:'Case POP',note:'Curadoria de categoria para styling, conteúdo e consulta.'},
+      {id:'schutz-bags',vertical:'Fashion',brand:'Schutz',title:'Seleção de bolsas',category:'Bolsas',image:ASSET.fashionAccessories,relation:'Case POP',note:'Seleção editorial para produções, creators e consultas B2C.'},
+      {id:'carol-bassi-rtw',vertical:'Fashion',brand:'Carol Bassi',title:'Vestuário contemporâneo',category:'Vestuário',image:ASSET.fashionEvening,relation:'Case POP',note:'Curadoria de looks para ocasiões, styling e produção de moda.'},
+      {id:'calvin-klein',vertical:'Fashion',brand:'Calvin Klein',title:'Essentials e denim',category:'Vestuário',image:ASSET.fashionDenim,relation:'Case POP',note:'Categorias editoriais ligadas ao case de produção de moda publicado pela POP.'},
+      {id:'dgaia',vertical:'Fashion',brand:'D-Gaia',title:'Occasion dressing',category:'Vestuário',image:ASSET.fashionEvening,relation:'Campanha POP',note:'Seleção para campanha, eventos e conteúdo editorial.'},
+      {id:'pandora-jewelry',vertical:'Jewelry & Watches',brand:'Pandora',title:'Joias e charms',category:'Joias',image:ASSET.jewelry,relation:'Conta 2026',note:'Conta anunciada para marketing, assessoria de imprensa e produção de moda.'},
+      {id:'pandora-gifting',vertical:'Jewelry & Watches',brand:'Pandora',title:'Seleção para presentes',category:'Presentes',image:ASSET.jewelry,relation:'Conta 2026',note:'Curadoria de ocasião para conteúdo, imprensa e consulta comercial.'},
+      {id:'casio-vintage',vertical:'Jewelry & Watches',brand:'CASIO Vintage',title:'Relógios digitais vintage',category:'Relógios',image:ASSET.watches,relation:'Conta 2026',note:'Linha citada na nova conta Casio da POP para produção de moda.'},
+      {id:'gshock',vertical:'Jewelry & Watches',brand:'G-SHOCK',title:'Relógios esportivos',category:'Relógios',image:ASSET.watches,relation:'Conta 2026',note:'Linha citada na nova conta Casio da POP para produção de moda.'},
+      {id:'dior-makeup',vertical:'Beauty',brand:'Dior Beauty',title:'Makeup selection',category:'Maquiagem',image:ASSET.luxuryBeauty,relation:'Case POP',note:'Curadoria associada aos trabalhos beauty publicados pela POP.'},
+      {id:'dior-fragrance',vertical:'Beauty',brand:'Dior Beauty',title:'Fragrâncias',category:'Fragrâncias',image:ASSET.luxuryBeauty,relation:'Case POP',note:'Seleção editorial para conteúdo e consulta, sem alegação de estoque.'},
+      {id:'guerlain',vertical:'Beauty',brand:'Guerlain',title:'Fragrância e beleza',category:'Fragrâncias',image:ASSET.luxuryBeauty,relation:'Cliente documentado',note:'Marca documentada no portfólio de clientes pesquisado para o projeto.'},
+      {id:'ordinary',vertical:'Beauty',brand:'The Ordinary',title:'Skincare essencial',category:'Skincare',image:ASSET.skincare,relation:'Cliente documentado',note:'Rotina por categoria, sem claims médicos ou ingredientes inventados.'}
+    ];
+    const services=['Marketing e planejamento de campanha','Assessoria de imprensa','Produção de moda e Acervo POP','Social Media Strategy e Content','Produção executiva e direção criativa de shootings','Agenciamento de influenciadores e personalidades','Performance'];
+    const state={mode:'B2C',vertical:'Todos',selected:new Set(JSON.parse(localStorage.getItem('popVerticalsSelection')||'[]'))};
+    const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+    const byId=id=>products.find(p=>p.id===id);
+    function persist(){localStorage.setItem('popVerticalsSelection',JSON.stringify([...state.selected]));}
+    function setMode(mode){state.mode=mode;$$('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));$('#inquiryMode').textContent=mode;$('#inquiryTitle').textContent=mode==='B2C'?'Consultar seleção.':'Solicitar proposta.';$('#inquiryIntro').textContent=mode==='B2C'?'Monte sua seleção e envie um pedido de disponibilidade ou curadoria.':'Monte sua seleção e envie um briefing para campanha, produção, PR, conteúdo ou creators.';$('#sendButton').textContent=mode==='B2C'?'Consultar seleção':'Solicitar proposta';$('#convertButton').textContent=$('#sendButton').textContent;renderDrawer();}
+    function renderFilters(){const values=['Todos','Fashion','Jewelry & Watches','Beauty'];$('#filters').innerHTML=values.map(v=>`<button class="${state.vertical===v?'active':''}" data-filter="${v}">${v}</button>`).join('');$$('[data-filter]').forEach(b=>b.onclick=()=>{state.vertical=b.dataset.filter;renderFilters();renderProducts();});}
+    function renderProducts(){const list=state.vertical==='Todos'?products:products.filter(p=>p.vertical===state.vertical);$('#productGrid').innerHTML=list.map((p,i)=>`<article class="product ${i%5===1?'wide':i%5===2?'narrow':''}"><img src="${p.image}" alt="Representação editorial da categoria ${p.title}"><div class="product-body"><div class="product-meta"><span>${p.vertical}</span><span>${p.relation}</span></div><h3>${p.brand}</h3><h4>${p.title}</h4><p>${p.note}</p><button class="select ${state.selected.has(p.id)?'selected':''}" data-product="${p.id}">${state.selected.has(p.id)?'Remover da seleção':'Adicionar seleção'}</button></div></article>`).join('');$$('[data-product]').forEach(b=>b.onclick=()=>toggleProduct(b.dataset.product));}
+    function toggleProduct(id){state.selected.has(id)?state.selected.delete(id):state.selected.add(id);persist();renderProducts();renderDrawer();renderSelectionPreview();}
+    function renderServices(){$('#serviceList').innerHTML=services.map((s,i)=>`<div class="service"><span>${String(i+1).padStart(2,'0')}</span><strong>${s}</strong><button data-service="${s}">Incluir no briefing</button></div>`).join('');$$('[data-service]').forEach(b=>b.onclick=()=>{setMode('B2B');const ta=$('[name=brief]');if(!ta.value.includes(b.dataset.service))ta.value+=(ta.value?'\n':'')+b.dataset.service+': ';jump('consulta');ta.focus();});}
+    function renderDrawer(){const chosen=[...state.selected].map(byId).filter(Boolean);$('#selectionCount').textContent=chosen.length;$('#drawerSummary').textContent=chosen.length?`${chosen.length} item(ns) para ${state.mode}.`:'Nenhum item selecionado.';$('#drawerList').innerHTML=chosen.map(p=>`<div class="drawer-item"><img src="${p.image}" alt=""><span><strong>${p.brand}</strong>${p.title}</span><button data-remove="${p.id}">Remover</button></div>`).join('');$$('[data-remove]').forEach(b=>b.onclick=()=>toggleProduct(b.dataset.remove));}
+    function renderSelectionPreview(){const chosen=[...state.selected].map(byId).filter(Boolean);$('#selectionPreview').innerHTML=chosen.length?chosen.slice(0,8).map(p=>`<span>${p.brand} | ${p.title}</span>`).join(''):'<span>Nenhum item selecionado. Você ainda pode enviar um briefing.</span>';}
+    function openDrawer(){renderDrawer();$('#drawer').classList.add('open');$('#backdrop').classList.add('open');$('#drawer').setAttribute('aria-hidden','false');}
+    function closeDrawer(){$('#drawer').classList.remove('open');$('#backdrop').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');}
+    function jump(id){document.getElementById(id)?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});}
+    function buildBrief(){const fd=new FormData($('#inquiryForm'));const chosen=[...state.selected].map(byId).filter(Boolean);return [`POP VERTICALS | ${state.mode}`,`Nome: ${fd.get('name')||''}`,`E-mail: ${fd.get('email')||''}`,`Empresa: ${fd.get('company')||''}`,`Telefone: ${fd.get('phone')||''}`,'','SELEÇÃO',...(chosen.length?chosen.map(p=>`- ${p.vertical} | ${p.brand} | ${p.title}`):['- Sem itens selecionados']),'','BRIEFING',String(fd.get('brief')||'')].join('\n');}
+    $('#inquiryForm').addEventListener('submit',e=>{e.preventDefault();if(!e.currentTarget.reportValidity())return;const subject=encodeURIComponent(`POP Verticals ${state.mode} | ${$('[name=name]').value}`);const body=encodeURIComponent(buildBrief());location.href=`mailto:contato@popcommunication.com.br?subject=${subject}&body=${body}`;});
+    $('#copyButton').onclick=async()=>{if(!$('#inquiryForm').reportValidity())return;try{await navigator.clipboard.writeText(buildBrief());$('#formNote').textContent='Briefing copiado. Você pode colar em e-mail, WhatsApp ou CRM.';}catch{$('#formNote').textContent='Não foi possível copiar automaticamente. Use Enviar para abrir o e-mail com o briefing pronto.';}};
+    $('#selectionTrigger').onclick=openDrawer;$('#drawerClose').onclick=closeDrawer;$('#backdrop').onclick=closeDrawer;$('#convertButton').onclick=()=>{closeDrawer();jump('consulta');};
+    $$('[data-jump]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.mode)setMode(b.dataset.mode);jump(b.dataset.jump);}));$$('.mode-switch [data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+    const hero=$('.hero'), video=$('#heroVideo');let raf=0;function scrub(){raf=0;if(matchMedia('(prefers-reduced-motion: reduce)').matches||!video.duration)return;const r=hero.getBoundingClientRect();const total=hero.offsetHeight-innerHeight;const progressed=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));const target=progressed*Math.max(.1,video.duration-.05);if(Number.isFinite(target))video.currentTime=target;}function schedule(){if(!raf)raf=requestAnimationFrame(scrub);}video.addEventListener('loadedmetadata',scrub);addEventListener('scroll',schedule,{passive:true});addEventListener('resize',schedule,{passive:true});
+    renderFilters();renderProducts();renderServices();renderDrawer();renderSelectionPreview();setMode('B2C');
+  </script>
+</body>
+</html>
