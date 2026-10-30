@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Dossiê — Chocolate × Bem Bolado</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300..600;9..144,1,300..500&family=Inter:wght@300;400;500;600&family=Caveat:wght@600&display=swap">
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#1E130C; --paper:#F2E7D5; --clay:#A6552D; --rose:#C96F4A;
+  --moss:#5E7A52; --gold:#D9A441; --plum:#2B1A12; --sand:#E7D9C0;
+}
+body{font:300 11.5pt/1.55 "Inter",sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pg{width:210mm;height:296mm;position:relative;overflow:hidden;page-break-after:always;padding:18mm 16mm;background:var(--paper)}
+.pg.dark{background:linear-gradient(165deg,var(--ink),var(--plum) 70%);color:var(--paper)}
+.kick{font:600 8pt/1 "Inter";letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
+h1{font:300 46pt/1 "Fraunces",serif;letter-spacing:-.02em;margin:10mm 0 6mm}
+h1 em{font-style:italic;color:var(--rose)}
+h2{font:300 24pt/1.1 "Fraunces",serif;margin:0 0 5mm}
+h2 em{font-style:italic;color:var(--clay)}
+.dark h2 em{color:var(--rose)}
+p{max-width:150mm}
+.lead{font-size:12.5pt;color:#4a3a2d}
+.dark .lead{color:var(--sand)}
+.hand{font:600 20pt/1.2 "Caveat",cursive;color:var(--gold)}
+.foot{position:absolute;left:16mm;right:16mm;bottom:10mm;display:flex;justify-content:space-between;font:500 7pt/1 "Inter";letter-spacing:.3em;text-transform:uppercase;color:var(--clay)}
+.dark .foot{color:var(--gold)}
+.pod{position:absolute;opacity:.9}
+.rule{border:none;border-top:1px solid rgba(166,85,45,.35);margin:6mm 0}
+.dark .rule{border-top-color:rgba(242,231,213,.2)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:7mm}
+.card{border:1px solid rgba(166,85,45,.35);border-radius:4mm;padding:6mm}
+.dark .card{border-color:rgba(242,231,213,.22);background:rgba(242,231,213,.04)}
+.card .n{font:600 7.5pt/1 "Inter";letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.card h3{font:400 15pt/1.15 "Fraunces";margin:3mm 0 2mm}
+.card p{font-size:9.5pt;color:#5a4636}
+.dark .card p{color:var(--sand)}
+ol.big{list-style:none;counter-reset:x;margin-top:7mm}
+ol.big li{counter-increment:x;display:flex;gap:6mm;align-items:baseline;padding:4.5mm 0;border-bottom:1px solid rgba(166,85,45,.3)}
+.dark ol.big li{border-bottom-color:rgba(242,231,213,.18)}
+ol.big li::before{content:counter(x,decimal-leading-zero);font:300 19pt/1 "Fraunces";color:var(--clay);min-width:11mm}
+ol.big b{font-weight:600}
+ol.big span{color:#5a4636;font-size:10pt}
+.dark ol.big span{color:var(--sand)}
+table{width:100%;border-collapse:collapse;margin-top:6mm;font-size:9.5pt}
+th{font:600 8pt/1.3 "Inter";letter-spacing:.14em;text-transform:uppercase;text-align:left;color:var(--clay);padding:3mm 3mm 2mm 0;border-bottom:1.5px solid var(--clay)}
+td{padding:3mm 3mm 3mm 0;border-bottom:1px solid rgba(166,85,45,.25);vertical-align:top}
+.dark th{color:var(--gold);border-bottom-color:var(--gold)}
+.dark td{border-bottom-color:rgba(242,231,213,.16)}
+.src{font-size:7.5pt;color:#7a6350;margin-top:4mm;line-height:1.7}
+.dark .src{color:#b9a88e}
+.src a{color:inherit}
+.tagbox{display:inline-block;border:1px solid var(--moss);color:var(--moss);border-radius:99px;padding:2mm 5mm;font:600 7.5pt/1 "Inter";letter-spacing:.22em;text-transform:uppercase;margin-top:5mm}
+.dark .tagbox{border-color:var(--gold);color:var(--gold)}
+.note{font-size:8.5pt;color:#7a6350;font-style:italic}
+.dark .note{color:#b9a88e}
+.bigstat{display:flex;gap:8mm;margin:8mm 0}
+.bigstat div{flex:1}
+.bigstat .v{font:300 30pt/1 "Fraunces";color:var(--gold)}
+.bigstat .l{font-size:8.5pt;letter-spacing:.08em;text-transform:uppercase;color:var(--sand);margin-top:2mm}
+</style>
+</head>
+<body>
+
+<!-- P1 · CAPA -->
+<div class="pg dark">
+  <svg class="pod" style="right:-30mm;top:40mm;width:150mm;height:200mm" viewBox="0 0 300 400" fill="none" aria-hidden="true">
+    <ellipse cx="150" cy="200" rx="95" ry="180" fill="#A6552D" opacity=".9"/>
+    <ellipse cx="150" cy="200" rx="95" ry="180" fill="url(#g1)" opacity=".55"/>
+    <path d="M150 20 v360 M95 60 q-28 140 0 280 M205 60 q28 140 0 280 M118 35 q-42 165 0 330 M182 35 q42 165 0 330" stroke="#2B1A12" stroke-width="7" opacity=".5"/>
+    <defs><radialGradient id="g1" cx=".35" cy=".3" r="1"><stop offset="0" stop-color="#D9A441"/><stop offset="1" stop-color="#2B1A12"/></radialGradient></defs>
+  </svg>
+  <div style="margin-top:30mm">
+    <p class="kick">Proposta de patrocínio · Patrocinador Master</p>
+    <h1 style="font-size:58pt">O cacau<br><em>é</em> <span style="color:var(--gold)">nosso.</span></h1>
+    <p class="lead" style="margin-top:8mm;max-width:105mm">O lançamento do álbum do <b>Chocolate</b> como plataforma de uma
+    campanha de origem: <b>cacau brasileiro da Bahia</b> — sustentável por prática, premium por desenho.</p>
+    <p class="hand" style="margin-top:10mm">Chocolate × Bem Bolado</p>
+  </div>
+  <div class="foot"><span>Puressência · A.MOTION</span><span>2026 · confidencial</span></div>
+</div>
+
+<!-- P2 · O MOMENTO -->
+<div class="pg">
+  <p class="kick">01 · Por que agora</p>
+  <h2>O cacau da Bahia vive <em>o melhor momento</em> em décadas</h2>
+  <p class="lead">A campanha não inventa uma onda — ela chega na hora exata em que a onda sobe.</p>
+  <div class="bigstat" style="color:var(--ink)">
+    <div><div class="v" style="color:var(--clay)">+5,3%</div><div class="l" style="color:#7a6350">projeção IBGE para o cacau puxando o crescimento agrícola da Bahia em 2026</div></div>
+    <div><div class="v" style="color:var(--clay)">dez/26</div><div class="l" style="color:#7a6350">Salon du Chocolat — maior evento mundial do setor — chega ao Brasil</div></div>
+    <div><div class="v" style="color:var(--clay)">~300</div><div class="l" style="color:#7a6350">fabricantes bean-to-bar estimados no Brasil: o nicho premium virou mercado</div></div>
+  </div>
+  <hr class="rule">
+  <p>Chocolate do sul da Bahia venceu concorrentes europeus em concurso internacional em 2026; marcas
+  baianas de origem já são vendidas no varejo premium europeu. No modelo bean-to-bar, <b>quem forma o
+  preço é o produtor</b> — com prêmios de até 160% sobre a cotação para cacau de qualidade: origem
+  documentada virou valor de mercado, não discurso.</p>
+  <p style="margin-top:4mm">É exatamente essa história — origem, qualidade, prática sustentável — que a
+  <b>Bem Bolado</b> assina ao patrocinar o movimento, com a voz e o palco do lançamento do álbum do
+  <b>Chocolate</b>.</p>
+  <span class="tagbox">Origem · Cultura · Música — na mesma assinatura</span>
+  <p class="src">Fontes: IBGE via A Tarde (projeção 2026) · Portal Amazônia (Salon du Chocolat Brasil) ·
+  Olhar Digital jun/2026 (concurso internacional) · Elle Brasil (formação de preço e prêmios bean-to-bar;
+  estimativa de fabricantes) · varejo premium europeu (Chocolats-de-Luxe, marca baiana em linha).
+  Links clicáveis na versão digital do documento de trabalho.</p>
+  <div class="foot"><span>O Cacau é Nosso</span><span>02</span></div>
+</div>
+
+<!-- P3 · A PARCERIA -->
+<div class="pg dark">
+  <p class="kick">02 · A parceria</p>
+  <h2>Quatro casas, <em>uma história</em></h2>
+  <p class="lead">Produção publicitária, produto e artista no mesmo pacote — coeso, sem costura de três fornecedores.</p>
+  <div class="cards">
+    <div class="card"><span class="n">Protagonista</span><h3>Chocolate</h3><p>O álbum, a imagem e os palcos do ciclo. A voz da origem baiana.</p></div>
+    <div class="card"><span class="n">Patrocinadora Master</span><h3>Bem Bolado</h3><p>Assina a campanha de origem, leva a linha colab e a exclusividade de categoria.</p></div>
+    <div class="card"><span class="n">Produção criativa</span><h3>Puressência</h3><p>Direção criativa, filme e peças — padrão de produção internacional da casa.</p></div>
+    <div class="card"><span class="n">Linha de produtos</span><h3>A.MOTION</h3><p>Design da linha colab de edição limitada, guiado por pesquisa de mercado.</p></div>
+  </div>
+  <p class="note" style="margin-top:7mm">Material biográfico e fotográfico do artista entra na versão final deste
+  dossiê (em curadoria no acervo). Nenhum dado de percurso é publicado sem validação documental — política da casa.</p>
+  <div class="foot"><span>O Cacau é Nosso</span><span>03</span></div>
+</div>
+
+<!-- P4 · A CAMPANHA -->
+<div class="pg">
+  <p class="kick">03 · A campanha</p>
+  <h2>Do anúncio à sustentação — <em>um mundo visual único</em></h2>
+  <table>
+    <tr><th style="width:24mm">Fase</th><th>Entrega</th><th style="width:52mm">Canais</th></tr>
+    <tr><td><b>T−28</b></td><td>Filme-teaser + cartela do mundo cacau</td><td>Reels/TikTok/YouTube · perfil do artista e da marca</td></tr>
+    <tr><td><b>T−21</b></td><td>Single de avanço + pré-save no ar, capas em todos os formatos</td><td>Plataformas de música + redes</td></tr>
+    <tr><td><b>T−14/−7</b></td><td>Cortes de estúdio e fazenda · anúncio do drop da linha colab</td><td>Redes + imprensa/press kit</td></tr>
+    <tr><td><b>Dia D</b></td><td>Álbum no ar + filme principal + página viva + drop da linha</td><td>Todas as frentes, sincronizadas</td></tr>
+    <tr><td><b>T+7/+30</b></td><td>1 visualizer/semana · conteúdo de produto · registro dos shows · campanha publicitária própria da marca</td><td>Redes + pontos de venda</td></tr>
+  </table>
+  <hr class="rule">
+  <h2 style="font-size:17pt">Alcance: construído e <em>medido</em>, nunca prometido</h2>
+  <p>Política desta produtora: não vendemos projeção inventada. Definimos juntos a <b>linha de base</b>
+  (audiência atual dos canais do artista e da marca) e os <b>indicadores do ciclo</b> — visualizações,
+  salvamentos de pré-save, crescimento de seguidores, tráfego ao ponto de venda, sell-through da linha —
+  e reportamos a medição real a cada fase. O que a marca compra é estrutura comprovável de construção de
+  público: <b>conteúdo proprietário em volume</b> (15+ peças), presença em todas as superfícies do
+  lançamento e uma história com imprensa natural (origem + música + sustentabilidade).</p>
+  <div class="foot"><span>O Cacau é Nosso</span><span>04</span></div>
+</div>
+
+<!-- P5 · BENEFÍCIOS MASTER -->
+<div class="pg dark">
+  <p class="kick">04 · Patrocinador Master</p>
+  <h2>O que a Bem Bolado <em>leva</em></h2>
+  <ol class="big">
+    <li><div><b>Assinatura da campanha inteira</b> — <span>"apresentado por Bem Bolado" em todas as peças do ciclo: pré-save, teasers, filme, press kit, página do álbum e shows.</span></div></li>
+    <li><div><b>Linha colab de edição limitada</b> — <span>produto Chocolate × Bem Bolado com a arte do álbum, desenhado pela A.MOTION sobre benchmark de mercado (página 6): produto feito para vender, não para figurar.</span></div></li>
+    <li><div><b>Campanha publicitária própria</b> — <span>filme + peças de redes da marca produzidos pela Puressência dentro do pacote — produção que, contratada à parte no mercado, custa o preço de uma campanha inteira (página 7).</span></div></li>
+    <li><div><b>Exclusividade de categoria</b> — <span>nenhuma marca concorrente entra no ciclo.</span></div></li>
+    <li><div><b>Associação de origem e sustentabilidade com lastro</b> — <span>prática documentada (origem do cacau, produtores parceiros), blindada contra acusação de greenwashing.</span></div></li>
+    <li><div><b>Medição transparente</b> — <span>linha de base antes, relatório por fase, critério de sucesso combinado por escrito.</span></div></li>
+  </ol>
+  <div class="foot"><span>O Cacau é Nosso</span><span>05</span></div>
+</div>
+
+<!-- P6 · LINHA PREMIUM / BENCHMARK -->
+<div class="pg">
+  <p class="kick">05 · A linha premium</p>
+  <h2>Por que esta linha <em>vende</em> — o benchmark</h2>
+  <p class="lead">A linha nasce de pesquisa, não de palpite. O que o mercado já comprovou:</p>
+  <table>
+    <tr><th>Sinal de mercado</th><th>O que significa para a linha</th></tr>
+    <tr><td>Produtor forma o preço no bean-to-bar; prêmios de até <b>160%</b> sobre a cotação por qualidade</td><td>Origem documentada sustenta preço premium — a linha nasce premium por estrutura, não por embalagem</td></tr>
+    <tr><td><b>~300 fabricantes</b> no nicho brasileiro (estimativa de imprensa)</td><td>Categoria validada; diferencial vem da HISTÓRIA (artista + origem + marca) que ninguém mais tem</td></tr>
+    <tr><td>Cacau projetado como motor agrícola da Bahia em 2026 (<b>IBGE: +5,3%</b>)</td><td>Narrativa de origem no auge da atenção — mídia espontânea mais provável</td></tr>
+    <tr><td><b>Salon du Chocolat</b> no Brasil em dez/2026</td><td>Janela de visibilidade de categoria para o drop e a imprensa</td></tr>
+    <tr><td>Marca baiana de origem no varejo premium europeu</td><td>Teto alto comprovado: linha de origem baiana viaja para fora</td></tr>
+  </table>
+  <p class="note" style="margin-top:5mm">Lacuna declarada: preço médio por unidade no varejo nacional não tem fonte
+  pública consolidada — o levantamento direto de gôndola/e-commerce entra na fase de desenho do produto, antes de
+  fixar preço. Não fixamos número sem fonte.</p>
+  <hr class="rule">
+  <p><b>Princípios de desenho da linha</b> — edição limitada numerada atrelada ao álbum · arte oficial na
+  embalagem · série "cacau da Bahia" contando produtor e território · drop sincronizado com o Dia D ·
+  distribuição casada com os canais da Bem Bolado.</p>
+  <div class="foot"><span>O Cacau é Nosso</span><span>06</span></div>
+</div>
+
+<!-- P7 · INVESTIMENTO EM CONTEXTO -->
+<div class="pg dark">
+  <p class="kick">06 · O investimento em contexto</p>
+  <h2>O que uma campanha deste porte <em>custa no mercado</em></h2>
+  <p class="lead">Sem falar de cota aqui — números de cota vão por escrito na proposta comercial. O que este
+  dossiê mostra é o custo de comprar as peças do pacote separadamente:</p>
+  <table>
+    <tr><th>Peça do pacote</th><th>Referência pública de mercado</th></tr>
+    <tr><td>Produção de filme publicitário de grande marca (caso público nacional)</td><td>≈ R$ 1 milhão só de produção — num total de R$ 17 milhões com mídia (caso Banco do Brasil, esclarecido pela própria agência à imprensa)</td></tr>
+    <tr><td>Produção de comercial de médio porte (referência internacional 2026)</td><td>US$ 5.000–25.000; marcas de alto nível, US$ 25.000–100.000+</td></tr>
+    <tr><td>Design de linha de produto + campanha de artista + licenciamento, contratados à parte</td><td>Três fornecedores, três fees, três idiomas visuais — o pacote entrega tudo numa direção só</td></tr>
+  </table>
+  <p style="margin-top:6mm">A leitura: a parceria entrega <b>campanha de artista + campanha própria da marca +
+  linha de produto</b> num pacote único de produção de casa — coesão que o mercado não vende separado por menos.
+  E a mídia espontânea da história (origem + música + sustentabilidade) trabalha onde a compra de mídia seria o
+  maior custo do orçamento tradicional.</p>
+  <p class="src">Fontes: Meio &amp; Mensagem (ABAP/Fenapro/BB — custo de produção vs. mídia) · Leadde, guia
+  internacional de preços 2026 · mercado publicitário brasileiro em recorde de exportação (US$ 84,7 mi em 2025,
+  Propmark/Meio &amp; Mensagem). Links na versão digital.</p>
+  <div class="foot"><span>O Cacau é Nosso</span><span>07</span></div>
+</div>
+
+<!-- P8 · PRÓXIMO PASSO -->
+<div class="pg">
+  <svg class="pod" style="left:-35mm;bottom:-40mm;width:130mm;height:170mm;opacity:.14" viewBox="0 0 300 400" aria-hidden="true">
+    <ellipse cx="150" cy="200" rx="95" ry="180" fill="#A6552D"/>
+    <path d="M150 20 v360 M95 60 q-28 140 0 280 M205 60 q28 140 0 280" stroke="#2B1A12" stroke-width="7"/>
+  </svg>
+  <p class="kick">07 · Próximo passo</p>
+  <h2>Formalização — <em>simples e por escrito</em></h2>
+  <ol class="big">
+    <li><div><b>Ofício de pedido de patrocínio</b> — <span>acompanha este dossiê, pronto para registro da marca.</span></div></li>
+    <li><div><b>Proposta comercial com as cotas</b> — <span>Apoio · Patrocínio · Master, valores e condições por escrito, em documento próprio.</span></div></li>
+    <li><div><b>Reunião de 30 minutos</b> — <span>fecha cota, cronograma e os primeiros entregáveis. A produção começa na mesma semana.</span></div></li>
+  </ol>
+  <p class="hand" style="margin-top:10mm">o cacau é nosso. a história, da Bem Bolado.</p>
+  <hr class="rule">
+  <p style="font-size:8.5pt;color:#7a6350;line-height:1.8">Material de apresentação — valores, escopo e condições
+  somente por escrito na proposta comercial. Alegações de sustentabilidade serão publicadas apenas com prática
+  documentada. Dados de mercado citados têm fonte pública indicada nas páginas 2, 6 e 7.<br><br>
+  Produção: <b style="color:var(--ink)">Amós André Sales Boliveira</b> · Climbex Global ·
+  © 2026 — Direitos reservados sobre a obra original desta produção (roteiro, direção editorial e design).
+  Marcas, imagem e conteúdo de terceiros pertencem aos respectivos titulares.</p>
+  <div class="foot"><span>Puressência · A.MOTION</span><span>08</span></div>
+</div>
+
+</body>
+</html>
