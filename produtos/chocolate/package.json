@@ -1,0 +1,11 @@
+{
+  "name": "chocollate-bem-bolado",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-static.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
