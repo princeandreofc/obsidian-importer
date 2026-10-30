@@ -1,11 +1,15 @@
-import { mkdir, readFile, copyFile, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { mkdir, copyFile, rm } from 'node:fs/promises';
+import { join } from 'node:path';
+
 const root = process.cwd();
 const out = join(root, 'dist');
+
+await rm(out, { recursive: true, force: true });
 await mkdir(join(out, 'dossie'), { recursive: true });
 await mkdir(join(out, 'oficio'), { recursive: true });
+
 await copyFile(join(root, 'index.html'), join(out, 'index.html'));
 await copyFile(join(root, 'dossie.html'), join(out, 'dossie', 'index.html'));
 await copyFile(join(root, 'oficio.html'), join(out, 'oficio', 'index.html'));
-await writeFile(join(out, '_redirects'), '/dossie /dossie/ 301\\n/oficio /oficio/ 301\\n');
-console.log('Static package generated in dist/');
+
+console.log('Static campaign generated in dist/');
