@@ -160,10 +160,29 @@ agente executor é quem sabe. Segredo comercial: o stack interno da
 Climbex se chama apenas "stack Climbex".
 ```
 
-## 7 · Estado vivo (atualizar quando mudar)
+## 7 · Estado vivo (atualizado 20/10/2026 pela retaguarda)
 
-- PR #4 mergeado em 28/08 → tudo da campanha está no master.
-- Preview do Spiral no ar: `the-spiral-preview-1ff7ito25-…vercel.app` (+ `/vj/`).
+- **ELOA OS**: desde set/2026 o sistema operacional da holding evoluiu e
+  foi renomeado — "Maple OS" é referência histórica (fonte: proposta
+  canônica POP COMM 05/10 e Master Governance 21/09, no Drive). O
+  canônico TÉCNICO do Eloa OS vive em `princeandreofc/climbexglobal`
+  (ler `AGENTS.md` + `docs/handoffs/` de lá; execução atual na branch
+  `codex/eloa-os-final-handoff-20261015`). Este arquivo segue valendo
+  para ESTE repo e suas frentes.
+- Master `f05005d`: constituição completa (PRs #5/#6) + campanha LOVE IS
+  THE SIGNAL + storefront POP Verticals (PR #7, 16/09).
+- **Produção no ar**: app LOVE IS THE SIGNAL
+  (`alilove-love-is-the-signal.vercel.app`, promovido 06/09) ·
+  `pop-verticals-client.vercel.app` (27/09 — a production branch na
+  Vercel é `deploy/pop-verticals-client-production-20260926`; **não
+  apagar essa branch**) · PopCom Casa · climbexglobal.com + subdomínios
+  andre./brenno. · andreboliveira.com · trajetum.com (Squarespace).
+- Previews: Spiral `the-spiral-preview-1ff7ito25-…vercel.app` (+ `/vj/`)
+  · demos POP de 21/08.
+- **Cloudflare**: conector ativo na nuvem (leitura ok), conta SEM
+  workers publicados — deployment-control e Agents SDK vivem só nos
+  repos do Mac (`~/Documents/Codex/cloudflare-deployment-control` e
+  `~/CerebroMestre/Projects/ecossistema-cloudflare`).
 - **Frente Ali Love é EXCLUSIVA do André**: revisão do inglês, escolha e
   conferência dos anexos e envio manual são dele. Laura pode apresentar
   pedidos de aprovação, mas não redige nem revisa conteúdo dessa frente.
@@ -172,8 +191,12 @@ Climbex se chama apenas "stack Climbex".
 - Ethel = porta-voz/secretária/vendas nas frentes COMERCIAIS (Climbex,
   Pop Casa, produtos); não assume a frente Ali Love.
 - Domínio recomendado à espera de resgate: `princeandre.world` ($3,99/1º ano).
-- Rotinas ativas: briefing matinal (07:00, ÚLTIMA RUN FALHOU 04/09 — investigar),
-  pesquisa diária (curada, verde), posts de segunda (verde), Briefing do
-  celular (só o André cancela em claude.ai→Tarefas).
-- Projetos Vercel `andre-corporate`/`alilove`: mortos-vivos (live:false,
-  builds quebram por design) — cura: Settings→Git→Disconnect (clique do André).
+- Rotinas (20/10): brief matinal, briefing de reuniões, pesquisa diária,
+  posts de segunda e Briefing do celular — todas verdes; "Climb up ceo
+  diario" pausada (Mac ausente). **Atenção**: a pesquisa diária reporta
+  verde mas não commita nada desde 06/09 — prompt a revisar.
+- Branches a limpar (decisão do André): `codex/maple-os-handoff-20260906`
+  (integrada no PR #6), `codex/entrega-visual-20260906` (só doc de
+  escopo) e `codex/ali-love-signal-separation-20260911` (ponteiro vazio,
+  zero commits).
+- Projetos Vercel `andre-corporate`/`alilove`: mortos — apagar quando quiser.

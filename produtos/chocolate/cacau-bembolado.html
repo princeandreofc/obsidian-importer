@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chocollate × Bem Bolado — O Cacau é Nosso</title>
+<meta name="description" content="O lançamento do álbum do Chocollate como plataforma de uma campanha de origem: cacau brasileiro da Bahia. Proposta de parceria Bem Bolado.">
+<meta property="og:title" content="Chocollate × Bem Bolado — O Cacau é Nosso">
+<meta property="og:description" content="Campanha de origem · cacau brasileiro da Bahia · lançamento do álbum · linha de produtos colab.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300..600;9..144,1,300..400&family=Caveat:wght@500;600&family=Inter:wght@300;400;500&display=swap">
+<style>
+/* ── THEME TOKENS · preset Cacau Bahia ───────────────────────────── */
+:root{
+  --ink:#1E130C; --paper:#F2E7D5; --clay:#A6552D; --rose:#C96F4A;
+  --moss:#5E7A52; --gold:#D9A441; --plum:#2B1A12; --sand:#E7D9C0;
+  --serif:"Fraunces",Georgia,serif; --hand:"Caveat",cursive; --body:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--paper);font:300 17px/1.65 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+/* grão analógico */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.07;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E")}
+/* sting */
+#sting{position:fixed;inset:0;z-index:100;background:var(--plum);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;animation:stingOut .7s ease 2.4s forwards}
+#sting .m{font:600 14px/1 var(--body);letter-spacing:.45em;text-transform:uppercase;color:var(--gold)}
+#sting .t{font:italic 300 clamp(26px,6vw,44px)/1.1 var(--serif);color:var(--paper)}
+@keyframes stingOut{to{opacity:0;visibility:hidden}}
+/* nav */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:18px 26px;mix-blend-mode:difference;color:#fff}
+nav .logo{font:600 13px/1 var(--body);letter-spacing:.35em;text-transform:uppercase}
+nav .links{display:flex;gap:22px;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;font:400 11px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+nav a:hover,nav a:focus-visible{opacity:1;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:720px){nav .links{display:none}}
+/* hero */
+header{min-height:92vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:120px 26px 80px;overflow:hidden}
+#ceu{position:absolute;inset:0;z-index:0}
+.vinil{position:absolute;right:-14vmin;top:50%;transform:translateY(-50%);width:62vmin;height:62vmin;border-radius:50%;z-index:1;
+  background:radial-gradient(circle at 50% 50%, var(--gold) 0 7%, var(--plum) 7.5% 9%, transparent 9.5%),
+  repeating-radial-gradient(circle at 50% 50%, #241509 0 .9%, #140b05 1% 1.9%);
+  box-shadow:0 0 120px rgba(217,164,65,.18), inset 0 0 60px #000;animation:gira 14s linear infinite}
+.vinil::after{content:"";position:absolute;inset:38%;border-radius:50%;background:radial-gradient(circle,var(--clay) 0 55%,var(--plum) 56% 100%);display:flex}
+@keyframes gira{to{transform:translateY(-50%) rotate(360deg)}}
+.hero-in{position:relative;z-index:2;max-width:980px}
+.kicker{font:500 12px/1 var(--body);letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin:0 0 22px}
+h1{font:300 clamp(44px,10vw,118px)/0.98 var(--serif);margin:0;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--rose)}
+h1 .l2{display:block;color:var(--gold)}
+.hero-sub{max-width:54ch;font-size:18px;color:var(--sand);margin:28px 0 0}
+.hand{font:500 26px/1.2 var(--hand);color:var(--gold)}
+/* sections */
+main{position:relative;z-index:2}
+section{padding:96px 26px;border-top:1px solid rgba(242,231,213,.1);max-width:1080px;margin:0 auto}
+h2{font:300 clamp(30px,5vw,52px)/1.05 var(--serif);margin:0 0 14px;letter-spacing:-.01em}
+h2 em{font-style:italic;color:var(--rose)}
+.lead{max-width:62ch;color:var(--sand);font-size:18px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.reveal.on{opacity:1;transform:none}
+.grid{display:grid;gap:16px;margin-top:40px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:linear-gradient(160deg,rgba(242,231,213,.05),rgba(242,231,213,.015));border:1px solid rgba(242,231,213,.12);border-radius:14px;padding:26px 24px}
+.card .n{font:500 11px/1 var(--body);letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.card h3{font:400 24px/1.15 var(--serif);margin:12px 0 8px}
+.card p{margin:0;color:var(--sand);font-size:15px}
+.lista{list-style:none;margin:36px 0 0;padding:0;display:flex;flex-direction:column;gap:0;counter-reset:li}
+.lista li{counter-increment:li;display:flex;gap:22px;align-items:baseline;padding:22px 4px;border-bottom:1px solid rgba(242,231,213,.1)}
+.lista li::before{content:counter(li,decimal-leading-zero);font:300 30px/1 var(--serif);color:var(--clay);min-width:52px}
+.lista b{font-weight:500;color:var(--paper)}
+.lista span{color:var(--sand)}
+/* fases */
+.fases{display:flex;flex-direction:column;gap:0;margin-top:40px}
+.fase{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:18px 4px;border-bottom:1px solid rgba(242,231,213,.1);align-items:baseline}
+.fase .t{font:500 14px/1.2 var(--body);letter-spacing:.14em;color:var(--gold)}
+.fase p{margin:0;color:var(--sand);font-size:15.5px}
+@media(max-width:560px){.fase{grid-template-columns:1fr;gap:4px}}
+.selo{display:inline-block;border:1px solid var(--moss);color:var(--moss);border-radius:999px;padding:7px 16px;font:500 11px/1 var(--body);letter-spacing:.22em;text-transform:uppercase;margin-top:26px}
+/* cta */
+.cta-box{background:linear-gradient(140deg,var(--plum),#20150d);border:1px solid rgba(217,164,65,.35);border-radius:18px;padding:44px 34px;margin-top:40px;text-align:center}
+.cta-box .hand{font-size:32px}
+.cta-box p{color:var(--sand);max-width:56ch;margin:14px auto 0}
+footer{padding:70px 26px 90px;border-top:1px solid rgba(242,231,213,.12);text-align:center;color:var(--sand);font-size:13px;line-height:1.9}
+footer b{color:var(--paper);font-weight:500}
+@media (prefers-reduced-motion: reduce){
+  .vinil{animation:none}
+  .reveal{opacity:1;transform:none;transition:none}
+  #sting{animation-duration:.01s;animation-delay:.6s}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div id="sting" aria-hidden="true">
+  <div class="m">Chocollate × Bem Bolado</div>
+  <div class="t">o cacau é nosso</div>
+</div>
+
+<nav aria-label="principal">
+  <div class="logo">Chocollate × Bem Bolado</div>
+  <div class="links">
+    <a href="#conceito">Conceito</a><a href="#parceria">A parceria</a><a href="#entrega">O que a marca leva</a><a href="#produtos">Produtos</a><a href="#campanha">Campanha</a><a href="#proximo">Próximo passo</a>
+  </div>
+</nav>
+
+<header>
+  <canvas id="ceu" aria-hidden="true"></canvas>
+  <div class="vinil" aria-hidden="true"></div>
+  <div class="hero-in">
+    <p class="kicker">Proposta de parceria · campanha de origem</p>
+    <h1>O cacau<br><em>é</em> <span class="l2">nosso.</span></h1>
+    <p class="hero-sub">O lançamento do álbum do <b>Chocollate</b> como plataforma de uma campanha
+    sustentável enraizada no <b>cacau brasileiro da Bahia</b> — origem, cultura e música na mesma
+    história, assinada pela <b>Bem Bolado</b>.</p>
+    <p class="hand" style="margin-top:18px">da amêndoa ao palco.</p>
+  </div>
+</header>
+
+<main>
+<section id="conceito" class="reveal">
+  <h2>Uma história que <em>nenhum concorrente</em> tem</h2>
+  <p class="lead">O chocolate do mundo nasce do cacau — e o cacau do Brasil nasce na Bahia.
+  A campanha devolve essa origem ao centro: fazenda, fruto, fermentação, mãos que trabalham,
+  mata atlântica. O artista Chocollate é a voz; a Bem Bolado é a marca que assina. Sustentabilidade
+  aqui aparece como <b>prática documentada</b> — origem do cacau, produtores parceiros, material —
+  nunca como slogan vazio.</p>
+  <span class="selo">Ecológica por prática, não por frase</span>
+</section>
+
+<section id="parceria" class="reveal">
+  <h2>A parceria — <em>quem faz o quê</em></h2>
+  <div class="grid g4">
+    <div class="card"><span class="n">Protagonista</span><h3>Chocollate</h3><p>O álbum, a imagem e os palcos do ciclo. A voz da origem.</p></div>
+    <div class="card"><span class="n">Patrocinadora</span><h3>Bem Bolado</h3><p>Assina a campanha, leva a linha colab e a exclusividade de categoria.</p></div>
+    <div class="card"><span class="n">Produção criativa</span><h3>Puressência</h3><p>Produz a campanha do álbum e a campanha publicitária da marca — padrão internacional.</p></div>
+    <div class="card"><span class="n">Produtos</span><h3>A.MOTION</h3><p>Desenha a linha colab de edição limitada, guiada por pesquisa de benchmark.</p></div>
+  </div>
+</section>
+
+<section id="entrega" class="reveal">
+  <h2>O que a Bem Bolado <em>leva</em></h2>
+  <ul class="lista">
+    <li><div><b>Presença no ciclo inteiro do álbum</b> — <span>pré-save, teasers, clipes, press kit e shows, tudo produzido em casa, num único mundo visual.</span></div></li>
+    <li><div><b>Linha de produtos colab Chocollate × Bem Bolado</b> — <span>edição limitada atrelada ao álbum, desenhada pela A.MOTION com pesquisa de benchmark de mercado: produto feito para vender.</span></div></li>
+    <li><div><b>Campanha publicitária própria da marca</b> — <span>filme + peças de redes produzidos pela Puressência, lançados junto com o álbum.</span></div></li>
+    <li><div><b>Exclusividade de categoria</b> — <span>nenhuma marca concorrente entra na campanha durante o ciclo.</span></div></li>
+    <li><div><b>Estratégia de público e vendas com medição combinada</b> — <span>linha de base definida antes, resultado medido junto. Não prometemos número: medimos.</span></div></li>
+  </ul>
+</section>
+
+<section id="produtos" class="reveal">
+  <h2>A linha de produtos — <em>benchmark antes do desenho</em></h2>
+  <p class="lead">Antes de desenhar, pesquisamos: o que o público da marca já compra, o que o mercado
+  de produtos de origem sustentável está vendendo, onde há espaço de preço e de desejo. A linha
+  colab nasce desse estudo — com a arte do álbum na edição limitada e o drop sincronizado com o
+  lançamento. O estudo de benchmark acompanha a proposta comercial, com fontes.</p>
+  <div class="grid g2" style="margin-top:36px">
+    <div class="card"><span class="n">Edição limitada</span><h3>Drop do álbum</h3><p>Arte oficial do álbum na linha; lançamento casado com o dia D.</p></div>
+    <div class="card"><span class="n">Origem</span><h3>Série cacau da Bahia</h3><p>A linha conta a origem — produtores, território, prática sustentável documentada.</p></div>
+  </div>
+</section>
+
+<section id="campanha" class="reveal">
+  <h2>A campanha — <em>do anúncio à sustentação</em></h2>
+  <div class="fases">
+    <div class="fase"><span class="t">T−28</span><p>Anúncio: filme-teaser e a primeira cartela do mundo cacau.</p></div>
+    <div class="fase"><span class="t">T−21</span><p>Single de avanço + pré-save no ar — capas em todos os formatos, com a marca presente.</p></div>
+    <div class="fase"><span class="t">T−14 · T−7</span><p>Aquecimento: cortes de estúdio, bastidor da fazenda, anúncio do drop da linha colab.</p></div>
+    <div class="fase"><span class="t">Dia D</span><p>Álbum no ar + filme principal + página viva do álbum + drop da linha.</p></div>
+    <div class="fase"><span class="t">T+7 · T+30</span><p>Sustentação: um visualizer por semana, conteúdo de produto, registro dos shows — e a campanha publicitária própria da Bem Bolado rodando.</p></div>
+  </div>
+</section>
+
+<section id="proximo" class="reveal">
+  <h2>Próximo <em>passo</em></h2>
+  <div class="cta-box">
+    <p class="hand">bora fechar a cota.</p>
+    <p>As cotas — Apoio, Patrocínio e Master — seguem por escrito no one-pager comercial, com
+    escopo, prazos e condições. Uma reunião de 30 minutos fecha cota e cronograma, e a produção
+    começa. O cacau é nosso; a história, da Bem Bolado.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  Proposta de parceria — material de apresentação; valores, escopo e condições por escrito na proposta comercial.<br><br>
+  Produção: <b>Amós André Sales Boliveira</b> · Climbex Global<br>
+  © 2026 — Direitos reservados sobre a obra original desta produção (roteiro, direção editorial e design).<br>
+  Marcas, imagem e conteúdo de terceiros pertencem aos respectivos titulares.
+</footer>
+
+<script>
+(function(){
+  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* reveal */
+  var io = new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ if(rm){el.classList.add('on');} else io.observe(el); });
+  /* céu de amêndoas — partículas orgânicas */
+  var cv=document.getElementById('ceu'),cx=cv.getContext('2d'),W,H,P=[],N=46;
+  function size(){W=cv.width=cv.offsetWidth*devicePixelRatio;H=cv.height=cv.offsetHeight*devicePixelRatio;}
+  size();addEventListener('resize',size);
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  for(var i=0;i<N;i++){P.push({x:rnd(0,1),y:rnd(0,1),r:rnd(1.2,4.2),v:rnd(.00012,.0005),f:rnd(0,6.28),a:rnd(.12,.4),c:Math.random()<.3?'217,164,65':(Math.random()<.5?'166,85,45':'94,122,82')});}
+  var t=0;
+  function tick(){
+    t+=1/60;cx.clearRect(0,0,W,H);
+    for(var i=0;i<N;i++){var p=P[i];
+      p.y-=p.v;if(p.y<-.02){p.y=1.02;p.x=Math.random();}
+      var x=(p.x+Math.sin(t*.3+p.f)*.015)*W, y=p.y*H;
+      var tw=p.a*(0.7+0.3*Math.sin(t*1.19+p.f*2)); /* respiração ~5.28s */
+      cx.beginPath();cx.ellipse(x,y,p.r*devicePixelRatio,p.r*1.6*devicePixelRatio,p.f,0,6.29);
+      cx.fillStyle='rgba('+p.c+','+tw.toFixed(3)+')';cx.fill();}
+    requestAnimationFrame(tick);
+  }
+  if(!rm) tick();
+})();
+</script>
+</body>
+</html>
