@@ -1,0 +1,31 @@
+name: Chocollate static build
+
+on:
+  push:
+    branches:
+      - claude/organizar-computador-26sev2
+    paths:
+      - "produtos/chocolate/**"
+      - ".github/workflows/chocollate-static-check.yml"
+  pull_request:
+    paths:
+      - "produtos/chocolate/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: produtos/chocolate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Build static package
+        run: npm run build
+      - name: Verify routes
+        run: |
+          test -s dist/index.html
+          test -s dist/dossie/index.html
+          test -s dist/oficio/index.html
